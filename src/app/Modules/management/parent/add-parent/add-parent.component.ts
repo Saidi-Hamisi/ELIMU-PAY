@@ -10,94 +10,53 @@ import { ParentService } from '../parent.service';
   styleUrls: ['./add-parent.component.css'],
 })
 export class AddParentComponent implements OnInit {
-  SystemUserForm!: FormGroup;
-
-  role: string[] = [
-    'School Administrator',
-    'School Director',
-    'School Manager',
-    'Principal',
-    'School Accountant',
-    'Chief Finance Officer',
-    'School Bursar',
-    'Parent',
-  ];
-schools: string[] = [
-  'Bahati Girls High school',
-  'Cherngani High School'
-];
-  ParentForm: any;
-
+  parentForm!: FormGroup;
 
   constructor(
-    private _fb: FormBuilder,
-    private _addParentService: ParentService,
-    private _dialogueRef: MatDialogRef<AddParentComponent>,
+    private fb: FormBuilder,
+    private parentService: ParentService,
+    private dialogRef: MatDialogRef<AddParentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _coreService: CoreService
+    private coreService: CoreService
   ) {
-    this.ParentForm = this._fb.group({
+    this.parentForm = this.fb.group({
       first_name: '',
-      middle_name: '',
       last_name: '',
       email: '',
-      date_of_birth: '',
-      gender: '',
-      usergroup: 0,
-      // phoneNumber: '',
-      address: '',
-      nationality: '',
-      schools: 0,
-      // idNumber: '',
-      username:'',
+      phone_number: '',
     });
   }
 
   ngOnInit(): void {
-    console.log("fgjhgfgjhg", this.data)
-    this.SystemUserForm.get('usergroup')?.patchValue(this.data.usergroup)
-    this.SystemUserForm.get('schools')?.setValue(this.data.school_name)
-    this.SystemUserForm.patchValue(this.data);        
+    if (this.data) {
+      this.parentForm.patchValue(this.data);
+    }
   }
 
   onFormSubmit() {
+    if (this.parentForm.valid) {
+      const formData = this.parentForm.value;
 
-        // Extracting only the date part from the date_of_birth field
-        const dateOfBirth = this.SystemUserForm.get('date_of_birth')?.value;
-        const dateOfBirthDate = new Date(dateOfBirth);
-        dateOfBirthDate.setHours(0, 0, 0, 0); // Set time to midnight
-        this.SystemUserForm.get('date_of_birth')?.setValue(dateOfBirthDate.toISOString().split('T')[0]);
-        this.SystemUserForm.get('username')?.setValue(this.SystemUserForm.get('email')?.value)
-    
-    if (this.SystemUserForm.valid) {
-console.log(this.data)
       if (this.data) {
-        this._addParentService
-          .updateParent(this.data.id, this.SystemUserForm.value)
-          .subscribe({
-            next: (val: any) => {
-              this._coreService.openSnackBar('System user details updated!');
-              this._dialogueRef.close(true);
-            },
-            error: (err: any) => {
-              console.error(err);
-            },
-          });
+        this.parentService.updateParent(this.data.id, formData).subscribe({
+          next: (val: any) => {
+            this.coreService.openSnackBar('Parent details updated!');
+            this.dialogRef.close(true);
+          },
+          error: (err: any) => {
+            console.error(err);
+          },
+        });
       } else {
-
-        this._addParentService
-          .addParent(this.SystemUserForm.value)
-          .subscribe({
-            next: (val: any) => {
-              this._coreService.openSnackBar(
-                'System user added successfully! ☺'
-              );
-              this._dialogueRef.close(true);
-            },
-            error: (err: any) => {
-              console.error(err);
-            },
-          });
+        this.parentService.addParent(formData).subscribe({
+          next: (val: any) => {
+            this.coreService.openSnackBar('Parent added successfully! ☺');
+            this.dialogRef.close(true);
+          },
+          error: (err: any) => {
+            console.error(err);
+          },
+        });
       }
     }
   }
