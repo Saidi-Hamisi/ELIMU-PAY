@@ -1,0 +1,97 @@
+<div mat-dialog-title class="bg-pink-950">
+  <h1 class="text-white">Usergroup Creation Form</h1>
+</div>
+<form [formGroup]="RolesForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content>
+    <!-- NAMES -->
+    <!-- <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="eg.Simon" formControlName="firstName">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Middle Name</mat-label>
+        <input matInput placeholder="eg. Kim" formControlName="middleName">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="eg. Mzabibu" formControlName="lastName">
+      </mat-form-field>
+    </div> -->
+
+    <!-- GENDER -->
+    <!-- <div>
+      <mat-radio-group aria-label="Select an option" formControlName="gender">
+        <mat-label><b>Gender</b></mat-label>
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
+        <mat-radio-button value="other">Others</mat-radio-button>
+      </mat-radio-group>
+    </div> -->
+
+    <!-- PHONE NUMBER -->
+    <!-- <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="eg. 0785 433 XXX" formControlName="phoneNumber">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>ID Number</mat-label>
+        <input matInput placeholder="eg. 324XXXXX" formControlName="idNumber">
+      </mat-form-field>
+    </div> -->
+
+    <!-- ADDRESS -->
+    <div class="flex flex-row gap-2 ">
+      <!-- <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="eg. P.O BOX 43, MOMBASA" formControlName="address">
+      </mat-form-field> -->
+      <!-- NATIONALITY -->
+      <!-- <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Nationality</mat-label>
+        <input matInput placeholder="eg. Kenyan" formControlName="nationality">
+      </mat-form-field> -->
+    </div>
+
+    <!-- ROLE -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="w-full">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let val of role" [value]="val">{{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-form-field class="mt-2.5 w-full">
+        <mat-label>School Name</mat-label>
+        <input matInput placeholder="eg. Mzabibu High School " formControlName="school">
+      </mat-form-field> -->
+    </div>
+
+    <!-- EMAIL -->
+    <div class="flex flex-row gap-2">
+      <!-- <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="eg. simza3@gmail.com" formControlName="email">
+      </mat-form-field> -->
+      <!-- DATE -->
+      <!-- <mat-form-field class="w-full">
+        <mat-label>Date Created</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dob">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker class="bg-pink-950"></mat-datepicker>
+      </mat-form-field> -->
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+    <button mat-raised-button type="button" [mat-dialog-close]="false" class="flex-1" color="warn">
+      Cancel
+    </button>
+    <button mat-raised-button type="submit" color="primary" class="flex-1 ">
+      {{ data ? 'Update': 'Submit'}}
+    </button>
+  </div>
+</form>

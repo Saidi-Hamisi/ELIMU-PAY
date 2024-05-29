@@ -1,0 +1,29 @@
+
+<div class="py-0 antialiased  h-screen w-screen relative">
+   <app-navbar-admin (toggleSidebarEvent)="toggleSidebar()" class="bg-pink-950 border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50"></app-navbar-admin>
+   <div class="flex w-screen fixed h-screen pt-14 top-3 left-0 z-40">
+       <app-sidebar-admin [sidebarOpen]="sidebarOpen" 
+       (sidebarClosed)="onSidebarClosed()" class="lg:flex hidden h-full z-50 transition-transform -translate-x-full border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidenav" id="drawer-navigation"></app-sidebar-admin>
+       <div class="page-content relative w-full h-full z-0" [class.sidebar-closed]="!sidebarOpen">
+           <router-outlet></router-outlet>
+       </div>
+   </div>
+</div>
+
+<!-- <div class="py-0 antialiased bg-gray-300 h-screen w-screen dark:bg-gray-900 relative z-0">
+    <app-navbar-admin class="bg-pink-950  border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50"></app-navbar-admin>
+    <div class="flex w-screen fixed h-screen pt-14 left-0 right-0 z-40 ">
+       <app-sidebar-admin  class="lg:flex hidden h-full z-0 transition-transform -translate-x-full  border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    aria-label="Sidenav"
+    id="drawer-navigation">
+    </app-sidebar-admin>
+    <div class="relative w-full h-full z-0">
+       <router-outlet ></router-outlet>
+</div>
+</div>  
+</div> -->
+
+       
+      
+
+

@@ -1,0 +1,67 @@
+<div mat-dialog-title class="bg-pink-950">
+    <h1 class="text-white">Utilities Creation Form</h1>
+  </div>
+  
+  <div mat-dialog-content>
+    <!-- Utility Name -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Utility Name</mat-label>
+        <input matInput placeholder="eg. water" formControlName="firstName">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>company/source</mat-label>
+        <input matInput placeholder="eg. kristalclear" >
+      </mat-form-field>
+    </div>
+    
+    <!-- PHONE NUMBER -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="eg. 0734 678 XXX" type="number" formControlName="phoneNumber">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Alternative number</mat-label>
+        <input matInput placeholder="eg. 134XXXXX" >
+      </mat-form-field>
+    </div>
+  
+    <!-- ADDRESS -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="eg. 105 timber" formControlName="firstName">
+      </mat-form-field>
+      <!-- LOCATION -->
+      <mat-form-field  class="mt-2.5 w-full">
+        <mat-label>Location</mat-label>
+        <input matInput placeholder="eg. Kencom" >
+      </mat-form-field>
+    </div>
+  
+    <!-- EMAIL -->
+    <div class="flex flex-row gap-2">
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="eg. sia3@gmail.com" >
+      </mat-form-field>
+    </div>
+  
+  
+  
+  
+  
+  
+    <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+      <button mat-raised-button type="button"
+        class="flex-1 bg-gray-200 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1  transition-transform duration-300 transform focus:scale-105">
+        Cancel
+      </button>
+      <button mat-raised-button type="submit"
+        class="flex-1 bg-gray-300 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105 ">
+        Save
+      </button>
+    </div>
+  </div>
+     

@@ -1,0 +1,8 @@
+.page-content {
+    transition: margin-left 0.3s ease;
+    margin-left: 0px;
+}
+
+.page-content.sidebar-closed {
+    margin-left: -200px;
+}

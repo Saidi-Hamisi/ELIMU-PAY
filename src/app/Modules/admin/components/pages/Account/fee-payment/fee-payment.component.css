@@ -1,0 +1,53 @@
+.ellipsis {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #000;
+    cursor: pointer; /* Make it look clickable */
+   }
+   
+   #studentsTableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+   }
+   
+   #studentsTableContainer th, #studentsTableContainer td {
+    border: 1px solid #ddd;
+    padding: 8px;
+   }
+   
+   #studentsTableContainer th {
+    background-color: #f2f2f2;
+    color: rgb(180, 33, 33);
+   }
+   
+   /* fee.component.css */
+
+/* Ensure the toolbar is a flex container */
+mat-toolbar {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Distribute space between items */
+   }
+   
+   /* Style for the buttons to ensure they are aligned vertically */
+   .example-icon,
+   .example-spacer,
+   button {
+    margin: 0 10px; /* Add some margin for spacing */
+   }
+   
+   /* Ensure the buttons are in a vertical line */
+   button {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align items horizontally in the center */
+   }
+   
+   /* Optional: Add some spacing between the buttons */
+   button + button {
+    margin-top: 10px; /* Adjust the spacing as needed */
+   }
+   

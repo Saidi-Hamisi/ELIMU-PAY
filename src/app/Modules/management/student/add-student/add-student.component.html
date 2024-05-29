@@ -1,0 +1,173 @@
+<div mat-dialog-title class="bg-pink-950">
+  <h1 class="text-white">Student Creation Form</h1>
+</div>
+<div class="full-screen-container  bg-gray-300">
+  <div class="scrollable-form-container">
+
+    <form [formGroup]="studentForm" (ngSubmit)="onFormSubmit()">
+
+
+      <h2>Student Information</h2>
+      <div class="d-flex">
+        <div>
+          <label for="selfie">Student Photo</label>
+          <input type="file" 
+          id="selfie"  
+          name="urls"
+          formControlName ="urls"
+          multiple 
+          accept="image/*"
+          (change)="onFileChange($event)">
+        </div>
+        <div class="border" *ngIf="imageUrl">
+          <img  class="profile-prev" [src]="imageUrl" alt="1222">
+        </div>
+      </div>
+ 
+      <div mat-dialog-content></div>
+
+      <!-- NAMES -->
+      <div class="flex flex-row gap-2 ">
+        <mat-form-field class="mt-2.5 w-full ">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="eg. Simon" formControlName="firstName" required="">
+
+        </mat-form-field>
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Middle Name</mat-label>
+          <input matInput placeholder="eg. Mzabibu" formControlName="middleName">
+        </mat-form-field>
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="eg. Mzabibu" formControlName="lastName" required>
+        </mat-form-field>
+
+      </div>
+      <!--adm-->
+      <div class="flex flex-row gap-2 ">
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Adm Number</mat-label>
+          <input matInput placeholder="Number" formControlName="admNumber" required>
+        </mat-form-field>
+
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Gender</mat-label>
+
+
+          <mat-select formControlName="studentGender" required="">
+
+            <mat-option *ngFor="let val of studentGender" [value]="val">{{val}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--grade-->
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Grade</mat-label>
+          <mat-select formControlName="grade" required="">
+            <mat-option *ngFor="let val of grade ; let i = index" [value]="i +1">{{val}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-row gap-2 ">
+
+
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Stream</mat-label>
+          <input matInput placeholder="eg. Mzabibu" formControlName="stream">
+        </mat-form-field>
+
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>School Status</mat-label>
+
+
+          <mat-select formControlName="schoolStatus">
+            <mat-option *ngFor="let val of schoolStatus" [value]="val">{{val}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="mt-2 w-full">
+          <mat-label>Dormitory</mat-label>
+          <mat-select formControlName="dormitory">
+            <mat-option *ngFor="let val of dormitory" [value]="val">{{val}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- DATES-->
+      <div class="flex flex-row gap-2 ">
+        <mat-form-field class="w-full" required="">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="dobPicker" formControlName="dob" required="">
+          <mat-hint>MM-DD-YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="dobPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker class="bg-pink-950"></mat-datepicker>
+
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>Date of Admission</mat-label>
+          <input matInput [matDatepicker]="admissionPicker" formControlName="dateOfAdmission" required="">
+          <mat-hint>MM-DD-YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="admissionPicker"></mat-datepicker-toggle>
+          <mat-datepicker #admissionPicker class="bg-pink-950"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Health Status</mat-label>
+          <input matInput placeholder="eg. Allegies" formControlName="healthStatus">
+        </mat-form-field>
+
+      </div>
+
+      <div>
+        <div class="flex flex-row gap-2 ">
+          <mat-form-field class="mt-2.5 w-full ">
+            <mat-label>Parent ID</mat-label>
+            <input matInput placeholder="eg. Id No" formControlName="parentIdno" required="">
+          </mat-form-field>
+
+          <!-- School ID -->
+          <!-- <mat-form-field class="mt-2.5 w-full">
+            <mat-label>School ID</mat-label>
+            <input matInput placeholder="eg. School ID" formControlName="schoolID">
+          </mat-form-field> -->
+
+          <!-- School Code -->
+          <mat-form-field class="mt-2.5 w-full">
+            <mat-label>School Code</mat-label>
+            <input matInput placeholder="eg. School Code" formControlName="schoolCode">
+          </mat-form-field>
+          <!-- <div class="flex flex-row gap-2 ">
+        <mat-form-field class="mt-2.5 w-full ">
+          <mat-label>Parent Last Name</mat-label>
+          <input matInput placeholder="eg. Simon" formControlName="firstName" required="">
+        </mat-form-field>
+          <mat-form-field class="mt-2.5 w-full">
+            <mat-label>Tel Number</mat-label>
+            <input matInput placeholder="Number" formControlName="telNumber" required>
+          </mat-form-field> 
+
+        </div>
+      </div>-->
+        </div>
+
+
+
+
+        <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+          <button mat-raised-button type="button" [mat-dialog-close]="false"
+            class="flex-1 text-white bg-pink-950  hover:bg-gray-400 hover:border-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105"
+            color="warn">
+            Cancel
+          </button>
+          <button mat-raised-button type="submit"
+            class="flex-1 text-white bg-blue-500  hover:bg-gray-400 hover:border-blue-500 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105 "
+            color="primary">
+            {{data ? 'Update' : 'Save'}}
+          </button>
+
+        </div>

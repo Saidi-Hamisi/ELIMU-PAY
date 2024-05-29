@@ -1,0 +1,70 @@
+<div mat-dialog-title>
+  <h1>Fee Category Form</h1>
+</div>
+<form [formGroup]="AddEditForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content>
+      <div class="flex flex-row gap-2 ">
+          <mat-form-field class="mt-2.5 w-full">
+              <label for="category">Name</label>
+              <mat-select formControlName="name" >
+                  <mat-option *ngFor="let val of Category" [value]="val">{{val}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+         
+          <mat-form-field class="mt-2.5 w-full">
+              <label for="categorycode">Categorycode </label>
+              <input matInput placeholder="" formControlName="categorycode" >
+          </mat-form-field>
+      </div>
+      
+      <div class="flex flex-row gap-2 ">
+          <mat-form-field class="mt-2.5 w-full ">
+              <label for="description">Description</label>
+              <input matInput placeholder="" formControlName="description" >
+          </mat-form-field>
+          <mat-form-field class="mt-2.5 w-full">
+            <label for="grade">Grade</label>
+            <mat-select formControlName="grade" >
+                <mat-option *ngFor="let val of grade" [value]="val">{{val}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div class="flex flex-row gap-2 ">
+         <mat-form-field class="mt-2.5 w-full">
+            <label for="term">Term</label>
+            <mat-select formControlName="term" >
+                <mat-option *ngFor="let val of term" [value]="val">{{val}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="mt-2.5 w-full">
+            <label for="amount">Amount</label>
+            <input matInput placeholder="" formControlName="amount" >
+        </mat-form-field>
+    </div>
+    <div class="flex flex-row gap-2 ">
+        <mat-radio-group aria-label="Select an option"formControlName="apply" id="apply"  >
+            <mat-label><b>Apply</b></mat-label>
+            <mat-radio-button value="all">All</mat-radio-button>
+            <mat-radio-button value="optional">Optional</mat-radio-button>
+          </mat-radio-group>
+
+          
+    </div>
+          
+    
+  </div>
+  <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+      <button mat-raised-button type="button"
+          class="flex-1 bg-gray-200 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1  transition-transform duration-300 transform focus:scale-105">
+          Cancel
+      </button>
+      <button mat-raised-button type="submit"
+          class="flex-1 bg-gray-300 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105 ">
+          Save
+      </button>
+  </div>
+</form>

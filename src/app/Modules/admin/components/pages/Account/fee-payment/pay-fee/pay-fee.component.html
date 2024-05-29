@@ -1,0 +1,46 @@
+<div mat-dialog-title>
+    <h1>Fee Payment Form</h1>
+</div>
+<div mat-dialog-content>
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Category</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let val of Category"[value]="val">{{val}}</mat-option>
+          
+        </mat-select>
+      </mat-form-field>
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Description</mat-label>
+          <input matInput placeholder="transport" >
+        </mat-form-field>
+    </div>
+        
+    
+    <div class="flex flex-row gap-2 ">
+            <mat-form-field class="mt-2.5 w-full ">
+              <mat-label>Term</mat-label>
+              <input matInput placeholder="10/06/2024" formControlName="DatePosted">
+            </mat-form-field>
+            <mat-form-field class="mt-2.5 w-full">
+              <mat-label>Amount</mat-label>
+              <input matInput placeholder="10,000" >
+            </mat-form-field>
+        </div>
+        <div class="flex flex-row gap-2 "></div>
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>phone number/ACCOUNT NUMBER</mat-label>
+          <input matInput placeholder="07xxxxx" >
+        </mat-form-field>
+        
+</div>
+<div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+    <button mat-raised-button type="button"
+      class="flex-1 bg-gray-200 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1  transition-transform duration-300 transform focus:scale-105">
+      Cancel
+    </button>
+    <button mat-raised-button type="submit"
+      class="flex-1 bg-gray-300 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105 ">
+      pay now
+    </button>
+  </div>

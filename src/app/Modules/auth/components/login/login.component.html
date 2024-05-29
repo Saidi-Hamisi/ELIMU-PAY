@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Global Styles -->
+    <style>
+        body {
+            background-image: url('/assets/city background.jpg'); /* Path to your background image */
+            background-size: cover; /* Cover the entire body */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-white-900 min-h-screen flex justify-center items-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-96 ">
+            <!-- Your login form content here -->
+            <img class="w-24 h-24 pt-0.5 pb-2 mx-auto" src="/assets/Elimu pay Logo.png" alt="logo">
+            
+            <form [formGroup]="loginForm" (ngSubmit)="submit()">
+                <div>
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                        <input type="text" formControlName="username" id="username" name="username" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" placeholder="Enter your username" required>
+                        <small style="color: red;" *ngIf="username?.hasError('required') && (username?.dirty || username?.touched)">Username is required</small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" name="password" formControlName="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" placeholder="Enter your password" required>
+                        <small style="color: red;" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">Password is required</small>
+                    </div>
+                    <!-- Rest of your form remains unchanged -->
+                </div>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-blue-600 hover:text-indigo-500">Forgot password?</a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" [disabled]="loginForm.invalid" class="w-full text-white bg-pink-900 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

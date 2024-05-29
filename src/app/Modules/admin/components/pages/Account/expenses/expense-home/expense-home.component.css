@@ -1,0 +1,27 @@
+.body {
+    justify-content: left;
+    /* align-items: center; */
+    text-align: left;
+    height: 100%;
+    padding-left: 2%;
+    padding-top: 1%;
+}
+
+.custom-table-width {
+    width: 95%;
+    margin: 0;
+    border-radius: 20px;
+}
+
+.custom-table-wrapper {
+    background-color: #f5f3ff; /* Your desired background color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Optional: Add padding for spacing inside the div */
+}
+
+.tbl-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }

@@ -1,0 +1,60 @@
+<div mat-dialog-title class="bg-pink-950">
+  <h1 class="text-white">Fee Category Creation Form</h1>
+</div>
+<form [formGroup]="AddIncomeForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content>
+    
+    <!-- INCOME CATEGORY NAME AND AMOUNT -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="eg.Tuition" formControlName="incomeCategory">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Amount</mat-label>
+        <input matInput placeholder="eg.10,000" formControlName="amount">
+      </mat-form-field>
+    </div>
+
+
+     <!-- FEE SESSION -->
+     <!-- <div class="flex flex-row gap-2">
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Session</mat-label>
+        <input matInput placeholder="eg. simza3@gmail.com" formControlName="email">
+      </mat-form-field> -->
+    <!-- OPTION -->
+      <!-- <mat-radio-group aria-label="Select an option" formControlName="gender">
+        <mat-label><b>Option</b></mat-label>
+        <mat-radio-button value="male">All</mat-radio-button>
+        <mat-radio-button value="female">Optional</mat-radio-button>
+      </mat-radio-group>
+    </div> -->
+
+    <!-- DESCRIPTION AND GRADE  -->
+    <!-- <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="eg. Tuition" formControlName="phoneNumber">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Class/Grade</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let val of role" [value]="val">{{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+   
+  </div>
+
+  <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+    <button mat-raised-button type="button" [mat-dialog-close]="false" class="flex-1" color="warn">
+      Cancel
+    </button>
+    <button mat-raised-button type="submit" color="primary" class="flex-1 ">
+      {{ data ? 'Update': 'Submit'}}
+    </button>
+  </div>
+</form>

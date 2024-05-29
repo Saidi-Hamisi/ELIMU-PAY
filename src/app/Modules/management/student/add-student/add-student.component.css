@@ -1,0 +1,55 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .full-screen-container {
+    max-width: 1248px;
+    margin-left: 200px;
+    margin-right: 100px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: calc(100vw - 80px); /* Adjust for the left and right margins */
+    height: 80vh;
+    /*background-color: rgb(158, 145, 145);*/
+    z-index: 9999;
+    overflow: auto;
+  }
+  
+  .scrollable-form-container {
+    margin: auto;
+    width: calc(100% - 0%); /* Ensure the form takes up the full width */
+    max-width: 1000px; /* Adjust as needed */
+    padding: 20px; /* Optional: Add padding */
+    padding-left: 0px;
+    box-sizing: border-box; /* Include padding in the width calculation */
+    overflow: auto;
+    
+  }
+  .custom-form-field {
+    height: 40px; /* Set desired height */
+    max-width: 200px; /* Set desired maximum width */
+  }
+  .border{
+    width: 70px;
+    height: 70px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 50%;
+ 
+    
+  }
+  .profile-prev{
+    object-fit: fill;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
+  .d-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+    
+  
+  

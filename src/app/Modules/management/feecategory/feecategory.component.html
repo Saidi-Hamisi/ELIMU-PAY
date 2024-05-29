@@ -1,0 +1,93 @@
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Fee Category</span>
+  <span class="flex-grow"></span>
+  <button mat-raised-button class="border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1 text-sm transition-transform duration-300 transform focus:scale-110" (click)="openAddEditForm()">
+      ADD 
+    </button>
+</mat-toolbar>
+
+<div class="main-body">
+<mat-form-field class="main-body">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="categorycode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Categorycode </th>
+      <td mat-cell *matCellDef="let row"> {{row.categorycode}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
+      <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+    </ng-container>
+
+    <!-- Grade Column -->
+    <ng-container matColumnDef="grade">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Grade </th>
+      <td mat-cell *matCellDef="let row"> {{row.grade}} </td>
+    </ng-container>
+
+    <!-- Term Column -->
+    <ng-container matColumnDef="term">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Term </th>
+      <td mat-cell *matCellDef="let row"> {{row.term}} </td>
+    </ng-container>
+
+    <!-- Amount Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount </th>
+      <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
+    </ng-container>
+
+    <!-- Apply Column -->
+    <ng-container matColumnDef="apply">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Apply </th>
+      <td mat-cell *matCellDef="let row"> {{row.apply}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Action </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="primary">
+          <mat-icon>Edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteFeeCategory(row.id)">
+          <mat-icon>Delete</mat-icon>
+        </button> 
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="9">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+</div>

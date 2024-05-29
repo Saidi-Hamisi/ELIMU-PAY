@@ -1,0 +1,14 @@
+/* .back-button,
+.print-button {
+  color: white;
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.back-button:hover,
+.print-button:hover {
+  background-color: #0056b3; 
+} */

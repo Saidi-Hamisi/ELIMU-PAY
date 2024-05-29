@@ -1,0 +1,136 @@
+<div mat-dialog-title class="bg-pink-950">
+  <h1 class="text-white">School Creation Form</h1>
+</div>
+<form [formGroup]="SchoolForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content>
+    <!-- NAMES -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="eg.Simon" formControlName="name" required="">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>City</mat-label>
+        <input matInput placeholder="eg. Kim" formControlName="city" required="">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>county</mat-label>
+        <input matInput placeholder="eg. Mzabibu" formControlName="county" required="">
+      </mat-form-field>
+    </div>
+
+    <!-- GENDER -->
+    <div class="flex flex-row gap-2 ">
+      <!-- GENDER -->
+      <div class="flex flex-row gap-2 ">
+        <mat-form-field class="mt-2.5 w-full">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="country" required="">
+            <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- Existing code... -->
+      </div>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Country Code</mat-label>
+        <mat-select formControlName="country_code" required="">
+          <mat-option *ngFor="let code of countryCodes" [value]="code">{{code}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>street_address</mat-label>
+        <input matInput placeholder="eg. Kenyan" formControlName="street_address" required="">
+      </mat-form-field>
+    </div>
+
+    <!-- PHONE NUMBER -->
+    <!-- <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="eg. 0785 433 XXX" formControlName="phoneNumber">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>ID Number</mat-label>
+        <input matInput placeholder="eg. 324XXXXX" formControlName="idNumber">
+      </mat-form-field>
+    </div> -->
+
+    <!-- ADDRESS -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="mt-2.5 w-full ">
+        <mat-label>SubCounty</mat-label>
+        <input matInput placeholder="eg. P.O BOX 43, MOMBASA" formControlName="sub_county" required="">
+      </mat-form-field>
+      <!-- NATIONALITY -->
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="eg. Kenyan" formControlName="email" required="">
+      </mat-form-field>
+    </div>
+
+    <!-- ROLE/USERGROUP -->
+    <div class="flex flex-row gap-2 ">
+      <mat-form-field class="w-full">
+        <mat-label>School type</mat-label>
+        <mat-select formControlName="school_type" required="">
+          <mat-option *ngFor="let val of role; let i = index" [value]="i + 1">{{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Date created</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date_created" required="">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker class="bg-pink-950"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- <mat-form-field class="mt-2.5 w-full">
+        <mat-label>School Name</mat-label>
+        <mat-select formControlName="schools" required="">
+        <mat-option *ngFor="let val of schools; let i = index" [value]="i + 1">{{val}}
+        </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+    <!-- EMAIL -->
+    <div class="flex flex-row gap-2">
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Boarding Status</mat-label>
+        <input matInput placeholder="eg. boarding" formControlName="boarding_status" required="">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>postal_code</mat-label>
+        <input matInput placeholder="eg. simza3@gmail.com" formControlName="postal_code" required="">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>phone_number1</mat-label>
+        <input matInput placeholder="eg. simza3@gmail.com" formControlName="phone_number1" required="">
+      </mat-form-field>
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>phone_number2</mat-label>
+        <input matInput placeholder="eg. simza3@gmail.com" formControlName="phone_number2" required="">
+      </mat-form-field>
+      <!-- DATE -->
+      <!-- <mat-form-field class="w-full">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date_of_birth" required="">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker class="bg-pink-950"></mat-datepicker>
+      </mat-form-field> -->
+    </div>
+
+
+  </div>
+
+  <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+    <button mat-raised-button type="button" [mat-dialog-close]="false" class="flex-1" color="red">
+      Cancel
+    </button>
+    <button title="Submit Details" mat-raised-button type="submit" color="blue" class="flex-1 ">
+      {{ data ? 'Update': 'Submit'}}
+    </button>
+  </div>
+</form>
