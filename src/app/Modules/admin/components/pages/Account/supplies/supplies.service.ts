@@ -6,29 +6,29 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-
-export class ExpensesService {
+export class SuppliesService {
   constructor(private _http: HttpClient) {}
-  addExpenses(data: any): Observable<any> {
+  addSupplies(data: any): Observable<any> {
     // Replace the endpoint with your actual API endpoint
     console.log("data", data);
-    const url = `${environment.apiUrl}expenses/expenses/`;
+    
+    const url = `${environment.apiUrl}suppliers/`;
     return this._http.post<any>(url, data);
+    
   }
-   
-  updateExpenses(id: number, data: any): Observable<any> {
+
+  updateSupplies(id: number, data: any): Observable<any> {
     // Replace the endpoint with your actual API endpoint
-    const url = `${environment.apiUrl}expenses/expenses${id}`
+    const url = `${environment.apiUrl}suppliers/${id}`
     return this._http.put(url, data);
   }
 
-  getExpensesList(): Observable<any> {
-    const url = `${environment.apiUrl}expenses/expenses`
+  getSuppliesList(): Observable<any> {
     // Replace the endpoint with your actual API endpoint
-    return this._http.get(url);
+    return this._http.get(`${environment.apiUrl}suppliers/`);
   }
-   
-  deleteExpenses(id: number): Observable<any> {
+
+  deleteSupplies(id: number): Observable<any> {
     // Replace the endpoint with your actual API endpoint
     return this._http.delete(`${environment.apiUrl}${id}`);
   }

@@ -44,6 +44,9 @@ import { FeePaymentComponent } from './components/pages/Account/fee-payment/fee-
 import { PayFeeComponent } from './components/pages/Account/fee-payment/pay-fee/pay-fee.component';
 import { PayFeesComponent } from './components/pages/Account/fee-payment/pay-fees/pay-fees.component';
 import { FeeStatementComponent } from './components/pages/Account/fee-statement/fee-statement.component';
+import { ExpensesComponent } from './components/pages/Account/expenses/expenses.component';
+import { AddExpensesComponent } from './components/pages/Account/expenses/add-expenses/add-expenses.component';
+import { AddSuppliesComponent } from './components/pages/Account/supplies/add-supplies/add-supplies.component';
 
 
 @NgModule({
@@ -77,7 +80,10 @@ import { FeeStatementComponent } from './components/pages/Account/fee-statement/
     FeePaymentComponent,
     PayFeeComponent,
     PayFeesComponent,
-    FeeStatementComponent
+    FeeStatementComponent,
+    ExpensesComponent,
+    AddExpensesComponent,
+    AddSuppliesComponent
     
     
     
