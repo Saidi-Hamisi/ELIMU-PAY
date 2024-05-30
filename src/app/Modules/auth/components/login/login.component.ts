@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMsg: string | undefined;
   loading = false;
+  passwordVisible = false;
+  passwordFieldType = 'password';
 
   constructor(
     private router: Router,
@@ -63,6 +65,11 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+    this.passwordFieldType = this.passwordVisible ? 'text' : 'password';
   }
 
   get username(): any {

@@ -31,12 +31,20 @@
                     
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="password" name="password" formControlName="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" placeholder="Enter your password" required>
-                        
+                        <div class="relative">
+                            <input [type]="passwordFieldType" id="password" name="password" formControlName="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" placeholder="Enter your password" required>
+                            <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                                <svg [ngClass]="{'text-gray-500': !passwordVisible, 'text-gray-700': passwordVisible}" class="h-5 w-5" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path *ngIf="!passwordVisible" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-3-7a9 9 0 110 18 9 9 0 010-18z"/>
+                                    <path *ngIf="passwordVisible" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825a10.5 10.5 0 01-3.875-.825 10.5 10.5 0 01-7.425-7.425A10.5 10.5 0 0110.5 3.175a10.5 10.5 0 013.375 15.65zM15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </button>
+                        </div>
                         <small style="color: red;" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">Password is required</small>
                     </div>
                     <!-- Rest of your form remains unchanged -->
                 </div>
+                
                 
                 <div class="flex items-center justify-between mb-4">
                     <div class="text-sm">
