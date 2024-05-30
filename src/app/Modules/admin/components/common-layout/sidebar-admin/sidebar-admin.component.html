@@ -8,12 +8,7 @@
             style="font-size: 50px !important; height: 50px; width: 50px; padding-top: 2px;">account_circle</mat-icon>
         </div>
         <div class="header">
-          <!-- <p>
-            <small><b>Email:</b> {{ this.email }}</small>
-          </p>
-          <p>
-            <small><b>User :</b> {{ this.username }}</small>
-          </p> -->
+          
           <p>
             <small><b>Role :</b>{{ role }}</small>
           </p>
@@ -74,34 +69,22 @@
             </div>
           </div>
           <div (click)="closeIncome()" class="mb-2">
-            <span [routerLink]="['feePayments']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Fee Payment
+
+            <!-- <span [routerLink]="['feePayments']"
+              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">fee-payment
+
               <span class="font-extrabold ml-auto text-white">
                 <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-            <span [routerLink]="['FeeStatement']"
+              </span> -->
+            <!-- </span> -->
+            <!-- <span [routerLink]="['FeeStatement']"
               class="flex w-full p-2 mt-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Fee Statement
               <span class="font-extrabold ml-auto text-white">
                 <i class="bi bi-chevron-down"></i>
               </span>
-            </span>
+            </span> -->
             <div [hidden]="isHidden3">
-              <!-- <ul class='p-2 flex flex-col gap-1 '>
-                <li><a [routerLink]="['feeCollections']"
-                  class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                  add income</a></li>
-                <li><a [routerLink]="['feeCollections']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Fee Collections</a></li>
-                <li><a [routerLink]="['donations']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Donations</a></li>
-                <li><a [routerLink]="['governmentAllocations']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Government Allocations</a></li>
-
-              </ul> -->
+              
             </div>
           </div>
           <div (click)="closeExpenses()">

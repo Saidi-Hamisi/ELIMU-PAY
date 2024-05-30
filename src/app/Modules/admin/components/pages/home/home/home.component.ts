@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HomecardsService } from "./homecards.service";
-import { Observable } from "rxjs";
+import { MatDialog } from '@angular/material/dialog'; // Import MatDialog if you're using it for openDialog
 
 @Component({
   selector: 'app-home',
@@ -8,15 +8,70 @@ import { Observable } from "rxjs";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  totalIncomes: number = 0;
+  totalExpenses: number = 0;
+  totalSupplierAmount: number = 0;
+  transactions: any[] = []; // Define transactions array
+  showTransactionHistory: boolean = false; // Define showTransactionHistory property
 
-  // category:Observable<any>
-  constructor(private homecardsservive:HomecardsService) { }
+  constructor(private homecardsService: HomecardsService, private dialog: MatDialog) { } // Inject MatDialog
 
   ngOnInit(): void {
+    this.reloadData();
   }
-  reloadData(){
-    this.homecardsservive.getTotalIncome()
+
+  reloadData() {
+    // Fetch total incomes
+    this.homecardsService.getTotalIncome().subscribe(
+      (data: any) => {
+        console.log('Total Incomes:', data);
+        if (data && data['Fee Collection'] !== undefined) {
+          this.totalIncomes = data['Fee Collection'];
+        } else {
+          console.error('Invalid API response format for Total Incomes.');
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching total incomes:', error);
+      }
+    );
+
+    // Fetch total expenses
+    this.homecardsService.getTotalExpenses().subscribe(
+      (data: any) => {
+        console.log('Total Expenses:', data);
+        if (data && data['Total Expenses'] !== undefined) {
+          this.totalExpenses = data['Total Expenses'];
+        } else {
+          console.error('Invalid API response format for Total Expenses.');
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching total expenses:', error);
+      }
+    );
+
+    // Fetch total supplier amount
+    this.homecardsService.getTotalSupplierAmount().subscribe(
+      (data: any) => {
+        console.log('supplier Collection:', data);
+        if (data && data['supplier Collection'] !== undefined) {
+          this.totalSupplierAmount = data['supplier Collection'];
+        } else {
+          console.error('Invalid API response format for Total Supplier Amount.');
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching total supplier amount:', error);
+      }
+    );
+  }
+
+  toggleTransactionHistory() {
+    this.showTransactionHistory = !this.showTransactionHistory;
+  }
+
+  openDialog() {
+    // Implement your logic to open dialog here
   }
 }
-
-

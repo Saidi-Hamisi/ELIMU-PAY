@@ -4,6 +4,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import Swal from "sweetalert2";
 import { EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/@Core/Authservice/token-storage.service';
+
 
 const document: any = window.document;
 
@@ -16,19 +18,22 @@ const document: any = window.document;
 export class NavbarAdminComponent {
 
 
+  // constructor(private storageService: TokenStorageService){}
 
   @Output() toggleSidebarEvent = new EventEmitter<void>();
   isFullScreen: boolean = false
   drawer: any;
   userName: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private storageService: TokenStorageService ) {}
 
 
 
   toggleSidebar(): void {
     this.toggleSidebarEvent.emit();
   }
+
+  user = this.storageService.getUser();
 
 
   logout(): void {

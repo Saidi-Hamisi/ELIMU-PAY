@@ -14,7 +14,7 @@ export class AppComponent  implements OnInit {
   ngOnInit(): void {
       const token = this.storageService.getToken();
       const user = this.storageService.getUser();
-
+        // console.log(user)
 
       //if user was already logged in, navigate to dashboard else login
       // if (token && user) {
