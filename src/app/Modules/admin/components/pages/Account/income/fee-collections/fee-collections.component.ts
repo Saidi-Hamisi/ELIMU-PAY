@@ -31,11 +31,12 @@ export class FeeCollectionsComponent implements OnInit {
   filteredTransactions: Transaction[] = [];
   faBullhorn = faBullhorn;
   feeCollection: number = 0;
-  selectedDateFilterOption: string = ''; // Here's the new declaration
+  selectedDateFilterOption: string = 'Last 30 days';
   searchTerm: string = '';
+  dropdownOpen: boolean = false;
 
   totalFeeEndpoint = 'http://192.168.90.64:8000/api/v1/payfee/calculate_total_fee/';
-  transactionsEndpoint = 'http://192.168.90.64:8000/api/v1/payfee/api/v1/fee/list_transaction';
+  transactionsEndpoint = 'http://192.168.0.102:8000/api/v1/payfee/api/v1/fee/list_transaction';
 
   cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
 
@@ -44,6 +45,10 @@ export class FeeCollectionsComponent implements OnInit {
   ngOnInit() {
     this.fetchTotalFeeCollections();
     this.fetchTransactions();
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 
   fetchTotalFeeCollections() {
@@ -72,46 +77,54 @@ export class FeeCollectionsComponent implements OnInit {
     });
   }
 
-  applyFilter(selectedValue: string) {
-    this.selectedDateFilterOption = selectedValue;
-    this.filteredTransactions = [...this.transactions]; // Reset filter
-    if (this.selectedDateFilterOption === 'Last 10 Days') {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0); // Set time to midnight
-      this.filteredTransactions = this.filteredTransactions.filter(transaction =>
-        new Date(transaction.transaction_date) >= new Date(today.getTime() - 10 * 24 * 60 * 60 * 1000)
-      );
-    } else if (this.selectedDateFilterOption === 'This Month') {
-      const today = new Date();
-      const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1); // Set to start of current month
-      this.filteredTransactions = this.filteredTransactions.filter(transaction =>
-        new Date(transaction.transaction_date) >= startOfMonth
-      );
+  sortTransactions(criteria: string) {
+    this.selectedDateFilterOption = criteria.replace('last', 'Last ');
+
+    const now = new Date();
+
+    switch (criteria) {
+      case 'lastDay':
+        this.filteredTransactions = this.transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.transaction_date);
+          const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+          return transactionDate >= oneDayAgo;
+        });
+        break;
+      case 'last7Days':
+        this.filteredTransactions = this.transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.transaction_date);
+          const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          return transactionDate >= sevenDaysAgo;
+        });
+        break;
+      case 'last30Days':
+        this.filteredTransactions = this.transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.transaction_date);
+          const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+          return transactionDate >= thirtyDaysAgo;
+        });
+        break;
+      case 'lastMonth':
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        this.filteredTransactions = this.transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.transaction_date);
+          return transactionDate >= startOfMonth && transactionDate <= endOfMonth;
+        });
+        break;
+      default:
+        this.filteredTransactions = [...this.transactions];
     }
-    this.applySearch(); // Apply search after filtering
   }
 
-  applySearch() {
-    if (this.searchTerm.trim() !== '') {
-      this.filteredTransactions = this.filteredTransactions.filter(transaction =>
-        transaction.description.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    }
-  }
+  openDialog(transaction: Transaction) {
+    const dialogRef = this.dialog.open(ViewtranscationComponent, {
+      width: '400px',
+      data: transaction
+    });
 
-  viewTransaction(transactionId: number) {
-    this.router.navigate(['/transaction', transactionId]);
-  }
-
-  openDialog() {
-    this.dialog.open(ViewtranscationComponent, {
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '500ms',
-      width: '50%',
-      height: '80%',
-      data: {
-        transactions: this.filteredTransactions // Pass filtered transactions to dialog
-      }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 }
