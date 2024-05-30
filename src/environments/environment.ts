@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'http://192.168.89.231:8001/api/v1/', // Your development API URL
-  };
+  production: false,
+  apiUrl: ' http://127.0.0.1:8000//api/v1/', // Your development API URL
+};
