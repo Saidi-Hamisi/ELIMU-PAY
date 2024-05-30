@@ -36,7 +36,7 @@ export class FeeCollectionsComponent implements OnInit {
   dropdownOpen: boolean = false;
 
   totalFeeEndpoint = 'http://192.168.90.64:8000/api/v1/payfee/calculate_total_fee/';
-  transactionsEndpoint = 'http://192.168.0.102:8000/api/v1/payfee/api/v1/fee/list_transaction';
+  transactionsEndpoint = 'http://192.168.89.139:8000/api/v1/payfee/api/v1/fee/list_transaction';
 
   cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
 
@@ -126,5 +126,20 @@ export class FeeCollectionsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.filteredTransactions = this.transactions.filter(transaction =>
+      transaction.description.toLowerCase().includes(filterValue) ||
+      transaction.student__uniqueId.toString().includes(filterValue) ||
+      transaction.transaction_date.toLowerCase().includes(filterValue) ||
+      transaction.credit.toString().includes(filterValue) ||
+      transaction.debit.toString().includes(filterValue)
+    );
+
+    if (this.filteredTransactions.length === 0) {
+      this.filteredTransactions = [...this.transactions]; // Reset to all transactions if no match is found
+    }
   }
 }
