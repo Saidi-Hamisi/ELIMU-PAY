@@ -1,16 +1,15 @@
-<div class="flex  justify-between items-center">
+<div class="flex justify-between items-center">
   <!-- Toggle Button -->
-  <div class=" flex  items-center toggle-container">
+  <div class="flex items-center toggle-container">
     <button title="Toggle Sidebar" mat-icon-button (click)="toggleSidebar()">
       <mat-icon class="text-red-50">menu</mat-icon>
     </button>
-    
-  <!-- ELIMU PAY -->
-  <div class="elimu-pay-container">
-    <span class="text-white text-2xl font-semibold dark:text-pink-950">ELIMU PAY</span>
-  </div>
-  </div>
 
+    <!-- ELIMU PAY Logo -->
+    <div class="elimu-pay-container">
+      <img src="assets/Elimu pay Logo.png" alt="Elimu Pay Logo" class="h-10"> <!-- Adjust the class and height as needed -->
+    </div>
+  </div>  
 
   <div>
     <span class="text-white text-lg font-normal dark:text-pink-950">ADMIN DASHBOARD</span>
@@ -31,15 +30,15 @@
       <span>{{ userName }}</span>
     </button>
   </div>
+</div> <!-- Closing the first div -->
 
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="change-password" (click)="$event.preventDefault()">
-      <mat-icon>lock</mat-icon>
-      <span>Change Password</span>
-    </button>
-    <button mat-menu-item (click)="logout(); $event.preventDefault();">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Logout</span>
-    </button>
-  </mat-menu>
-</div>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="change-password" (click)="$event.preventDefault()">
+    <mat-icon>lock</mat-icon>
+    <span>Change Password</span>
+  </button>
+  <button mat-menu-item (click)="logout(); $event.preventDefault();">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
