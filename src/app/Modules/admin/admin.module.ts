@@ -44,6 +44,7 @@ import { FeePaymentComponent } from './components/pages/Account/fee-payment/fee-
 import { PayFeeComponent } from './components/pages/Account/fee-payment/pay-fee/pay-fee.component';
 import { PayFeesComponent } from './components/pages/Account/fee-payment/pay-fees/pay-fees.component';
 import { FeeStatementComponent } from './components/pages/Account/fee-statement/fee-statement.component';
+import { FeesComponent } from './components/pages/Account/fee-statement/fees/fees.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { FeeStatementComponent } from './components/pages/Account/fee-statement/
     FeePaymentComponent,
     PayFeeComponent,
     PayFeesComponent,
-    FeeStatementComponent
+    FeeStatementComponent,
+    FeesComponent
     
     
     
