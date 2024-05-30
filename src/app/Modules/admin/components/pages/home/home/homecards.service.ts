@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class HomecardsService {
 
-  private totalIncomeUrl = 'http://192.168.90.64:8000/api/v1/payfee/calculate_total_fee/';
-  private totalExpensesUrl = 'http://192.168.88.198:8000/api/v1/expenses/expenses/calculate_total/';
-  private totalSupplierAmountUrl = 'http://192.168.88.198:8000/api/v1/suppliers/suppliers/calculate_total_amount/'; // Add the URL for total supplier amount
+  private totalIncomeUrl = 'http://192.168.89.139:8000/api/v1/payfee/calculate_total_fee/';
+  private totalExpensesUrl = 'http://192.168.89.139:8000/api/v1/expenses/expenses/calculate_total/';
+  private totalSupplierAmountUrl = 'http://192.168.89.139:8000/api/v1/suppliers/suppliers/calculate_total_amount/'; // Add the URL for total supplier amount
 
   constructor(private http: HttpClient) { }
 

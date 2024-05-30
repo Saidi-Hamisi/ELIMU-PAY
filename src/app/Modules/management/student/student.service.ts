@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
 export class StudentService {
   constructor(private _http: HttpClient) { }
 
+
   serverUrl:string = 'http://127.0.0.1:8000//api/v1';
+
 
   addStudent(data: any): Observable<any> {
     console.log('saving student');
@@ -27,7 +29,10 @@ export class StudentService {
   }
 
   getStudentList(): Observable<any> {
+
     return this._http.get(`${this.serverUrl}/students/?page=1`);
+
+ 
   }
 
   deleterecord(url:string): Observable<any> {

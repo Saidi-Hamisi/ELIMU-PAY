@@ -26,6 +26,6 @@ export class IncomeTypesService {
   }
 
   getFeeCollection(): Observable<any> {
-    return this._http.get('http://192.168.88.198:8000/api/v1/payfee/calculate_total_fee/');
+    return this._http.get('http://192.168.89.139:8000/api/v1/payfee/calculate_total_fee/');
   }
 }
