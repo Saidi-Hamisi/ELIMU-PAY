@@ -47,11 +47,14 @@ export class ParentComponent implements OnInit {
         // Check if the response contains 'results' and it is an array
         if (res && Array.isArray(res.results)) {
           this.dataSource = new MatTableDataSource(res.results);
+ 
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
 
           // Convert data to JSON and log it
+
           const jsonData = JSON.stringify(res.results, null, 2);
+
           console.log('JSON Data:', jsonData);
         } else {
           console.error('Invalid API response format.');

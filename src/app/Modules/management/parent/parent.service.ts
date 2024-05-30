@@ -11,7 +11,9 @@ export class ParentService {
   addParent(data: any): Observable<any> {
     console.log('saving user');
     var res = this._http.post(
+
       'http://192.168.0.102:8000/api/v1/parents/parents/',
+
       data
     );
     console.log(res);
@@ -23,7 +25,9 @@ export class ParentService {
   }
 
   getParentList(): Observable<any> {
+
     return this._http.get('http://192.168.0.102:8000/api/v1/parents/parents/');
+
   }
 
   deleteParent(id: number): Observable<any> {

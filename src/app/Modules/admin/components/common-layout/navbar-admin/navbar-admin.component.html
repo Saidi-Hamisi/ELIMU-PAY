@@ -1,23 +1,23 @@
-<div class="flex justify-between items-center">
+<div class="flex  justify-between items-center">
   <!-- Toggle Button -->
-  <div class="toggle-container">
+  <div class=" flex  items-center toggle-container">
     <button title="Toggle Sidebar" mat-icon-button (click)="toggleSidebar()">
       <mat-icon class="text-red-50">menu</mat-icon>
     </button>
-  </div>
-
+    
   <!-- ELIMU PAY -->
   <div class="elimu-pay-container">
     <span class="text-white text-2xl font-semibold dark:text-pink-950">ELIMU PAY</span>
   </div>
+  </div>
+
 
   <div>
     <span class="text-white text-lg font-normal dark:text-pink-950">ADMIN DASHBOARD</span>
   </div>
 
   <div class="flex items-center">
-    <span class="text-white text-lg font-semibold dark:text-pink-950 italic">Welcome, {{ userName }}</span>
-
+    <span class="text-white text-lg font-semibold dark:text-pink-950 italic">Welcome, {{user.first_name}}</span>
     <button title="Enter Full Screen" mat-icon-button (click)="callFullscreen()" *ngIf="!isFullScreen">
       <mat-icon class="text-red-50">fullscreen</mat-icon>
     </button>

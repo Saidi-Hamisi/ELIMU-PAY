@@ -32,4 +32,5 @@ export class UserService {
       `${environment.apiUrl}users/delete/${id}`
     );
   }
+
 }
