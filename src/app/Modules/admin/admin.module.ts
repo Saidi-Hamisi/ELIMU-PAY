@@ -121,7 +121,7 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     SettingsComponent,
     // LoansComponent,
     // SalariesComponent,
-    SuppliesComponent,
+    // SuppliesComponent,
     // UtilitiesComponent,
     FeeCollectionsComponent,
     // DonationsComponent,

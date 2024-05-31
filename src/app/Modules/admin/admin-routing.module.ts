@@ -18,7 +18,7 @@ import { ChartsOfAccountsComponent } from './components/pages/Report/charts-of-a
 import { StaffComponent } from '../management/staff/staff.component';
 import { StudentComponent } from '../management/student/student.component';
 import { FeeCategoryComponent } from '../management/feecategory/feecategory.component';
-import { SuppliesComponent } from './components/pages/Account/expenses/supplies/supplies.component';
+// import { SuppliesComponent } from './components/pages/Account/expenses/supplies/supplies.component';
 
 
 
@@ -54,7 +54,7 @@ const routes: Routes = [
         component: GovernmentAllocationComponent,
       },
       { path: 'trasactions', component: ViewtranscationComponent },
-      { path: 'supplies', component: SuppliesComponent      },
+      // { path: 'supplies', component: SuppliesComponent},
 
       { path: 'student', component: StudentComponent },
       { path: 'staff', component: StaffComponent },
