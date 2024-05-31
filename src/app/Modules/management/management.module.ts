@@ -32,6 +32,7 @@ import { ParentComponent } from './parent/parent.component';
 import { AddParentComponent } from './parent/add-parent/add-parent.component';
 import { DeleteConfirmationComponent } from './student/delete-confirmation/delete-confirmation.component';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -74,7 +75,8 @@ import { DeleteConfirmationComponent } from './student/delete-confirmation/delet
     MatSortModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatProgressSpinnerModule
   
 
 

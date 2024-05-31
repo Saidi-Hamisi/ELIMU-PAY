@@ -67,7 +67,7 @@
             </div>
           </div>
           <div (click)="closeIncome()" class="mb-2">
-            
+
             <div [hidden]="isHidden3">
               
             </div>
@@ -82,9 +82,19 @@
             <div [hidden]="isHidden4">
               <ul class='p-2 flex flex-col gap-1 '>
 
-                <li><a [routerLink]="['expenses/home']"
+                <li><a [routerLink]="['expenses']"
                     class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Add expense</a></li>
+
+
+                    add expense</a></li>
+                    <li><a [routerLink]="['supplies']"
+                      class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
+                      Supplies</a></li>
+
+                <!--                 <li><a [routerLink]="['expenses/home']"
+                  class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
+                  add expense</a></li> -->
+
 
                 <li><a [routerLink]="['loans']"
                     class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
@@ -92,9 +102,11 @@
                 <li><a [routerLink]="['salaries']"
                     class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
                     Salaries</a></li>
-                <li><a [routerLink]="['supplies']"
+                <!-- <li><a [routerLink]="['supplies']"
                     class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Suppliers</a></li>
+
+                    Supplies</a></li> -->
+
                 <li><a [routerLink]="['utilities']"
                     class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
                     Utilities</a></li>
@@ -120,9 +132,11 @@
             <li><a [routerLink]="['student']"
               class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Students</a>
             </li>
-            <!-- <li><a [routerLink]="['staff']"
+
+            <!--<li><a [routerLink]="['staff']"
               class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Staff</a>
-            </li> -->
+            </li>-->
+
             <li><a [routerLink]="['parent']"
               class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Parents</a>
             </li>
