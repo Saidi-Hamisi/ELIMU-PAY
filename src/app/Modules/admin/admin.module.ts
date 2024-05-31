@@ -7,7 +7,7 @@ import { HomeComponent } from './components/pages/home/home/home.component';
 import { SettingsComponent } from './components/pages/settings/settings/settings.component';
 import { LoansComponent } from './components/pages/Account/expenses/loans/loans.component';
 import { SalariesComponent } from './components/pages/Account/expenses/salaries/salaries.component';
-import { SuppliesComponent } from './components/pages/Account/expenses/supplies/supplies.component';
+// import { SuppliesComponent } from './components/pages/Account/expenses/supplies/supplies.component';
 import { UtilitiesComponent } from './components/pages/Account/expenses/utilities/utilities.component';
 import { FeeCollectionsComponent } from './components/pages/Account/income/fee-collections/fee-collections.component';
 import { DonationsComponent } from './components/pages/Account/income/donations/donations.component';
@@ -30,7 +30,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { AddIncomeComponent } from './components/pages/Account/income/add-income/add-income.component';
-import { ExpenseHomeComponent } from './components/pages/Account/expenses/expense-home/expense-home.component';
+// import { ExpenseHomeComponent } from './components/pages/Account/expenses/expense-home/expense-home.component';
 import { GraphThreeComponent } from './components/pages/home/graph-three/graph-three.component';
 // import{MatMenuModule} from '@angular/material/menu'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -46,6 +46,7 @@ import { PayFeesComponent } from './components/pages/Account/fee-payment/pay-fee
 import { FeeStatementComponent } from './components/pages/Account/fee-statement/fee-statement.component';
 import { ExpensesComponent } from './components/pages/Account/expenses/expenses.component';
 import { AddExpensesComponent } from './components/pages/Account/expenses/add-expenses/add-expenses.component';
+import { SuppliesComponent } from './components/pages/Account/expenses/supplies/supplies.component';
 import { AddSuppliesComponent } from './components/pages/Account/supplies/add-supplies/add-supplies.component';
 
 
@@ -59,7 +60,7 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     SettingsComponent,
     LoansComponent,
     SalariesComponent,
-    SuppliesComponent,
+    // SuppliesComponent,
     UtilitiesComponent,
     FeeCollectionsComponent,
     DonationsComponent,
@@ -71,7 +72,7 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     ChartsOfAccountsComponent,
     ViewReportsComponent,
     AddIncomeComponent,
-    ExpenseHomeComponent,
+    // ExpenseHomeComponent,
     GraphThreeComponent,
     IncomeTypesComponent,
     AddIncomesComponent,
@@ -83,6 +84,7 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     FeeStatementComponent,
     ExpensesComponent,
     AddExpensesComponent,
+    SuppliesComponent,
     AddSuppliesComponent
     
     
@@ -117,12 +119,12 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     FooterAdminComponent,
     HomeComponent,
     SettingsComponent,
-    LoansComponent,
-    SalariesComponent,
+    // LoansComponent,
+    // SalariesComponent,
     SuppliesComponent,
-    UtilitiesComponent,
+    // UtilitiesComponent,
     FeeCollectionsComponent,
-    DonationsComponent,
+    // DonationsComponent,
     GovernmentAllocationComponent,
     ReportComponent,
     ViewtranscationComponent,
