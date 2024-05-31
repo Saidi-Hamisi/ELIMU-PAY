@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./fee-statement.component.css']
 })
 export class FeeStatementComponent {
+  title = 'Feestatement';
+  headers = []
 
 }

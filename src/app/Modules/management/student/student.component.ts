@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { StudentService } from './student.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from 'src/app/core/core.service';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -85,11 +86,18 @@ export class StudentComponent implements OnInit {
   }
 
   deleteStudent(id: number) {
-    this._dialog.open(DeleteConfirmationComponent, {
+    const url = `${environment.apiUrl}students/${id}/`
+    const dialogRef:MatDialogRef<DeleteConfirmationComponent> = this._dialog.open(DeleteConfirmationComponent, {
       data:{
-        recordId:id
+        url: url
       }
     })
+
+    dialogRef.afterClosed().subscribe(
+      ((result) => {
+        this.getStudentList()
+      })
+    )
   }
 
   openUpdateStudentForm(data:any) {
