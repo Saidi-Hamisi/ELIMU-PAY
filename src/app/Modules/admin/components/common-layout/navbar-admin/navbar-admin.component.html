@@ -2,7 +2,7 @@
   <!-- Toggle Button -->
   <div class="flex items-center toggle-container">
     <button title="Toggle Sidebar" mat-icon-button (click)="toggleSidebar()">
-      <mat-icon class="text-red-50">menu</mat-icon>
+      <mat-icon class="text-pink-950">menu</mat-icon>
     </button>
 
     <!-- ELIMU PAY Logo -->
@@ -12,21 +12,21 @@
   </div>  
 
   <div>
-    <span class="text-white text-lg font-normal dark:text-pink-950">ADMIN DASHBOARD</span>
+    <span class="text-pink-950 text-lg font-semibold dark:text-pink-950">ADMIN DASHBOARD</span>
   </div>
 
   <div class="flex items-center">
-    <span class="text-white text-lg font-semibold dark:text-pink-950 italic">Welcome, {{user.first_name}}</span>
+    <span class="text-pink-950 text-lg font-semibold dark:text-pink-950 italic">Welcome, {{user.first_name}}</span>
     <button title="Enter Full Screen" mat-icon-button (click)="callFullscreen()" *ngIf="!isFullScreen">
-      <mat-icon class="text-red-50">fullscreen</mat-icon>
+      <mat-icon class="text-pink-950">fullscreen</mat-icon>
     </button>
 
     <button title="Exit Full Screen" mat-icon-button (click)="exitFullscreen()" *ngIf="isFullScreen">
-      <mat-icon class="text-red-50">fullscreen_exit</mat-icon>
+      <mat-icon class="text-pink-950">fullscreen_exit</mat-icon>
     </button>
 
     <button title="Change Password or Logout" mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon class="text-red-50">account_circle</mat-icon>
+      <mat-icon class="text-pink-950">account_circle</mat-icon>
       <span>{{ userName }}</span>
     </button>
   </div>
