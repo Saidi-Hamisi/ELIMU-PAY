@@ -46,7 +46,7 @@ import { PayFeesComponent } from './components/pages/Account/fee-payment/pay-fee
 import { FeeStatementComponent } from './components/pages/Account/fee-statement/fee-statement.component';
 import { ExpensesComponent } from './components/pages/Account/expenses/expenses.component';
 import { AddExpensesComponent } from './components/pages/Account/expenses/add-expenses/add-expenses.component';
-import { SuppliesComponent } from './components/pages/Account/expenses/supplies/supplies.component';
+import { SuppliesComponent } from './components/pages/Account/supplies/supplies.component';
 import { AddSuppliesComponent } from './components/pages/Account/supplies/add-supplies/add-supplies.component';
 
 
