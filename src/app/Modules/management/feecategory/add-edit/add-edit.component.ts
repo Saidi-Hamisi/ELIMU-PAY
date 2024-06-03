@@ -24,7 +24,7 @@ export class AddEditComponent implements OnInit {
       grade: ['', Validators.required],
       term: ['', Validators.required],
       amount: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]], // Add pattern validation for numeric input
-      apply: ['', Validators.required]
+      // apply: ['', Validators.required]
     });
   }
 
