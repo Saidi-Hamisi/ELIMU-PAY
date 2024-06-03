@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./password-reset.component.css']
 })
 export class PasswordResetComponent {
+  passwordVisible = false;
+  passwordFieldType = 'password';
 
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+    this.passwordFieldType = this.passwordVisible ? 'text' : 'password';
+  }
 }

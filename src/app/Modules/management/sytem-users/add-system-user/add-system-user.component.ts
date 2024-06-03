@@ -27,6 +27,66 @@ schools: string[] = [
   'Cherngani High School'
 ];
 
+kenyanCounties: string[] = [
+  'Baringo',
+  'Bomet',
+  'Bungoma',
+  'Busia',
+  'Elgeyo-Marakwet',
+  'Embu',
+  'Garissa',
+  'Homa Bay',
+  'Isiolo',
+  'Kajiado',
+  'Kakamega',
+  'Kericho',
+  'Kiambu',
+  'Kilifi',
+  'Kirinyaga',
+  'Kisii',
+  'Kisumu',
+  'Kitui',
+  'Kwale',
+  'Laikipia',
+  'Lamu',
+  'Machakos',
+  'Makueni',
+  'Mandera',
+  'Marsabit',
+  'Meru',
+  'Migori',
+  'Mombasa',
+  'Murang\'a',
+  'Nairobi',
+  'Nakuru',
+  'Nandi',
+  'Narok',
+  'Nyamira',
+  'Nyandarua',
+  'Nyeri',
+  'Samburu',
+  'Siaya',
+  'Taita-Taveta',
+  'Tana River',
+  'Tharaka-Nithi',
+  'Trans Nzoia',
+  'Turkana',
+  'Uasin Gishu',
+  'Vihiga',
+  'Wajir',
+  'West Pokot'
+];
+
+eastAfricanCountries: string[] = [
+  'Kenyan',
+  'Ugandan',
+  'Tanzanian',
+  'Rwandeese',
+  'Burundian',
+  'South Sudaneese',
+  'Congoleese'
+];
+
 
   constructor(
     private _fb: FormBuilder,
@@ -34,7 +94,8 @@ schools: string[] = [
     private _dialogueRef: MatDialogRef<AddSystemUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _coreService: CoreService
-  ) {
+  )
+   {
     this.SystemUserForm = this._fb.group({
       first_name: '',
       middle_name: '',
@@ -45,7 +106,7 @@ schools: string[] = [
       usergroup: 0,
       // phoneNumber: '',
       address: '',
-      nationality: '',
+      nationality: 0,
       schools: 0,
       // idNumber: '',
       username:'',

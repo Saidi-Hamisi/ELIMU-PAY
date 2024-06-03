@@ -7,9 +7,10 @@
 
     <!-- ELIMU PAY Logo -->
     <div class="elimu-pay-container">
-      <img src="assets/Elimu pay Logo.png" alt="Elimu Pay Logo" class="h-10"> <!-- Adjust the class and height as needed -->
+      <img src="assets/Elimu pay Logo.png" alt="Elimu Pay Logo" class="h-10">
+      <!-- Adjust the class and height as needed -->
     </div>
-  </div>  
+  </div>
 
   <div>
     <span class="text-pink-950 text-lg font-semibold dark:text-pink-950">ADMIN DASHBOARD</span>
@@ -26,14 +27,14 @@
     </button>
 
     <button title="Change Password or Logout" mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon class="text-pink-950">account_circle</mat-icon>
+      <mat-icon class="text-pink-950">settings</mat-icon>
       <span>{{ userName }}</span>
     </button>
   </div>
-</div> <!-- Closing the first div -->
+</div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="change-password" (click)="$event.preventDefault()">
+  <button mat-menu-item  (click)="changePassword(); $event.preventDefault()">
     <mat-icon>lock</mat-icon>
     <span>Change Password</span>
   </button>
