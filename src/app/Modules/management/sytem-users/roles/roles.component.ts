@@ -1,32 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
 import { AddRolesComponent } from './add-roles/add-roles.component';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CoreService } from 'src/@Core/core/core.service';
-import { UserService } from '../user.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { CoreService } from '../../../../core/core.service';
+import { RolesService } from './roles.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.css']
+  styleUrls: ['./roles.component.css'],
 })
 export class RolesComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
-    // 'firstName',
-    // 'middleName',
-    // 'lastName',
-    'role',
-    // 'phoneNumber',
-    // 'email',
-    // 'idNumber',
-    // 'gender',
-    'dob',
-    // 'school',
-    // 'address',
-    // 'nationality',
+    'name',
+    'description',
+    'dateCreated',
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
@@ -36,33 +30,42 @@ export class RolesComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
-    private _addSystemUserService: UserService,
+    private _addRolesService: RolesService,
     private _coreService: CoreService
   ) {}
 
   ngOnInit(): void {
-    this.getSystemUserList();
+    this.getRolesList();
   }
 
-  openAddEditRolesForm() {
+  openAddEditUsergroupForm() {
     const dialogRef = this._dialog.open(AddRolesComponent);
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          this.getSystemUserList();
+          this.getRolesList();
         }
       },
     });
   }
 
-  getSystemUserList() {
-    this._addSystemUserService.getSystemUserList().subscribe({
+  getRolesList() {
+    this._addRolesService.getRolesList().subscribe({
       next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
+        const formattedData = res.entity.map((role: any) => {
+          return {
+            ...role,
+            dateCreated: format(new Date(role.dateCreated), 'dd/MM/yyyy hh:mm a')
+          };
+        });
+
+        this.dataSource = new MatTableDataSource(formattedData);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
-      error: console.log,
+      error: (err) => {
+        console.error('Error fetching user list:', err);
+      },
     });
   }
 
@@ -74,30 +77,93 @@ export class RolesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  deleteSystemUser(id: number) {
-    const confirmed = window.confirm('Are you sure you want to delete this role?');
+
+  deleteRoles(id: number) {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this role?'
+    );
     if (confirmed) {
-      this._addSystemUserService.deleteSystemUser(id).subscribe({
+      this._addRolesService.deleteRoles(id).subscribe({
         next: (res) => {
-          this._coreService.openSnackBar('One role deleted!', 'done');
-          this.getSystemUserList();
+          this._coreService.openSnackBar('One role deleted!');
+          this.getRolesList();
         },
-        error: console.error, 
+        error: (err) => {
+          console.error('Error deleting role:', err);
+        },
       });
     }
   }
-  
 
-  openUpdateSystemUserForm(data: any) {
+  openUpdateRolesForm(data: any) {
     const dialogRef = this._dialog.open(AddRolesComponent, {
       data,
     });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          this.getSystemUserList();
+          this.getRolesList();
         }
       },
     });
+  }
+
+  generatePdf() {
+    const tableContainer = document.querySelector('.table-container');
+
+    if (tableContainer) {
+      html2canvas(tableContainer as HTMLElement).then((canvas) => {
+        const doc = new jspdf('l', 'mm', 'a4');
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 280;
+        const pageHeight = 210;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 10;
+        const marginLeft = 5;
+        const marginRight = 3;
+
+        function addHeader() {
+          doc.setFontSize(12);
+          doc.text('Usergroup Report', imgWidth / 2, position, { align: 'center' });
+
+          const now = new Date();
+          const day = now.toLocaleDateString('en-US', { weekday: 'long' });
+          const date = now.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+          const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+          doc.setFontSize(6);
+          doc.text(`Printed on ${day} ${date} at ${time}`, imgWidth - marginRight, position, { align: 'right' });
+        }
+
+        function addFooter() {
+          doc.setFontSize(8);
+          doc.text('Elimu Pay Technologies | Copyright © 2024 | All rights reserved.',
+            imgWidth / 2,
+            doc.internal.pageSize.getHeight() - 5,
+            { align: 'center' }
+          );
+        }
+
+        addHeader();
+        addFooter();
+
+        doc.addImage(imgData, 'PNG', marginLeft, position + 10, imgWidth - marginLeft - marginRight, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight + 10;
+          doc.addPage();
+          addHeader();
+          addFooter();
+          doc.addImage(imgData, 'PNG', marginLeft, position + 20, imgWidth - marginLeft - marginRight, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        doc.save('System Users Report.pdf');
+      });
+    } else {
+      console.error('System users reports not available');
+    }
   }
 }
