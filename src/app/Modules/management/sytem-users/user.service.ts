@@ -11,10 +11,7 @@ export class UserService {
 
   addSystemUser(data: any): Observable<any> {
     console.log('saving user');
-    var res = this._http.post(
-    `  ${environment.apiUrl}users/create/`,
-      data
-    );
+    var res = this._http.post(`  ${environment.apiUrl}users/create/`,data);
     console.log(res);
     return res;
   }
