@@ -8,13 +8,12 @@ import { OtpComponent } from './components/otp/otp.component';
 import { PageError404Component } from './components/page-error404/page-error404.component';
 import { PageError500Component } from './components/page-error500/page-error500.component';
 import { AdminModule } from '../admin/admin.module';
-import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
 import { EmailMask } from 'src/@Core/helpers/emailmask';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetPasswordComponent } from './components/forgot-password/reset-password.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     PageError404Component,
     PageError500Component,
     EmailMask,
-    ResetPasswordComponent
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +33,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ReactiveFormsModule,
     MaterialModule,
     MatSnackBarModule,
-    MatProgressBarModule
-  ]
+    MatProgressBarModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

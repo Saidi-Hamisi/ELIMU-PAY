@@ -4,11 +4,11 @@
     <div class="row">
       <div class="col-md-12">
         <div class="avater">
-          <mat-icon
-            style="font-size: 50px !important; height: 50px; width: 50px; padding-top: 2px; " class="" >account_circle</mat-icon>
+          <mat-icon style="font-size: 50px !important; height: 50px; width: 50px; padding-top: 2px; "
+            class="">account_circle</mat-icon>
         </div>
         <div class="header">
-          
+
           <p class="text-pink-950">
             <small><b>Role :</b>{{ role }}</small>
           </p>
@@ -63,13 +63,13 @@
                 <i class="bi bi-chevron-down"></i>
               </span></span>
             <div [hidden]="isHidden3">
-              
+
             </div>
           </div>
           <div (click)="closeIncome()" class="mb-2">
 
             <div [hidden]="isHidden3">
-              
+
             </div>
           </div>
           <div (click)="closeExpenses()">
@@ -84,32 +84,12 @@
 
                 <li><a [routerLink]="['expenses']"
                     class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-
-
-                    add expense</a></li>
-                    <li><a [routerLink]="['supplies']"
-                      class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                      Supplies</a></li>
-
-                <!--                 <li><a [routerLink]="['expenses/home']"
-                  class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                  add expense</a></li> -->
-
-
-                <li><a [routerLink]="['loans']"
+                    Add an Expense</a>
+                </li>
+                <li><a [routerLink]="['supplies']"
                     class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Loans</a></li>
-                <li><a [routerLink]="['salaries']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Salaries</a></li>
-                <!-- <li><a [routerLink]="['supplies']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-
-                    Supplies</a></li> -->
-
-                <li><a [routerLink]="['utilities']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Utilities</a></li>
+                    Supplies</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -130,7 +110,7 @@
           <ul class="p-2 flex flex-col gap-1">
 
             <li><a [routerLink]="['student']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Students</a>
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Students</a>
             </li>
 
             <!--<li><a [routerLink]="['staff']"
@@ -138,16 +118,16 @@
             </li>-->
 
             <li><a [routerLink]="['parent']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Parents</a>
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Parents</a>
             </li>
             <li><a [routerLink]="['feecategory']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">
                 Fee Category</a>
             </li>
             <li><a [routerLink]="['school']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Schools</a>
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Schools</a>
             </li>
-            
+
           </ul>
         </div>
       </div>
@@ -175,7 +155,7 @@
             </div>
           </div>
 
-          
+
         </div>
       </div>
     </li>
@@ -191,7 +171,7 @@
         </div>
         <div [hidden]="isHidden">
           <ul class="p-2 flex flex-col gap-1">
-           
+
             <li><a [routerLink]="['roles']"
                 class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 focus:text-black bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg'>Roles</a>
             </li>
