@@ -1,6 +1,6 @@
 import { CoreService } from 'src/@Core/core/core.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ExpensesService } from '../expenses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,26 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./add-expenses.component.css']
 })
 export class AddExpensesComponent implements OnInit {
-  ParentForm!: FormGroup;
-  isSubmitting:boolean = false;
-
-  // role: string[] = [
-  //   'School Administrator',
-  //   'School Director',
-  //   'School Manager',
-  //   'Principal',
-  //   'School Accountant',
-  //   'Chief Finance Officer',
-  //   'School Bursar',
-  //   'Parent',
-  // ];
-
-  // schools: string[] = [
-  //   'Bahati Girls High School',
-  //   'Cherangani High School'
-  // ];
-  private _suppliesService: any;
   ExpensesForm: FormGroup;
+  isSubmitting: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -40,20 +22,13 @@ export class AddExpensesComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _coreService: CoreService
   ) {
-    this. ExpensesForm = this._fb.group({
-      amount: [''],
-      expenseID: [''],
-      description: [''],
-      name: [''],
-      // expensetype:'',
-      // email_address: [''],
-      // physical_addres: [''],
-     
-      // id_passport:[''],
-      // country: [''],
-      // occupation: [''],
-      // title:[''],
-      // parentId:[''],
+    this.ExpensesForm = this._fb.group({
+      amount: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      expenseID: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
+      expensetypes: this._fb.group({
+        name: ['', Validators.required],
+        description: ['']
+      })
     });
   }
 
@@ -64,51 +39,38 @@ export class AddExpensesComponent implements OnInit {
   }
 
   onFormSubmit() {
-    
-    // Extracting only the date part from the date_of_birth field
-    const dateOfBirth = this.ExpensesForm.get('date_of_birth')?.value;
-    const dateOfBirthDate = new Date(dateOfBirth);
-    dateOfBirthDate.setHours(0, 0, 0, 0); // Set time to midnight
-    this.ExpensesForm.get('date_of_birth')?.setValue(dateOfBirthDate.toISOString().split('T')[0]);
-
-    console.log("1234567", this.ExpensesForm.value);
-    
+    console.log("Form Value", this.ExpensesForm.value);
     if (this.ExpensesForm.valid) {
-      this.isSubmitting = true
+      this.isSubmitting = true;
       if (this.data) {
         this.service.updateExpenses(this.data.id, this.ExpensesForm.value).subscribe({
           next: () => {
             this._coreService.openSnackBar('Expenses details updated!');
             this._dialogRef.close(true);
-            this.isSubmitting = false
+            this.isSubmitting = false;
           },
-          error: (err:any) => {
+          error: (err: any) => {
             console.error(err);
-            this.isSubmitting = false
-          },
-          complete() {
-            
+            this.isSubmitting = false;
           },
         });
       } else {
-        this.service.addExpenses(this.ExpensesForm.value).subscribe(
-          ((res) => {
-            console.log(res)
-            
-          }),
-          ((error) => {
-            console.error(error);
-            this.isSubmitting = false
-          }),
-          () => {
-            this.snackBar.open('Expense added successfully! ', "Close" , {duration:3600, verticalPosition:"top"});
+        this.service.addExpenses(this.ExpensesForm.value).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.snackBar.open('Expense added successfully!', 'Close', {
+              duration: 3600,
+              verticalPosition: 'top',
+            });
             this._dialogRef.close(true);
-            this.isSubmitting = false
-          }
-        );
+            this.isSubmitting = false;
+          },
+          error: (error) => {
+            console.error(error);
+            this.isSubmitting = false;
+          },
+        });
       }
-    
+    }
   }
-}
-
 }
