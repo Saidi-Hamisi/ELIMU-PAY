@@ -10,18 +10,18 @@ export class FeecategoryService {
   constructor(private _http: HttpClient) { }
 
   addFeecategory(data: any): Observable<any>{
-    return this._http.post('http://192.168.89.139:8000/api/v1/feecategories/fee-categories/', data);
+    return this._http.post('http://192.168.91.194:8000/api/v1/feecategories/fee-categories/', data);
   }
 
   getFeecategoryList(): Observable<any> {
-    return this._http.get('http://192.168.89.139:8000/api/v1/feecategories/fee-categories/');
+    return this._http.get('http://192.168.88.38:8000/api/v1/feecategories/fee-categories/');
   }
 
   deleteFeeCategory(id: number): Observable<any> {
-    return this._http.delete(`http://192.168.89.139:8000/api/v1/feecategories/fee-categories/${id}`);
+    return this._http.delete(`http://192.168.88.38:8000/api/v1/feecategories/fee-categories/${id}`);
   }
 
   updateFeecategory(id: number, data: any): Observable<any> {
-    return this._http.put(`http://192.168.89.139:8000/api/v1/feecategories/fee-categories/${id}`, data);
+    return this._http.put(`http://192.168.88.38:8000/api/v1/feecategories/fee-categories/${id}`, data);
   }
 }

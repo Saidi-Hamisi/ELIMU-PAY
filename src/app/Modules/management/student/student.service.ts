@@ -9,7 +9,7 @@ export class StudentService {
   constructor(private _http: HttpClient) { }
 
 
-  serverUrl:string = 'http://127.0.0.1:8000//api/v1';
+  serverUrl:string = 'http://192.168.88.38:8000//api/v1';
 
 
   addStudent(data: any): Observable<any> {

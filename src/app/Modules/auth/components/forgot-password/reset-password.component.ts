@@ -2,20 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
-import { AuthService } from '../.././../../../@Core/Authservice/auth.service';
+import { AuthService } from '../../../../../@Core/Authservice/auth.service';
 import { NotificationService } from 'src/@Core/helpers/NotificationService/notification.service';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.css'],
 })
 export class ResetPasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   formData!: FormGroup;
   error = '';
-required: any;
+  required: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,12 +44,16 @@ required: any;
             this.notificationAPI.alertSuccess(res.message);
             // Handle successful password reset, e.g., redirect
           } else {
-            this.notificationAPI.alertWarning('Password reset failed. Please try again.');
+            this.notificationAPI.alertWarning(
+              'Password reset failed. Please try again.'
+            );
           }
           this.loading = false;
         },
         (error: any) => {
-          this.notificationAPI.alertWarning('An error occurred while resetting password. Please try again later.');
+          this.notificationAPI.alertWarning(
+            'An error occurred while resetting password. Please try again later.'
+          );
           this.loading = false;
         }
       );
