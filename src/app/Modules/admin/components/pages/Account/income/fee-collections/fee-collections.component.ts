@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { ViewtranscationComponent } from '../viewtranscation/viewtranscation.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface Transaction {
   id: number;
@@ -28,17 +30,19 @@ interface Card {
 })
 export class FeeCollectionsComponent implements OnInit {
   transactions: Transaction[] = [];
-  filteredTransactions: Transaction[] = [];
+  dataSource = new MatTableDataSource<Transaction>([]);
   faBullhorn = faBullhorn;
   feeCollection: number = 0;
   selectedDateFilterOption: string = 'Last 30 days';
   searchTerm: string = '';
   dropdownOpen: boolean = false;
 
-  totalFeeEndpoint = 'http://192.168.90.64:8000/api/v1/payfee/calculate_total_fee/';
-  transactionsEndpoint = 'http://192.168.89.139:8000/api/v1/payfee/api/v1/fee/list_transaction';
+  totalFeeEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/calculate_total_fee/';
+  transactionsEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/api/v1/fee/list_transaction';
 
   cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private router: Router, private dialog: MatDialog, private http: HttpClient) { }
 
@@ -69,7 +73,8 @@ export class FeeCollectionsComponent implements OnInit {
       next: (response) => {
         console.log('Transactions data:', response);
         this.transactions = response.entity;
-        this.filteredTransactions = [...this.transactions];
+        this.dataSource.data = this.transactions;
+        this.dataSource.paginator = this.paginator;
       },
       error: (error) => {
         console.error('Error fetching transactions:', error);
@@ -84,21 +89,21 @@ export class FeeCollectionsComponent implements OnInit {
 
     switch (criteria) {
       case 'lastDay':
-        this.filteredTransactions = this.transactions.filter(transaction => {
+        this.dataSource.data = this.transactions.filter(transaction => {
           const transactionDate = new Date(transaction.transaction_date);
           const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
           return transactionDate >= oneDayAgo;
         });
         break;
       case 'last7Days':
-        this.filteredTransactions = this.transactions.filter(transaction => {
+        this.dataSource.data = this.transactions.filter(transaction => {
           const transactionDate = new Date(transaction.transaction_date);
           const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
           return transactionDate >= sevenDaysAgo;
         });
         break;
       case 'last30Days':
-        this.filteredTransactions = this.transactions.filter(transaction => {
+        this.dataSource.data = this.transactions.filter(transaction => {
           const transactionDate = new Date(transaction.transaction_date);
           const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
           return transactionDate >= thirtyDaysAgo;
@@ -107,13 +112,17 @@ export class FeeCollectionsComponent implements OnInit {
       case 'lastMonth':
         const startOfMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
         const endOfMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        this.filteredTransactions = this.transactions.filter(transaction => {
+        this.dataSource.data = this.transactions.filter(transaction => {
           const transactionDate = new Date(transaction.transaction_date);
           return transactionDate >= startOfMonth && transactionDate <= endOfMonth;
         });
         break;
       default:
-        this.filteredTransactions = [...this.transactions];
+        this.dataSource.data = this.transactions;
+    }
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
@@ -130,16 +139,10 @@ export class FeeCollectionsComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.filteredTransactions = this.transactions.filter(transaction =>
-      transaction.description.toLowerCase().includes(filterValue) ||
-      transaction.student__uniqueId.toString().includes(filterValue) ||
-      transaction.transaction_date.toLowerCase().includes(filterValue) ||
-      transaction.credit.toString().includes(filterValue) ||
-      transaction.debit.toString().includes(filterValue)
-    );
+    this.dataSource.filter = filterValue;
 
-    if (this.filteredTransactions.length === 0) {
-      this.filteredTransactions = [...this.transactions]; // Reset to all transactions if no match is found
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 }

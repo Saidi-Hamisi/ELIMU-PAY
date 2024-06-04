@@ -9,7 +9,7 @@ export class StudentService {
   constructor(private _http: HttpClient) { }
 
 
-  serverUrl:string = 'http://127.0.0.1:8000//api/v1';
+  serverUrl:string = 'http://192.168.88.38:8000//api/v1';
 
 
   addStudent(data: any): Observable<any> {
@@ -18,6 +18,7 @@ export class StudentService {
     return this._http.post(url,data);
 
   }
+
 
   updateStudent(id: number, data: any): Observable<any> {
     console.log('saving student');
@@ -41,5 +42,11 @@ export class StudentService {
 
   getStudentDetails(uniqueId: string): Observable<any> {
     return this._http.get(`${this.serverUrl}}/students/${uniqueId}`);
+  }
+
+  //http://127.0.0.1:8000/api/v1/students/student/list_student_virtual_account?page=1
+  getStudentReport():Observable<any>{
+    const url = `${this.serverUrl}/students/student/list_student_virtual_account?page=1`;
+    return this._http.get(url)
   }
 }

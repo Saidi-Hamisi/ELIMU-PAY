@@ -3,12 +3,16 @@
   <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 ">
     <dl>
       <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Profit</dt>
-      <dd class="leading-none text-3xl font-bold text-gray-900 dark:text-white">Ksh. 5,405</dd>
+      <dd class="leading-none text-3xl font-bold text-gray-900 dark:text-white">
+        Ksh. {{ totalProfit }}</dd>
     </dl>
     <div>
-      <span class="bg-pink-100 text-pink-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-pink-900 dark:text-pink-300">
-        <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+      <span class="bg-pink-100 text-pink-800 text-xs font-medium inline-flex items-center px-2.5 py-1 
+      rounded-md dark:bg-pink-900 dark:text-pink-300">
+        <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
+        fill="none" viewBox="0 0 10 14">
+          <path stroke="currentColor" stroke-linecap="round" 
+          stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
         </svg>
         Profit rate 23.5%
       </span>
@@ -17,11 +21,11 @@
   <div class="grid grid-cols-2">
     <dl>
       <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Income</dt>
-      <dd class="leading-none text-xl font-bold text-pink-500 dark:text-pink-400">Ksh. 23,635</dd>
+      <dd class="leading-none text-xl font-bold text-pink-500 dark:text-pink-400">{{ totalIncome }}</dd>
     </dl>
     <dl>
       <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Expenses</dt>
-      <dd class="leading-none text-xl font-bold text-red-600 dark:text-red-500">-Ksh. 18,230</dd>
+      <dd class="leading-none text-xl font-bold text-red-600 dark:text-red-500">{{ totalExpense  }}</dd>
     </dl>
   </div>
 
