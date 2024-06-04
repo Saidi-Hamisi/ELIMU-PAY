@@ -1,22 +1,20 @@
 <div>
-    <mat-toolbar>
-        <span class="flex justify-middle text-lg font-times text-pink-800 pl-7 ml-4">System Users Management Page</span>
-        <span class="flex-grow"></span>
-        <div class="flex justify-middle">
+    <mat-toolbar class="flex justify-between items-center">
+        <span class="text-lg font-times text-pink-800 pl-7 ml-4">
+            System Users Management Page
+        </span>
+        <div class="flex justify-center items-center space-x-2 flex-grow">
             <button title="Add System User"
-                class="border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2"
+                class="border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm"
                 (click)="openAddEditSystemUserForm()">
                 <span class="bi bi-person-plus"></span>
                 ADD SYSTEM USER
             </button>
-        </div>
-
-        <div class="flex justify-middle">
-            <button title="Download System Users Report"
+            <button title="Download System User Report"
                 class="border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm"
                 (click)="generatePdf()">
                 <span class="bi bi-cloud-download"></span>
-                Download
+                DOWNLOAD
             </button>
         </div>
     </mat-toolbar>

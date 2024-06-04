@@ -20,11 +20,9 @@ export class AddRolesComponent implements OnInit {
     'School Accountant',
     'Chief Finance Officer',
     'School Bursar',
-    'Parent',
   ];
 
   Form: any;
-
 
   constructor(
     private _fb: FormBuilder,
@@ -32,8 +30,7 @@ export class AddRolesComponent implements OnInit {
     private _dialogueRef: MatDialogRef<AddRolesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _coreService: CoreService
-  )
-   {
+  ) {
     this.RolesForm = this._fb.group({
       name: 0,
       description: '',
@@ -41,22 +38,25 @@ export class AddRolesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("fgjhgfgjhg", this.data)
-    this.RolesForm.get('usergroup')?.patchValue(this.data.usergroup)
-    this.RolesForm.patchValue(this.data);        
+    console.log('fgjhgfgjhg', this.data);
+    this.RolesForm.get('usergroup')?.patchValue(this.data.usergroup);
+    this.RolesForm.patchValue(this.data);
   }
 
   onFormSubmit() {
+    // Extracting only the date part from the date_of_birth field
+    const dateOfBirth = this.RolesForm.get('date_of_birth')?.value;
+    const dateOfBirthDate = new Date(dateOfBirth);
+    dateOfBirthDate.setHours(0, 0, 0, 0); // Set time to midnight
+    this.RolesForm.get('date_of_birth')?.setValue(
+      dateOfBirthDate.toISOString().split('T')[0]
+    );
+    this.RolesForm.get('username')?.setValue(
+      this.RolesForm.get('email')?.value
+    );
 
-        // Extracting only the date part from the date_of_birth field
-        const dateOfBirth = this.RolesForm.get('date_of_birth')?.value;
-        const dateOfBirthDate = new Date(dateOfBirth);
-        dateOfBirthDate.setHours(0, 0, 0, 0); // Set time to midnight
-        this.RolesForm.get('date_of_birth')?.setValue(dateOfBirthDate.toISOString().split('T')[0]);
-        this.RolesForm.get('username')?.setValue(this.RolesForm.get('email')?.value)
-    
     if (this.Form.valid) {
-console.log(this.data)
+      console.log(this.data);
       if (this.data) {
         this._addRolesService
           .updateRoles(this.data.id, this.RolesForm.value)
@@ -70,20 +70,15 @@ console.log(this.data)
             },
           });
       } else {
-
-        this._addRolesService
-          .addRoles(this.RolesForm.value)
-          .subscribe({
-            next: (val: any) => {
-              this._coreService.openSnackBar(
-                'System user added successfully! ☺'
-              );
-              this._dialogueRef.close(true);
-            },
-            error: (err: any) => {
-              console.error(err);
-            },
-          });
+        this._addRolesService.addRoles(this.RolesForm.value).subscribe({
+          next: (val: any) => {
+            this._coreService.openSnackBar('System user added successfully! ☺');
+            this._dialogueRef.close(true);
+          },
+          error: (err: any) => {
+            console.error(err);
+          },
+        });
       }
     }
   }

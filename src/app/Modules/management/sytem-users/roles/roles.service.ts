@@ -12,7 +12,7 @@ export class RolesService {
 
   addRoles(data: any): Observable<any> {
     console.log('saving roles');
-    var res = this._http.post(`  ${environment.apiUrl}usergroup/`,data);
+    var res = this._http.post(`  ${environment.apiUrl}usergroup/create/`,data);
     console.log(res);
     return res;
   }
@@ -22,12 +22,12 @@ export class RolesService {
   }
 
   getRolesList(): Observable<any> {
-    return this._http.get(`${environment.apiUrl}usergroup/`);
+    return this._http.get(`${environment.apiUrl}usergroup/list/`);
   }
 
   deleteRoles(id: number): Observable<any> {
     return this._http.delete(
-      `${environment.apiUrl}usergroup/${id}`
+      `${environment.apiUrl}usergroup/delete/${id}`
     );
   }
 
