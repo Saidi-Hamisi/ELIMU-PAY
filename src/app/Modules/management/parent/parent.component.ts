@@ -19,8 +19,15 @@ export class ParentComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'first_name',
+    'middle_name',
     'last_name',
+    'parentIdno',
+    'phone_number',
     'email',
+    'gender',
+    'parentType',
+    'address',
+    'nationality',
     'action',
   ];
 
