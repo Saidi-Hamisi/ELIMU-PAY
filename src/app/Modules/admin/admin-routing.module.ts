@@ -39,7 +39,7 @@ const routes: Routes = [
     path: '',component: DashboardMainComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: HomeComponent,       },
       { path: 'settings', component: SettingsComponent },
       { path: 'reports', component: ReportComponent },
       { path: 'loans', component: LoansComponent },

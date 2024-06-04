@@ -1,66 +1,66 @@
 import { Component, OnInit } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-graph-two',
   templateUrl: './graph-two.component.html',
   styleUrls: ['./graph-two.component.css']
 })
-export class GraphTwoComponent {
+export class GraphTwoComponent implements OnInit {
 
- 
-  constructor() { }
+  totalIncome: number = 0;
+  totalExpense: number = 0;
+  chart: ApexCharts | undefined;
 
-  options = {
+  constructor(private http: HttpClient) { }
+
+  options: any = {
     series: [
       {
         name: "Income",
         color: "#31C48D",
-        data: ["1420", "1620", "1820", "1420", "1650", "2120"],
+        data: []
       },
       {
         name: "Expense",
-        data: ["788", "810", "866", "788", "1100", "1200"],
         color: "#F05252",
+        data: []
       }
     ],
     chart: {
       sparkline: {
-        enabled: false,
+        enabled: false
       },
       type: "bar",
       width: "100%",
       height: 230,
       toolbar: {
-        show: false,
+        show: false
       }
-    },
-    fillOptions: {
-      opacity: 1,
     },
     plotOptions: {
       bar: {
         horizontal: true,
         columnWidth: "100%",
-        borderRadiusApplication: "end",
         borderRadius: 6,
         dataLabels: {
-          position: "top",
-        },
-      },
+          position: "top"
+        }
+      }
     },
     legend: {
       show: true,
-      position: "bottom",
+      position: "bottom"
     },
     dataLabels: {
-      enabled: false,
+      enabled: false
     },
     tooltip: {
       shared: true,
       intersect: false,
-      tooltipFormatter: function (value: string) {
-        return "$" + value
+      y: {
+        formatter: (val: number) => "Ksh" + val
       }
     },
     xaxis: {
@@ -70,17 +70,15 @@ export class GraphTwoComponent {
           fontFamily: "Inter, sans-serif",
           cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
         },
-        labelFormatter: function(value: any) {
-          return "$" + value
-        }
+        formatter: (value: any) => "" + value
       },
-      categories: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      categories: [],
       axisTicks: {
-        show: false,
+        show: false
       },
       axisBorder: {
-        show: false,
-      },
+        show: false
+      }
     },
     yaxis: {
       labels: {
@@ -98,18 +96,53 @@ export class GraphTwoComponent {
         left: 2,
         right: 2,
         top: -20
-      },
+      }
     },
     fill: {
-      opacity: 1,
+      opacity: 1
     }
   };
 
   ngOnInit(): void {
-    if (("bar-chart") && typeof ApexCharts !== 'undefined') {
-      const chart = new ApexCharts(document.getElementById("bar-chart"), this.options);
-      chart.render();
-    }
+    this.fetchChartData();
+    this.generateLastSixMonths();
   }
 
+  fetchChartData(): void {
+    // Fetching income data
+    this.http.get<any>('http://192.168.89.139:8000/api/v1/payfee/calculate_total_fee/').subscribe(incomeData => {
+      // Dynamically set income data or set to 0 if not available
+      this.options.series[0].data = incomeData['Fee Collection'] ? Array.isArray(incomeData['Fee Collection']) ? incomeData['Fee Collection'] : [incomeData['Fee Collection']] : [0, 0, 0, 0, 0, 0];
+  
+      // Fetching expense data
+      this.http.get<any>('http://192.168.89.139:8000/api/v1/suppliers/suppliers/calculate_total_amount/').subscribe(expenseData => {
+        // Dynamically set expense data or set to 0 if not available
+        this.options.series[1].data = expenseData['supplier Collection'] ? Array.isArray(expenseData['supplier Collection']) ? expenseData['supplier Collection'] : [expenseData['supplier Collection']] : [0, 0, 0, 0, 0, 0];
+  
+        // Render the chart after fetching both income and expense data
+        this.renderChart();
+      });
+    });
+  }
+  
+  
+
+  generateLastSixMonths(): void {
+    const months: string[] = [];
+    const currentDate = new Date();
+    for (let i = 0; i < 6; i++) {
+      const month = currentDate.toLocaleString('default', { month: 'short' });
+      months.push(month);
+      currentDate.setMonth(currentDate.getMonth() - 1);
+    }
+    this.options.xaxis.categories = months.reverse();
+  }
+
+  renderChart(): void {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    this.chart = new ApexCharts(document.getElementById("bar-chart"), this.options);
+    this.chart.render();
+  }
 }
