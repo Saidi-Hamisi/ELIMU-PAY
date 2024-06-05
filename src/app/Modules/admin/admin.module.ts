@@ -91,7 +91,9 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     PayFeesComponent,
     FeeStatementComponent,
     StudentReportComponent,
-    
+
+    ExpensesComponent,
+
     AddExpensesComponent,
     SuppliesComponent,
     AddSuppliesComponent
