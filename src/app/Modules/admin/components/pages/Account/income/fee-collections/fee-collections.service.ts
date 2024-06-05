@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class FeeCollectionsService {
 
-  private totalFeeEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/calculate_total_fee/';
-  private transactionEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/api/v1/fee/list_transaction';
+  private totalFeeEndpoint = 'http://192.168.89.74:8000/api/v1/payfee/calculate_total_fee/';
+  private transactionEndpoint = 'http://192.168.89.74:8000/api/v1/payfee/api/v1/fee/list_transaction';
 
   constructor(private http: HttpClient) { }
 

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class FeecategoryService {
   constructor(private _http: HttpClient) {}
 
+
   addFeecategory(data: any): Observable<any> {
     const url = `${environment.apiUrl}feecategories/fee-categories/`;
     return this._http.post<any>(url, data);
@@ -27,5 +28,6 @@ export class FeecategoryService {
   updateFeecategory(id: number, data: any): Observable<any> {
     const url = `${environment.apiUrl}feecategories/fee-categories/${id}`;
     return this._http.put<any>(url, data);
+
   }
 }
