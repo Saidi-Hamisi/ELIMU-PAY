@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-graph-one',
@@ -8,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./graph-one.component.css']
 })
 export class GraphOneComponent implements OnInit {
+  private percentageOfEachCategoryUrl = `${environment.apiUrl}fee/api/v1/fee/percentage_of_each_category`;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -15,7 +18,7 @@ export class GraphOneComponent implements OnInit {
   }
 
   fetchChartData(): void {
-    this.http.get<any[]>('http://192.168.88.38:8000/api/v1/fee/api/v1/fee/percentage_of_each_category').subscribe(data => {
+    this.http.get<any[]>(this.percentageOfEachCategoryUrl).subscribe(data => {
       const categories = data.map(item => item.category);
       const percentages = data.map(item => parseFloat(item.percentage)); // Parse percentage values as floats
 
