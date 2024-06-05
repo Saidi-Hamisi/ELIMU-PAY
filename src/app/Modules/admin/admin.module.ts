@@ -45,10 +45,15 @@ import { PayFeeComponent } from './components/pages/Account/fee-payment/pay-fee/
 import { PayFeesComponent } from './components/pages/Account/fee-payment/pay-fees/pay-fees.component';
 import { FeeStatementComponent } from './components/pages/Account/fee-statement/fee-statement.component';
 
+import { FeesComponent } from './components/pages/Account/fee-statement/fees/fees.component';
+import { StudentReportComponent } from './components/pages/Report/student-report/student-report.component';
+
+
 import { ExpensesComponent } from './components/pages/Account/expenses/expenses.component';
 import { AddExpensesComponent } from './components/pages/Account/expenses/add-expenses/add-expenses.component';
 import { SuppliesComponent } from './components/pages/Account/supplies/supplies.component';
 import { AddSuppliesComponent } from './components/pages/Account/supplies/add-supplies/add-supplies.component';
+
 
 
 
@@ -85,11 +90,12 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     PayFeeComponent,
     PayFeesComponent,
     FeeStatementComponent,
-
+    StudentReportComponent,
     ExpensesComponent,
     AddExpensesComponent,
     SuppliesComponent,
     AddSuppliesComponent
+
 
     
     
@@ -135,6 +141,7 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     ViewtranscationComponent,
     ViewReportsComponent,
     ChartsOfAccountsComponent,
+    StudentReportComponent,
     
 
 

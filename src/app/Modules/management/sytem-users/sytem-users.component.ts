@@ -99,7 +99,7 @@ export class SytemUsersComponent implements OnInit {
     // 'phoneNumber',
     'email',
     // 'idNumber',
-    'gender',
+    // 'gender',
     // 'date_of_birth',
     'school_name',
     'address',
