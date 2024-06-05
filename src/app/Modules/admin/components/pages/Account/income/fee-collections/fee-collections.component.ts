@@ -6,6 +6,7 @@ import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { ViewtranscationComponent } from '../viewtranscation/viewtranscation.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 interface Transaction {
   id: number;
@@ -37,8 +38,8 @@ export class FeeCollectionsComponent implements OnInit {
   searchTerm: string = '';
   dropdownOpen: boolean = false;
 
-  totalFeeEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/calculate_total_fee/';
-  transactionsEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/api/v1/fee/list_transaction';
+  totalFeeEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
+  transactionsEndpoint = `${environment.apiUrl}payfee/api/v1/fee/list_transaction`;
 
   cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
 
@@ -138,11 +139,7 @@ export class FeeCollectionsComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.dataSource.filter = filterValue;
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
