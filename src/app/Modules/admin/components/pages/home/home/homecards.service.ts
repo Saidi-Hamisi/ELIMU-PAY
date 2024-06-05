@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomecardsService {
+  private totalIncomeUrl = `${environment.apiUrl}payfee/calculate_total_fee/`;
+  private totalExpensesUrl = `${environment.apiUrl}expenses/expenses/`;
+  private totalSupplierAmountUrl = `${environment.apiUrl}suppliers/suppliers/calculate_total_amount/`;
+  private totalProfitUrl = `${environment.apiUrl}payfee/calculate_profit/`;
 
-  private totalIncomeUrl = 'http://192.168.88.38:8000/api/v1/payfee/calculate_total_fee/';
-  private totalExpensesUrl = 'http://192.168.88.38:8000/api/v1/expenses/expenses/';
-  private totalSupplierAmountUrl = 'http://192.168.88.38:8000/api/v1/suppliers/suppliers/calculate_total_amount/'; // Add the URL for total supplier amount
-  private TotalProfit= 'http://192.168.88.38:8000/api/v1/payfee/calculate_profit/';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTotalIncome(): Observable<any> {
     return this.http.get<any>(this.totalIncomeUrl);
@@ -26,8 +27,6 @@ export class HomecardsService {
   }
 
   getTotalProfit(): Observable<any> {
-    return this.http.get<any>(this.TotalProfit);
+    return this.http.get<any>(this.totalProfitUrl);
   }
 }
-
-

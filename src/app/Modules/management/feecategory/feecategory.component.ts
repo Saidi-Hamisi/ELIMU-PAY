@@ -66,7 +66,7 @@ export class FeeCategoryComponent implements OnInit {
   deleteFeeCategory(id: number) {
     const confirmed = window.confirm('Are you sure you want to delete this fee category?');
     if (confirmed) {
-      this._feecategoryService.deleteFeeCategory(id).subscribe({
+      this._feecategoryService.deleteFeecategory(id).subscribe({
         next: (res) => {
           this._coreService.openSnackBar('Fee Category deleted!', 'done');
           this.getFeeCategoryList();

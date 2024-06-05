@@ -1,27 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeecategoryService {
+  constructor(private _http: HttpClient) {}
 
-  constructor(private _http: HttpClient) { }
 
-  addFeecategory(data: any): Observable<any>{
-    return this._http.post('http://192.168.89.74:8000/api/v1/feecategories/fee-categories/', data);
+  addFeecategory(data: any): Observable<any> {
+    const url = `${environment.apiUrl}feecategories/fee-categories/`;
+    return this._http.post<any>(url, data);
   }
 
   getFeecategoryList(): Observable<any> {
-    return this._http.get('http://192.168.89.74:8000/api/v1/feecategories/fee-categories/');
+    const url = `${environment.apiUrl}feecategories/fee-categories/`;
+    return this._http.get<any>(url);
   }
 
-  deleteFeeCategory(id: number): Observable<any> {
-    return this._http.delete(`http://192.168.89.74:8000/api/v1/feecategories/fee-categories/${id}`);
+  deleteFeecategory(id: number): Observable<any> {
+    const url = `${environment.apiUrl}feecategories/fee-categories/${id}`;
+    return this._http.delete<any>(url);
   }
 
   updateFeecategory(id: number, data: any): Observable<any> {
-    return this._http.put(`http://192.168.89.74:8000/api/v1/feecategories/fee-categories/${id}`, data);
+    const url = `${environment.apiUrl}feecategories/fee-categories/${id}`;
+    return this._http.put<any>(url, data);
+
   }
 }
