@@ -96,4 +96,5 @@ export class FeeCategoryComponent implements OnInit {
       }
     });
   }
+  
 }

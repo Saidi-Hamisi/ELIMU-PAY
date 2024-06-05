@@ -3,31 +3,28 @@
 </div>
 <form [formGroup]="RolesForm" (ngSubmit)="onFormSubmit()">
   <div mat-dialog-content>
-   
-
     <!-- ROLE/USERGROUP. -->
     <div class="flex flex-row gap-2 ">
       <mat-form-field class="w-full">
         <mat-label>Role/Usergroup</mat-label>
-        <mat-select formControlName="name" required="">
-          <mat-option *ngFor="let val of role; let i = index" [value]="i + 1">{{val}}
-          </mat-option>
+        <mat-select formControlName="name" required>
+          <mat-option *ngFor="let val of role; let i = index" [value]="val">{{ val }}</mat-option>
         </mat-select>
       </mat-form-field>
       <!-- DESCRIPTION -->
-      <mat-form-field class="mt-2.5 w-full ">
+      <mat-form-field class="mt-2.5 w-full">
         <mat-label>Description</mat-label>
-        <input matInput placeholder="eg.School Owner" formControlName="description" required="">
+        <input matInput placeholder="eg.School Owner" formControlName="description" required>
       </mat-form-field>
     </div>
 
-    <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+    <div mat-dialog-actions class="flex flex-row gap-2 p-4">
       <button mat-raised-button type="button" [mat-dialog-close]="false"
-        class="flex-1 border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
+        class="flex-1 border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
         Cancel
       </button>
       <button title="Submit Details" mat-raised-button type="submit"
-        class="flex-1 border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
+        class="flex-1 border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
         {{ data ? 'Update': 'Submit'}}
       </button>
     </div>

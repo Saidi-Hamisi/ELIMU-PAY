@@ -56,21 +56,26 @@
 
 
 
-<!--
- <form>
-<div class="receipt-container">
-  <h2 class="receipt-header">Transaction Receipt</h2>
-  <div class="receipt-details">
-    <p><strong>Transaction ID:</strong> {{ transaction?.id }}</p>
-    <p><strong>Type:</strong> {{ transaction?.type }}</p>
-    <p><strong>Payment Reference:</strong> {{ transaction?.paymentRef }}</p>
-    <p><strong>Value Date:</strong> {{ transaction?.valueDate }}</p>
-    <p><strong>Credit:</strong> {{ transaction?.credit }}</p>
-    <p><strong>Debit:</strong> {{ transaction?.debit }}</p>
-    <p><strong>Balance:</strong> {{ transaction?.balance }}</p>
+
+<form>
+  <div class="receipt-container">
+    <h2 class="receipt-header">Transaction Receipt</h2>
+    <div class="receipt-details">
+      <div class="transaction-info">
+        <p><strong>Transaction ID:</strong> {{ transaction?.id }}</p>
+        <p><strong>Type:</strong> {{ transaction?.type }}</p>
+        <p><strong>Payment Reference:</strong> {{ transaction?.paymentRef }}</p>
+        <p><strong>Value Date:</strong> {{ transaction?.valueDate }}</p>
+      </div>
+      <div class="transaction-amounts">
+        <p><strong>Credit:</strong> ${{ transaction?.credit }}</p>
+        <p><strong>Debit:</strong> ${{ transaction?.debit }}</p>
+        <p><strong>Balance:</strong> ${{ transaction?.balance }}</p>
+      </div>
+    </div>
+    <div class="button-container">
+      <button class="back-button" (click)="navigateBack()">Back</button>
+      <button class="print-button" (click)="printReceipt()">Print Receipt</button>
+    </div>
   </div>
-  <button class="back-button" (click)="navigateBack()">Back</button>
-  <button class="print-button" (click)="printReceipt()">Print Receipt</button>
-</div>
-</form> 
--->
+</form>
