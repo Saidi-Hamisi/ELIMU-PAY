@@ -1,15 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-interface Transaction {
-  id: number;
-  student__uniqueId: number;
-  description: string;
-  debit: number;
-  credit: number;
-  balance: number;
-  transaction_date: string;
-}
+import { Component, OnInit, Inject } from '@angular/core'; // Import Inject decorator
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-viewtranscation',
@@ -17,12 +7,37 @@ interface Transaction {
   styleUrls: ['./viewtranscation.component.css']
 })
 export class ViewtranscationComponent implements OnInit {
-  transactions: Transaction[];
-  displayedColumns: string[] = ['id', 'student__uniqueId', 'description', 'debit', 'credit', 'balance', 'transaction_date'];
+  transaction: any; // Define a property to hold the transaction data
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { transactions: Transaction[] }) {
-    this.transactions = data.transactions;
+  constructor(
+    public dialogRef: MatDialogRef<ViewtranscationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any // Use Inject decorator to inject MAT_DIALOG_DATA
+  ) {
+    this.transaction = data; // Initialize transaction data
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Implement OnInit interface
+  }
+
+  navigateBack(): void {
+    this.dialogRef.close(); // Close the dialog
+  }
+
+  printReceipt(): void {
+    // Hide buttons and unnecessary elements before printing
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+      button.style.display = 'none';
+    });
+  
+    // Print the receipt
+    window.print();
+  
+    // Restore the visibility of buttons after printing
+    buttons.forEach(button => {
+      button.style.display = 'block';
+    });
+  }
+  
 }
