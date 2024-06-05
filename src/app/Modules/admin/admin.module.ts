@@ -91,7 +91,13 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     PayFeesComponent,
     FeeStatementComponent,
     StudentReportComponent,
+<<<<<<< HEAD
     ExpensesComponent,
+=======
+
+    ExpensesComponent,
+
+>>>>>>> 8b853ce5a5bf68c2e8c58a76211e54200a791dcb
     AddExpensesComponent,
     SuppliesComponent,
     AddSuppliesComponent
