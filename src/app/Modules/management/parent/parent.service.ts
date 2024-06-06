@@ -11,7 +11,7 @@ export class ParentService {
   addParent(data: any): Observable<any> {
     console.log('saving user');
     var res = this._http.post(
-      'http://192.168.89.139:8000/api/v1/parents/parents/',
+      'http://192.168.89.15:8000/api/v1/parents/parents/',
       data
     );
     console.log(res);
@@ -19,16 +19,16 @@ export class ParentService {
   }
 
   updateParent(id: number, data: any): Observable<any> {
-    return this._http.put(`http://192.168.89.139:8000/api/v1/parents/parents/6/}`, data);
+    return this._http.put(`http://192.168.89.15:8000/api/v1/parents/parents/6/}`, data);
   }
 
   getParentList(): Observable<any> {
-    return this._http.get('http://192.168.89.139:8000/api/v1/parents/parents/');
+    return this._http.get('http://192.168.89.15:8000/api/v1/parents/parents/');
   }
 
   deleteParent(id: number): Observable<any> {
     return this._http.delete(
-      `http://192.168.89.139:8000/api/v1/parents/delete/${id}`
+      `http://192.168.89.15:8000/api/v1/parents/delete/${id}`
     );
   }
 }

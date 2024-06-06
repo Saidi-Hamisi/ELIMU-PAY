@@ -22,16 +22,19 @@ export class AddParentComponent implements OnInit {
   ) {
     this.parentForm = this._fb.group({
       first_name: ['', [Validators.required]],
+      middle_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
+      phone_number: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(10)]],
+      parentIdno: ['', [Validators.required, Validators.maxLength(8)]],
       email: ['', [Validators.required, Validators.email]],
-      phone_number: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      parentIdno: '', // Adding a generic field for address if required
-      
+      nationality: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
-    this.parentForm.patchValue(this.data);
+    if (this.data) {
+      this.parentForm.patchValue(this.data);
+    }
   }
 
   onFormSubmit() {
@@ -60,5 +63,9 @@ export class AddParentComponent implements OnInit {
         });
       }
     }
+  }
+
+  get phoneNumber() {
+    return this.parentForm.get('phone_number');
   }
 }

@@ -24,9 +24,6 @@ export class ParentComponent implements OnInit {
     'parentIdno',
     'phone_number',
     'email',
-    'gender',
-    'parentType',
-    'address',
     'nationality',
     'action',
   ];
