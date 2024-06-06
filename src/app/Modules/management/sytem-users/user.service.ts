@@ -7,11 +7,15 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
+  addRoles: any;
+  updateRoles(id: any, value: any) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private _http: HttpClient) {}
 
   addSystemUser(data: any): Observable<any> {
     console.log('saving user');
-    var res = this._http.post(`  ${environment.apiUrl}users/create/`,data);
+    var res = this._http.post(`  ${environment.apiUrl}users/create/`, data);
     console.log(res);
     return res;
   }
@@ -25,9 +29,6 @@ export class UserService {
   }
 
   deleteSystemUser(id: number): Observable<any> {
-    return this._http.delete(
-      `${environment.apiUrl}users/delete/${id}`
-    );
+    return this._http.delete(`${environment.apiUrl}users/delete/${id}`);
   }
-
 }

@@ -29,31 +29,24 @@
       </mat-radio-group>
     </div>
 
-    <!-- PHONE NUMBER -->
-    <!-- <div class="flex flex-row gap-2 ">
-      <mat-form-field class="mt-2.5 w-full ">
-        <mat-label>Phone Number</mat-label>
-        <input matInput placeholder="eg. 0785 433 XXX" formControlName="phoneNumber">
-      </mat-form-field>
-      <mat-form-field class="mt-2.5 w-full">
-        <mat-label>ID Number</mat-label>
-        <input matInput placeholder="eg. 324XXXXX" formControlName="idNumber">
-      </mat-form-field>
-    </div> -->
+   
 
-    <!-- ADDRESS -->
+
+
+    <!-- NATIONALITY -->
     <div class="flex flex-row gap-2 ">
       <mat-form-field class="mt-2.5 w-full">
-        <mat-label>County</mat-label>
-        <mat-select formControlName="address">
-          <mat-option *ngFor="let county of kenyanCounties" [value]="county">{{ county }}</mat-option>
+        <mat-label>Nationality</mat-label>
+        <mat-select formControlName="nationality" (selectionChange)="onNationalityChange()">
+          <mat-option *ngFor="let country of eastAfricanCountries" [value]="country.name">{{ country.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <!-- NATIONALITY -->
+
+      <!-- ADDRESS -->
       <mat-form-field class="mt-2.5 w-full">
-        <mat-label>Nationality</mat-label>
-        <mat-select formControlName="nationality">
-          <mat-option *ngFor="let country of eastAfricanCountries" [value]="country">{{ country }}</mat-option>
+        <mat-label>County/Region</mat-label>
+        <mat-select formControlName="address">
+          <mat-option *ngFor="let county of selectedCountryCounties" [value]="county">{{ county }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
