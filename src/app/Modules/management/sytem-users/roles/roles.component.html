@@ -68,14 +68,19 @@
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200"> ACTION </th>
                     <td class="flex" mat-cell *matCellDef="let row">
-                        <button class="flex-initial" title="Edit system user details" mat-icon-button color="primary"
+                        <button class="flex-initial" title="Edit roles" mat-icon-button color="primary"
                             (click)="openUpdateRolesForm(row)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button class="flex-initial" title="Delete this system user" mat-icon-button color="warn"
+                        <button class="flex-initial" title="Delete this role" mat-icon-button color="warn"
                             (click)="deleteRoles(row.id)">
                             <mat-icon>delete</mat-icon>
                         </button>
+                        <button class="flex-initial" title="View more" mat-icon-button color="warn"
+                            (click)="deleteRoles(row.id)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        
                     </td>
                 </ng-container>
 
