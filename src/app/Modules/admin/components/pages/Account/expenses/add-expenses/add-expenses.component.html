@@ -15,15 +15,15 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field class="mt-2.5 w-full">
+      <!-- <mat-form-field class="mt-2.5 w-full">
         <mat-label>Expense ID</mat-label>
         <input matInput placeholder="expenseID" formControlName="expenseID" required>
-        <div *ngIf="ExpensesForm.get('expensetypes')?.get('name')?.invalid && (ExpensesForm.get('expensetypes')?.get('name')?.dirty || ExpensesForm.get('expensetypes')?.get('name')?.touched)">
+        <div *ngIf="ExpensesForm.get('expenseID')?.invalid && (ExpensesForm.get('expenseID')?.dirty || ExpensesForm.get('expenseID')?.touched)">
           <small *ngIf="ExpensesForm.get('expenseID')?.errors?.['required']">Expense ID is required.</small>
           <small *ngIf="ExpensesForm.get('expenseID')?.errors?.['minlength']">Expense ID must be at least 1 character.</small>
           <small *ngIf="ExpensesForm.get('expenseID')?.errors?.['maxlength']">Expense ID cannot be more than 10 characters.</small>
         </div>
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
 
     <!-- Expense Types Information -->

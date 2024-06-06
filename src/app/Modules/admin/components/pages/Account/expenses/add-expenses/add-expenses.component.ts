@@ -24,7 +24,7 @@ export class AddExpensesComponent implements OnInit {
   ) {
     this.ExpensesForm = this._fb.group({
       amount: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-      expenseID: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
+      //expenseID: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
       expensetypes: this._fb.group({
         name: ['', Validators.required],
         description: ['']

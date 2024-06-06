@@ -88,7 +88,7 @@ export class ExpensesComponent implements OnInit {
   displayedColumns: string[] = [
     // 'id',
     'amount',
-    'expenseID',
+    // 'expenseID',
     'name',
     // 'usergroup',
     // 'phoneNumber',
@@ -145,7 +145,7 @@ export class ExpensesComponent implements OnInit {
       next: (res:any) => {
         console.log("data", res);
         
-        this.dataSource = new MatTableDataSource(res.results);
+        this.dataSource = new MatTableDataSource(res.expenses);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
