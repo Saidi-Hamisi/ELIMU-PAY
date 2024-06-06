@@ -11,6 +11,7 @@ import { SalariesComponent } from './components/pages/Account/expenses/salaries/
 // import { SuppliesComponent } from './components/pages/Account/expenses/supplies/supplies.component';
 import { UtilitiesComponent } from './components/pages/Account/expenses/utilities/utilities.component';
 import { DonationsComponent } from './components/pages/Account/income/donations/donations.component';
+import { GraphOneComponent } from './components/pages/home/home/graph-one/graph-one.component';
 import { FeeCollectionsComponent } from './components/pages/Account/income/fee-collections/fee-collections.component';
 import { GovernmentAllocationComponent } from './components/pages/Account/income/government-allocation/government-allocation.component';
 import { ChartsOfAccountsComponent } from './components/pages/Report/charts-of-accounts/charts-of-accounts.component';
@@ -51,6 +52,7 @@ const routes: Routes = [
       { path: 'utilities', component: UtilitiesComponent },
       { path: 'donations', component: DonationsComponent },
       { path: 'feeCollections', component: FeeCollectionsComponent },
+      { path: 'graphonecomponent', component: GraphOneComponent},
       { path: 'feecategory', component: FeeCategoryComponent },
       
       {

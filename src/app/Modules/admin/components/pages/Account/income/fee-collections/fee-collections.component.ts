@@ -1,16 +1,13 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { ViewtranscationComponent } from '../viewtranscation/viewtranscation.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { FormControl } from '@angular/forms';
-
 import { environment } from 'src/environments/environment';
-
 
 interface Transaction {
   id: number;
@@ -20,6 +17,7 @@ interface Transaction {
   credit: number;
   balance: number;
   transaction_date: string;
+  category: string; // Assuming the category field exists in the Transaction interface
 }
 
 interface Card {
@@ -43,16 +41,19 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
   dropdownOpen: boolean = false;
   input = new FormControl('');
 
-
   totalFeeEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
   transactionsEndpoint = `${environment.apiUrl}payfee/api/v1/fee/list_transaction`;
-
 
   cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private router: Router, private dialog: MatDialog, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private route: ActivatedRoute // Inject ActivatedRoute to access query parameters
+  ) { }
 
   ngOnInit() {
     this.fetchTotalFeeCollections();
@@ -61,6 +62,14 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     // Apply filter
     this.input.valueChanges.subscribe(value => {
       this.dataSource.filter = (value || '').trim().toLowerCase();
+    });
+
+    // Subscribe to query parameters and filter transactions based on category
+    this.route.queryParams.subscribe(params => {
+      const category = params['category'];
+      if (category) {
+        this.filterTransactionsByCategory(category);
+      }
     });
   }
 
@@ -91,6 +100,7 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
         console.log('Transactions data:', response);
         this.transactions = response.entity;
         this.dataSource.data = this.transactions;
+        this.applyQueryFilter(); // Apply filter after fetching transactions
       },
       error: (error) => {
         console.error('Error fetching transactions:', error);
@@ -98,11 +108,27 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  applyQueryFilter() {
+    this.route.queryParams.subscribe(params => {
+      const category = params['category'];
+      if (category) {
+        this.filterTransactionsByCategory(category);
+      }
+    });
+  }
+
+  filterTransactionsByCategory(category: string) {
+    this.dataSource.data = this.transactions.filter(transaction => transaction.category === category);
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   sortTransactions(criteria: string) {
     this.selectedDateFilterOption = criteria.replace('last', 'Last ');
-  
+
     const now = new Date();
-  
+
     switch (criteria) {
       case 'lastDay':
         this.dataSource.data = this.transactions.filter(transaction => {
@@ -136,12 +162,11 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
       default:
         this.dataSource.data = this.transactions;
     }
-  
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-  
 
   openDialog(transaction: Transaction) {
     const dialogRef = this.dialog.open(ViewtranscationComponent, {
