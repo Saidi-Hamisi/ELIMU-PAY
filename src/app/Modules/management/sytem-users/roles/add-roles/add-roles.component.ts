@@ -32,6 +32,12 @@ export class AddRolesComponent implements OnInit {
     this.RolesForm = this._fb.group({
       name: [0, Validators.required],
       description: ['', Validators.required],
+      addFee: [false],
+      viewFee: [false],
+      updateFee: [false],
+      viewStudents: [false],
+      addStudents: [false],
+      addRoles: [false],
     });
   }
 
