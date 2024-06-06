@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -6,7 +6,11 @@ import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { ViewtranscationComponent } from '../viewtranscation/viewtranscation.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { FormControl } from '@angular/forms';
+
 import { environment } from 'src/environments/environment';
+
 
 interface Transaction {
   id: number;
@@ -29,7 +33,7 @@ interface Card {
   templateUrl: './fee-collections.component.html',
   styleUrls: ['./fee-collections.component.css']
 })
-export class FeeCollectionsComponent implements OnInit {
+export class FeeCollectionsComponent implements OnInit, AfterViewInit {
   transactions: Transaction[] = [];
   dataSource = new MatTableDataSource<Transaction>([]);
   faBullhorn = faBullhorn;
@@ -37,9 +41,12 @@ export class FeeCollectionsComponent implements OnInit {
   selectedDateFilterOption: string = 'Last 30 days';
   searchTerm: string = '';
   dropdownOpen: boolean = false;
+  input = new FormControl('');
+
 
   totalFeeEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
   transactionsEndpoint = `${environment.apiUrl}payfee/api/v1/fee/list_transaction`;
+
 
   cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
 
@@ -50,6 +57,15 @@ export class FeeCollectionsComponent implements OnInit {
   ngOnInit() {
     this.fetchTotalFeeCollections();
     this.fetchTransactions();
+
+    // Apply filter
+    this.input.valueChanges.subscribe(value => {
+      this.dataSource.filter = (value || '').trim().toLowerCase();
+    });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   toggleDropdown() {
@@ -75,7 +91,6 @@ export class FeeCollectionsComponent implements OnInit {
         console.log('Transactions data:', response);
         this.transactions = response.entity;
         this.dataSource.data = this.transactions;
-        this.dataSource.paginator = this.paginator;
       },
       error: (error) => {
         console.error('Error fetching transactions:', error);
@@ -85,9 +100,9 @@ export class FeeCollectionsComponent implements OnInit {
 
   sortTransactions(criteria: string) {
     this.selectedDateFilterOption = criteria.replace('last', 'Last ');
-
+  
     const now = new Date();
-
+  
     switch (criteria) {
       case 'lastDay':
         this.dataSource.data = this.transactions.filter(transaction => {
@@ -121,11 +136,12 @@ export class FeeCollectionsComponent implements OnInit {
       default:
         this.dataSource.data = this.transactions;
     }
-
+  
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
+  
 
   openDialog(transaction: Transaction) {
     const dialogRef = this.dialog.open(ViewtranscationComponent, {

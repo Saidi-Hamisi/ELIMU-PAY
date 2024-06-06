@@ -74,7 +74,7 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     DonationsComponent,
     GovernmentAllocationComponent,
     ReportComponent,
-    ViewtranscationComponent,
+    
     GraphOneComponent,
     GraphTwoComponent,
     ChartsOfAccountsComponent,
@@ -138,7 +138,7 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     // DonationsComponent,
     GovernmentAllocationComponent,
     ReportComponent,
-    ViewtranscationComponent,
+  
     ViewReportsComponent,
     ChartsOfAccountsComponent,
     StudentReportComponent,
