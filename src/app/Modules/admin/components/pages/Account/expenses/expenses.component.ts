@@ -16,7 +16,7 @@ import { ExpensesService  } from './expenses.service';
   styleUrls: ['./expenses.component.css']
 })
 export class ExpensesComponent implements OnInit {
-  private _addExpensesService: any;
+
   // private _addExpensesService: any;
 
   generatePdf() {
@@ -88,13 +88,13 @@ export class ExpensesComponent implements OnInit {
   displayedColumns: string[] = [
     // 'id',
     'amount',
-    'expenseID',
-    'expensetypes',
+    // 'expenseID',
+    'name',
     // 'usergroup',
     // 'phoneNumber',
-    'name',
-    // 'idNumber',
     'description',
+    // 'idNumber',
+    // 'description',
     // 'date_of_birth',
     // 'school_name',
     // 'email_address',
@@ -109,7 +109,7 @@ export class ExpensesComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
-    private _addSuppliesService: ExpensesService,
+    private _service: ExpensesService,
     private _coreService: CoreService
   ) {}
 
@@ -140,20 +140,21 @@ export class ExpensesComponent implements OnInit {
     // }, 100);
   }
 
-  getSuppliesList() {
-    this._addExpensesService.getExpensesList().subscribe({
+  getExpensesList() {
+    this._service.getExpensesList().subscribe({
       next: (res:any) => {
         console.log("data", res);
         
-        this.dataSource = new MatTableDataSource(res.results);
+        this.dataSource = new MatTableDataSource(res.expenses);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       error: (err:any) => {
-        console.error('Error fetching expenses list:', err);
+        console.error('Error fetching user list:', err);
       },
     });
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -168,7 +169,7 @@ export class ExpensesComponent implements OnInit {
       'Are you sure you want to delete this expense?'
     );
     if (confirmed) {
-      this._addSuppliesService.deleteExpenses(id).subscribe({
+      this._service.deleteExpenses(id).subscribe({
         next: (res) => {
           this._coreService.openSnackBar('Expense deleted!', 'done');
           this.getExpensesList();
@@ -177,9 +178,9 @@ export class ExpensesComponent implements OnInit {
       });
     }
   }
-  getExpensesList() {
-    throw new Error('Method not implemented.');
-  }
+  // getExpensesList() {
+  //   throw new Error('Method not implemented.');
+  // }
 
   openUpdateExpensesForm(data: any) {
     const dialogRef = this._dialog.open(AddExpensesComponent, {
