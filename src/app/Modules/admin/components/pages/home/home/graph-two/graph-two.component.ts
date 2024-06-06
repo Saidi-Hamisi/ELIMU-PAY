@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-graph-two',
@@ -11,9 +12,12 @@ export class GraphTwoComponent implements OnInit {
 
   totalIncome: number = 0;
   totalExpense: number = 0;
+  totalProfit: number = 0;
   chart: ApexCharts | undefined;
 
-  constructor(private http: HttpClient) { }
+  private totalIncomeUrl = `${environment.apiUrl}payfee/calculate_total_fee/`;
+  private totalExpenseUrl = `${environment.apiUrl}suppliers/suppliers/calculate_total_amount/`;
+  private totalProfitUrl = `${environment.apiUrl}payfee/calculate_profit/`;
 
   options: any = {
     series: [
@@ -103,39 +107,60 @@ export class GraphTwoComponent implements OnInit {
     }
   };
 
+  constructor(private http: HttpClient) { }
+
   ngOnInit(): void {
     this.fetchChartData();
-    this.generateLastSixMonths();
+    this.generateNextSixMonths();
+    this.fetchProfit();
   }
 
   fetchChartData(): void {
     // Fetching income data
-    this.http.get<any>('http://192.168.89.139:8000/api/v1/payfee/calculate_total_fee/').subscribe(incomeData => {
-      // Dynamically set income data or set to 0 if not available
-      this.options.series[0].data = incomeData['Fee Collection'] ? Array.isArray(incomeData['Fee Collection']) ? incomeData['Fee Collection'] : [incomeData['Fee Collection']] : [0, 0, 0, 0, 0, 0];
-  
+    this.http.get<any>(this.totalIncomeUrl).subscribe(incomeData => {
+      const incomeSeries = incomeData['Fee Collection'] ? Array.isArray(incomeData['Fee Collection']) ? incomeData['Fee Collection'] : [incomeData['Fee Collection']] : [0, 0, 0, 0, 0, 0];
+      this.options.series[0].data = incomeSeries;
+      this.totalIncome = incomeSeries.reduce((sum, value) => sum + value, 0);
+
       // Fetching expense data
-      this.http.get<any>('http://192.168.89.139:8000/api/v1/suppliers/suppliers/calculate_total_amount/').subscribe(expenseData => {
-        // Dynamically set expense data or set to 0 if not available
-        this.options.series[1].data = expenseData['supplier Collection'] ? Array.isArray(expenseData['supplier Collection']) ? expenseData['supplier Collection'] : [expenseData['supplier Collection']] : [0, 0, 0, 0, 0, 0];
-  
+      this.http.get<any>(this.totalExpenseUrl).subscribe(expenseData => {
+        const expenseSeries = expenseData['supplier Collection'] ? Array.isArray(expenseData['supplier Collection']) ? expenseData['supplier Collection'] : [expenseData['supplier Collection']] : [0, 0, 0, 0, 0, 0];
+        this.options.series[1].data = expenseSeries;
+        this.totalExpense = expenseSeries.reduce((sum, value) => sum + value, 0);
+
         // Render the chart after fetching both income and expense data
         this.renderChart();
       });
     });
   }
-  
-  
 
-  generateLastSixMonths(): void {
+  fetchProfit(): void {
+    this.http.get<any>(this.totalProfitUrl).subscribe(
+      (data: any) => {
+        console.log('Total Profit:', data);
+        if (data && data['profit'] !== undefined) {
+          this.totalProfit = data['profit'];
+        } else {
+          console.error('Invalid API response format for Total Profit.');
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching total profit:', error);
+      }
+    );
+  }
+
+  generateNextSixMonths(): void {
     const months: string[] = [];
     const currentDate = new Date();
+
     for (let i = 0; i < 6; i++) {
       const month = currentDate.toLocaleString('default', { month: 'short' });
       months.push(month);
-      currentDate.setMonth(currentDate.getMonth() - 1);
+      currentDate.setMonth(currentDate.getMonth() + 1);
     }
-    this.options.xaxis.categories = months.reverse();
+
+    this.options.xaxis.categories = months;
   }
 
   renderChart(): void {

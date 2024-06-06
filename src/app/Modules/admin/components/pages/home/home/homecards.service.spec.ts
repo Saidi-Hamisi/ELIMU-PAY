@@ -58,4 +58,16 @@ describe('HomecardsService', () => {
     expect(supplierReq.request.method).toBe('GET');
     supplierReq.flush(dummySupplierData);
   });
+
+  it('should fetch total profit', () => {
+    const dummyProfitData = { profit: 15000000 };
+
+    service.getTotalProfit().subscribe(data => {
+      expect(data.profit).toBe(15000000);
+    });
+
+    const profitReq = httpMock.expectOne(service['TotalProfit']);
+    expect(profitReq.request.method).toBe('GET');
+    profitReq.flush(dummyProfitData);
+  });
 });

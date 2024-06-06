@@ -1,27 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-graph-one',
   templateUrl: './graph-one.component.html',
   styleUrls: ['./graph-one.component.css']
 })
-export class GraphOneComponent {
+export class GraphOneComponent implements OnInit {
+  private percentageOfEachCategoryUrl = `${environment.apiUrl}fee/api/v1/fee/percentage_of_each_category`;
 
-  
-  getChartOptions(): any { // Return type specified as 'any'
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.fetchChartData();
+  }
+
+  fetchChartData(): void {
+    this.http.get<any[]>(this.percentageOfEachCategoryUrl).subscribe(data => {
+      const categories = data.map(item => item.category);
+      const percentages = data.map(item => parseFloat(item.percentage)); // Parse percentage values as floats
+
+      // Dynamically update chart options
+      const chartOptions = this.getChartOptions(categories, percentages);
+
+      // Render the chart
+      if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("pie-chart"), chartOptions);
+        chart.render();
+      }
+    });
+  }
+
+  getChartOptions(categories: string[], percentages: number[]): any {
     return {
-      series: [52.8, 26.8, 20.4],
-      colors: ["#1C64F2", "#16BDCA", "#9061F9"],
+      series: percentages,
       chart: {
         height: 260,
         width: "100%",
         type: "pie",
       },
-      stroke: {
-        colors: ["white"],
-        lineCap: "",
-      },
+      labels: categories,
       plotOptions: {
         pie: {
           labels: {
@@ -33,7 +53,6 @@ export class GraphOneComponent {
           }
         },
       },
-      labels: ["Fee Collection", "Donations", "Government Allocations"],
       dataLabels: {
         enabled: true,
         style: {
@@ -65,12 +84,5 @@ export class GraphOneComponent {
         },
       },
     };
-  }
-
-  ngOnInit(): void {
-    if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-      const chart = new ApexCharts(document.getElementById("pie-chart"), this.getChartOptions());
-      chart.render();
-    }
   }
 }

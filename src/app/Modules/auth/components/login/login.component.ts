@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'; // Import SweetAlert
 import { AuthService } from 'src/@Core/Authservice/auth.service';
 import { TokenStorageService } from 'src/@Core/Authservice/token-storage.service';
 import { NotificationService } from 'src/@Core/helpers/NotificationService/notification.service';
@@ -43,12 +44,24 @@ export class LoginComponent implements OnInit {
         next: (result: any) => {
           if (result.status === 200) {
             this.tokenStorageService.saveUser(result.entity);
-            const isFirstLogin = result.entity.isFirstLogin;
-            if (isFirstLogin) {
-              this.router.navigate(['passwordreset']);
-            } else {
-              this.router.navigate(['otp']);
-            }
+            // Prompt user to change password
+            Swal.fire({
+              title: 'Login Successful!',
+              text: 'Would you like to change your password?',
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, Change Password',
+              cancelButtonText: 'No, Continue to OTP page',
+              reverseButtons: true // Reverse the button order for better UX
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // If user agrees, navigate to reset password page
+                this.router.navigate(['passwordreset']);
+              } else {
+                // If user cancels, navigate to OTP page
+                this.router.navigate(['otp']);
+              }
+            });
             this.loading = false;
             this.notificationService.alertSuccess(result.message);
           } else {
@@ -66,8 +79,6 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-
-
 
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
