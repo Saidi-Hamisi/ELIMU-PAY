@@ -31,7 +31,9 @@ import { FeePaymentComponent } from './components/pages/Account/fee-payment/fee-
 import { FeeStatementComponent } from './components/pages/Account/fee-statement/fee-statement.component';
 import { ParentComponent } from '../management/parent/parent.component';
 import { DeleteConfirmationComponent } from '../management/student/delete-confirmation/delete-confirmation.component';
+import { StudentReportComponent } from './components/pages/Report/student-report/student-report.component';
 import { SuppliesComponent } from './components/pages/Account/supplies/supplies.component';
+
 
 
 const routes: Routes = [
@@ -42,6 +44,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent,       },
       { path: 'settings', component: SettingsComponent },
       { path: 'reports', component: ReportComponent },
+      { path: 'studentReport', component: StudentReportComponent },
       { path: 'loans', component: LoansComponent },
       { path: 'salaries', component: SalariesComponent },
       { path: 'supplies', component: SuppliesComponent },

@@ -21,7 +21,9 @@
         <h3 class="text-lg font-serif font-semibold text-pink-950 mb-1">Total Expenses</h3>
         <i class="bi bi-receipt text-pink-950 text-xl"></i>
       </div>
+      <a href="/expenses">
       <p class="text-pink-950 mb-3 text-2xl font-bold p-1 hover:scale-110 self-end">{{ totalExpenses }}</p>
+    </a>
     </div>
   
     <!-- Net Incomes Card -->
@@ -30,8 +32,9 @@
         <h3 class="text-lg font-serif font-semibold text-pink-950 mb-1">Net Income</h3>
         <i class="bi bi-calculator text-pink-950 text-xl"></i>
       </div>
-      <p class="text-pink-950 mb-3 text-2xl font-bold p-1 hover:scale-110 self-end">Ksh. 20,000,000</p>
+      <p class="text-pink-950 mb-3 text-2xl font-bold p-1 hover:scale-110 self-end">Ksh. {{ totalProfit }}</p>
     </div>
+    
   
     <!-- Supplies Card -->
     <div class="flex-grow w-full sm:w-48 max-w-xs mx-2 sm:mx-4 mb-4 bg-violet-100 rounded-lg shadow-lg overflow-hidden relative flex flex-col justify-between border-2">
@@ -39,7 +42,9 @@
         <h3 class="text-lg font-serif font-semibold text-pink-950 mb-1">Suppliers</h3>
         <i class="bi bi-people text-pink-950 text-xl"></i>
       </div>
+      <a href="/supplies">
       <p class="text-pink-950 mb-3 text-2xl font-bold p-1 hover:scale-110 self-end">Ksh. {{ totalSupplierAmount }}</p>
+      </a>
     </div>
   </div>
   

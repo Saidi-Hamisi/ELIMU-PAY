@@ -4,8 +4,9 @@
   </button>
   <span>Fee Category</span>
   <span class="flex-grow"></span>
-  <button mat-raised-button class="border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1 text-sm transition-transform duration-300 transform focus:scale-110" (click)="openAddEditForm()">
-      ADD 
+  <button mat-raised-button class="border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2" (click)="openAddEditForm()">
+    <span class="bi bi-person-plus"></span>
+      ADD FEE CATEGORY
     </button>
 </mat-toolbar>
 
@@ -60,21 +61,21 @@
       <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
     </ng-container>
 
-    <!-- Apply Column -->
+    <!-- Apply Column
     <ng-container matColumnDef="apply">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Apply </th>
       <td mat-cell *matCellDef="let row"> {{row.apply}} </td>
-    </ng-container>
+    </ng-container> -->
 
     <!-- Action Column -->
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Action </th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button color="primary">
-          <mat-icon>Edit</mat-icon>
+          <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="deleteFeeCategory(row.id)">
-          <mat-icon>Delete</mat-icon>
+          <mat-icon>delete</mat-icon>
         </button> 
       </td>
     </ng-container>
