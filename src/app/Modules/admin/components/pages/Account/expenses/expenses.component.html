@@ -65,10 +65,10 @@
                 </ng-container>
 
                 <!-- Middle Name -->
-                <ng-container matColumnDef="expenseID">
+                <!-- <ng-container matColumnDef="expenseID">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200"> EXPENSEID </th>
                     <td mat-cell *matCellDef="let row"> {{row.expenseID}}</td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Last Name -->
                 <ng-container matColumnDef="expensetypes">
@@ -96,14 +96,14 @@
 
                 <!-- Email -->
                 <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">AMOUNT</th>
-                    <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">Name</th>
+                    <td mat-cell *matCellDef="let row"> {{row.expensetypes.name}}</td>
                 </ng-container>
 
                 <!-- Gender -->
                 <ng-container matColumnDef="description">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200"> DESCRIPTION </th>
-                    <td mat-cell *matCellDef="let row"> {{row.description}}</td>
+                    <td mat-cell *matCellDef="let row"> {{row.expensetypes.description}}</td>
                 </ng-container>
 
                 <!-- dob -->
@@ -129,6 +129,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200"> ID/PASSPORT </th>
                     <td mat-cell *matCellDef="let row"> {{row.id_passport}}</td>
                 </ng-container> -->
+                
 
                 <!-- action -->
                 <ng-container matColumnDef="action">
