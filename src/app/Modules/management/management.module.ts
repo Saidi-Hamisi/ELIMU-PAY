@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { ManagementRoutingModule } from './management-routing.module';
 import { StaffComponent } from './staff/staff.component';
 import { StudentComponent } from './student/student.component';
@@ -15,11 +15,13 @@ import { RolesManagementComponent } from './roles-management/roles-management.co
 import { RolesMaintenanceComponent } from './roles-management/roles-maintenance/roles-maintenance.component';
 import { RolesLookupsComponent } from './roles-management/roles-lookups/roles-lookups.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
+import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MatAutocompleteModule} from '@angular/material/autocomplete';
+
 import { MatSortModule } from '@angular/material/sort';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { RolesComponent } from './sytem-users/roles/roles.component';
@@ -33,6 +35,9 @@ import { AddParentComponent } from './parent/add-parent/add-parent.component';
 import { DeleteConfirmationComponent } from './student/delete-confirmation/delete-confirmation.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 
 
@@ -62,12 +67,17 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    OverlayModule,
     ManagementRoutingModule,
     MatToolbarModule,
     MatIconModule,
+    AsyncPipe,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
     MatRadioModule,
     MatSelectModule,
     MatTableModule,
@@ -76,14 +86,16 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatProgressSpinnerModule
-  
-
-
-
-
-
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
  
-  ]
+  ],
+
+  providers: [
+    {
+     provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
+     useValue: MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
+    },
+   ],
 })
 export class ManagementModule {}

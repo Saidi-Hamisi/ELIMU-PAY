@@ -11,19 +11,14 @@
       <div class="d-flex">
         <div>
           <label for="selfie">Student Photo</label>
-          <input type="file" 
-          id="selfie"  
-          name="urls"
-          formControlName ="urls"
-          multiple 
-          accept="image/*"
-          (change)="onFileChange($event)">
+          <input type="file" id="selfie" name="urls" formControlName="urls" multiple accept="image/*"
+            (change)="onFileChange($event)">
         </div>
         <div class="border" *ngIf="imageUrl">
-          <img  class="profile-prev" [src]="imageUrl" alt="1222">
+          <img class="profile-prev" [src]="imageUrl" alt="1222">
         </div>
       </div>
- 
+
       <div mat-dialog-content></div>
 
       <!-- NAMES -->
@@ -52,12 +47,8 @@
 
         <mat-form-field class="mt-2.5 w-full">
           <mat-label>Gender</mat-label>
-
-
           <mat-select formControlName="studentGender" required="">
-
-            <mat-option *ngFor="let val of studentGender" [value]="val">{{val}}
-            </mat-option>
+            <mat-option *ngFor="let val of studentGender" [value]="val">{{val}}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -65,13 +56,12 @@
         <mat-form-field class="mt-2.5 w-full">
           <mat-label>Grade</mat-label>
           <mat-select formControlName="grade" required="">
-            <mat-option *ngFor="let val of grade ; let i = index" [value]="i +1">{{val}}
-            </mat-option>
+            <mat-option *ngFor="let val of grade ; let i = index" [value]="i +1">{{val}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-      <div class="flex flex-row gap-2 ">
+       <div class="flex flex-row gap-2 ">
 
 
         <mat-form-field class="mt-2.5 w-full">
@@ -117,31 +107,51 @@
         </mat-form-field>
 
         <mat-form-field class="mt-2.5 w-full">
-          <mat-label>Health Status</mat-label>
-          <input matInput placeholder="eg. Allegies" formControlName="healthStatus">
+          <mat-label>Parent Id</mat-label>
+          
+          <!-- Input field bound to the FormControl -->
+          <input
+            type="text"
+            placeholder="Pick one"
+            aria-label="Number"
+            matInput
+            [formControl]="myControl"
+            (focus)="matSelect.open()">
+          
+          <!-- Dropdown showing filtered options -->
+          <mat-select
+            matSuffix
+            autoActiveFirstOption
+            (selectionChange)="onSelectionChange($event.value)"
+            #matSelect1>
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-
+        
+        
       </div>
 
-      <div>
-        <div class="flex flex-row gap-2 ">
-          <mat-form-field class="mt-2.5 w-full ">
-            <mat-label>Parent ID</mat-label>
-            <input matInput placeholder="eg. Id No" formControlName="parentIdno" required="">
-          </mat-form-field>
 
-          <!-- School ID -->
-           <mat-form-field class="mt-2.5 w-full">
+      <div class="flex flex-row gap-2 ">
+        <mat-form-field class="mt-2.5 w-full ">
+          <mat-label>Medical Notes</mat-label>
+          <input matInput placeholder="eg. Allergies" formControlName="healthStatus">
+        </mat-form-field>
+
+        <!-- School ID -->
+          <mat-form-field class="mt-2.5 w-full">
             <mat-label>School ID</mat-label>
             <input matInput placeholder="eg. School ID" formControlName="schoolID">
           </mat-form-field> 
 
-          <!-- School Code -->
-          <mat-form-field class="mt-2.5 w-full">
+        <!-- School Code -->
+        <mat-form-field class="mt-2.5 w-full">
             <mat-label>School Code</mat-label>
             <input matInput placeholder="eg. School Code" formControlName="schoolCode">
           </mat-form-field>
-          <!-- <div class="flex flex-row gap-2 ">
+        <!-- <div class="flex flex-row gap-2 ">
         <mat-form-field class="mt-2.5 w-full ">
           <mat-label>Parent Last Name</mat-label>
           <input matInput placeholder="eg. Simon" formControlName="firstName" required="">
@@ -152,22 +162,26 @@
           </mat-form-field> 
 
         </div>
-      </div>-->
-        </div>
+        </div>-->
+      </div>
 
 
 
 
-        <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
-          <button mat-raised-button type="button" [mat-dialog-close]="false"
-            class="flex-1 text-white bg-pink-950  hover:bg-gray-400 hover:border-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105"
-            color="warn">
-            Cancel
-          </button>
-          <button mat-raised-button type="submit"
-            class="flex-1 text-white bg-blue-500  hover:bg-gray-400 hover:border-blue-500 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105 "
-            color="primary">
-            {{data ? 'Update' : 'Save'}}
-          </button>
+      <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
+        <button mat-raised-button type="button" [mat-dialog-close]="false"
+          class="flex-1 text-white bg-pink-950  hover:bg-gray-400 hover:border-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105"
+          color="warn">
+          Cancel
+        </button>
+        <button mat-raised-button type="submit"
+          class="flex-1 text-white bg-blue-500  hover:bg-gray-400 hover:border-blue-500 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105 "
+          color="primary">
+          {{data ? 'Update' : 'Save'}}
+        </button>
 
-        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

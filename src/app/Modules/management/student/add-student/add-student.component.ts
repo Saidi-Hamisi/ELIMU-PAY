@@ -1,15 +1,20 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
+import {AsyncPipe} from '@angular/common';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CoreService } from 'src/app/core/core.service';
 import { StudentService } from '../student.service';
 import * as moment from 'moment';
+import {Observable} from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { MatSelect } from '@angular/material/select';
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
   styleUrls: ['./add-student.component.css']
+  
 })
 export class AddStudentComponent implements OnInit {
 
@@ -21,6 +26,13 @@ export class AddStudentComponent implements OnInit {
   grade: string[] = ['1', '2', '3', '4', '5', '6', '7'];
   imageUrl!: string
   selectedImg!:[File]
+  myControl = new FormControl('');
+  options: string[] = [];
+  parentId:string = ''
+
+  filteredOptions!: Observable<string[]>;
+  @ViewChild('matSelect1') matSelect!: MatSelect;
+
   constructor(
     private _fb: FormBuilder,
     private _studentService: StudentService,
@@ -52,7 +64,40 @@ export class AddStudentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     // Set up the filteredOptions observable to react to input changes
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      // Start with an empty string to show all options initially
+      startWith(''),
+      // Apply the filtering logic
+      map(value => this._filter(value || ''))
+    );
     this.studentForm.patchValue(this.data);
+    this.getParents()
+  }
+
+  ngAfterViewInit() {
+    // Open the select dropdown when there is input
+    // Open the dropdown when there is input, close when cleared
+    this.myControl.valueChanges.subscribe(value => {
+      if (value && value.length > 0) {
+        this.matSelect.open();
+      } else {
+        this.matSelect.close();
+      }
+    });
+  }
+  onSelectionChange(option: string) {
+    // Set the selected option as the value of the input field
+    this.myControl.setValue(option);
+    this.matSelect.close(); // Close the dropdown after selection
+    this.studentForm.get('parentIdno')?.setValue(option)
+    console.log(this.studentForm.value.parentIdno);
+    
+  }
+  // Filtering function to filter the options based on the input value
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   onFileChange(event:any){
@@ -68,7 +113,7 @@ export class AddStudentComponent implements OnInit {
           this.imageUrl = e.target.result
         }
       })
-
+      
     }
   }
 
@@ -140,5 +185,24 @@ export class AddStudentComponent implements OnInit {
 
   private formatDate(date: Date): string {
     return moment(date).format('YYYY-MM-DD');
+  }
+  getParents(){
+    this._studentService.getParents().subscribe(
+      ((res) => {
+        const parentId: any[] | Observable<string[]> = []
+        const i = res.entity.forEach((e: any) =>{
+          this.parentId = e.parentIdno
+          parentId.push(e.parentIdno)
+        }) 
+        
+        console.log('filtred 243',parentId);
+        this.options = parentId
+      }),
+      ((err) => {
+        console.log(err);
+        
+      }),
+      () => {}
+    )
   }
 }

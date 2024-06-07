@@ -9,7 +9,7 @@ export class StudentService {
   constructor(private _http: HttpClient) { }
 
 
-  serverUrl:string = 'http://127.0.0.1:8000//api/v1';
+  serverUrl:string = 'http://127.0.0.1:8000/api/v1';
 
 
   addStudent(data: any): Observable<any> {
@@ -49,4 +49,11 @@ export class StudentService {
     const url = `${this.serverUrl}/students/student/list_student_virtual_account?page=1`;
     return this._http.get(url)
   }
+
+  //http://127.0.0.1:8000/api/v1/parents/
+  getParents():Observable<any>{
+    const url = `${this.serverUrl}/parents/`
+    return this._http.get(url)
+  }
+
 }
