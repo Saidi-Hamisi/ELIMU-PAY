@@ -17,15 +17,7 @@ interface Country {
 export class AddSystemUserComponent implements OnInit {
   SystemUserForm!: FormGroup;
 
-  role: string[] = [
-    'School Administrator',
-    'School Director',
-    'School Manager',
-    'Principal',
-    'School Accountant',
-    'Chief Finance Officer',
-    'School Bursar',
-  ];
+  roles: string[] = [];
   schools: string[] = ['Bahati Girls High school', 'Cherengani High School'];
 
   eastAfricanCountries: Country[] = [
@@ -178,7 +170,6 @@ export class AddSystemUserComponent implements OnInit {
         'Rusizi'
       ]
     }
-    
     // Add other countries and their counties as needed
   ];
 
@@ -207,10 +198,17 @@ export class AddSystemUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('fgjhgfgjhg', this.data);
-    this.SystemUserForm.get('usergroup')?.patchValue(this.data.usergroup);
-    this.SystemUserForm.get('schools')?.setValue(this.data.school_name);
-    this.SystemUserForm.patchValue(this.data);
+    this._addSystemuserService.getUserGroupList().subscribe({
+      next: (roles) => {
+        this.roles = roles;
+        this.SystemUserForm.get('usergroup')?.patchValue(this.data.usergroup);
+        this.SystemUserForm.get('schools')?.setValue(this.data.school_name);
+        this.SystemUserForm.patchValue(this.data);
+      },
+      error: (err) => {
+        console.error('Error fetching roles:', err);
+      },
+    });
   }
 
   onFormSubmit() {
@@ -242,9 +240,7 @@ export class AddSystemUserComponent implements OnInit {
           .addSystemUser(this.SystemUserForm.value)
           .subscribe({
             next: (val: any) => {
-              this._coreService.openSnackBar(
-                'System user added successfully! ☺'
-              );
+              this._coreService.openSnackBar('System user added successfully! ☺');
               this._dialogueRef.close(true);
             },
             error: (err: any) => {
@@ -267,3 +263,4 @@ export class AddSystemUserComponent implements OnInit {
     }
   }
 }
+
