@@ -4,10 +4,18 @@
   </button>
   <span>Fee Category</span>
   <span class="flex-grow"></span>
-  <button mat-raised-button class="border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2" (click)="openAddEditForm()">
-    <span class="bi bi-person-plus"></span>
-      ADD FEE CATEGORY
-    </button>
+  <button title="Add Fee Category"
+                class="border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm"
+                (click)=" openAddEditForm()">
+                <span class="bi bi-person-plus"></span>
+                ADD Fee Category
+            </button>
+    <button title="Download Fee Category"
+                class="border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm"
+                (click)="generatePdf()">
+                <span class="bi bi-cloud-download"></span>
+                DOWNLOAD
+            </button>
 </mat-toolbar>
 
 <div class="main-body">
