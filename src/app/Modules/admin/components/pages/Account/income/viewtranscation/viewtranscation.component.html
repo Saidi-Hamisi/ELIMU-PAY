@@ -59,18 +59,18 @@
 
 <form>
   <div class="receipt-container">
-    <h2 class="receipt-header">Transaction Receipt</h2>
+    <h2 class="receipt-header">Transactions Receipt</h2>
     <div class="receipt-details">
       <div class="transaction-info">
-        <p><strong>Transaction ID:</strong> {{ transaction?.id }}</p>
-        <p><strong>Type:</strong> {{ transaction?.type }}</p>
-        <p><strong>Payment Reference:</strong> {{ transaction?.paymentRef }}</p>
-        <p><strong>Value Date:</strong> {{ transaction?.valueDate }}</p>
+        <p><strong>Transaction ID:</strong> {{transaction.id}}</p>
+        <!-- <p><strong>Type:</strong> {{ transaction?.type }}</p> -->
+        <p><strong>Payment Reference:</strong> {{transaction.description}}</p>
+        <p><strong>Date Paid:</strong> {{transaction.transaction_date}}</p>
       </div>
       <div class="transaction-amounts">
-        <p><strong>Credit:</strong> ${{ transaction?.credit }}</p>
-        <p><strong>Debit:</strong> ${{ transaction?.debit }}</p>
-        <p><strong>Balance:</strong> ${{ transaction?.balance }}</p>
+        <p><strong>Credits:</strong> Ksh {{transaction.credit}}</p>
+        <p><strong>Debit:</strong> Ksh{{transaction.debit}}</p>
+        <p><strong>Balance:</strong> Ksh{{ transaction.balance }}</p>
       </div>
     </div>
     <div class="button-container">
