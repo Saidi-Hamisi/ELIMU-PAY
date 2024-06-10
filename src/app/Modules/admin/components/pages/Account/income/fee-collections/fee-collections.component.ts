@@ -70,6 +70,8 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
       if (category) {
         this.filterTransactionsByCategory(category);
       }
+      console.log("ewrtrw", category);
+      
     });
   }
 
