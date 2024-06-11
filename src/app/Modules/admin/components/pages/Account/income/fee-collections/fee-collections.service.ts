@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeeCollectionsService {
 
-  private totalFeeEndpoint = 'http://192.168.89.74:8000/api/v1/payfee/calculate_total_fee/';
-  private transactionEndpoint = 'http://192.168.89.74:8000/api/v1/payfee/api/v1/fee/list_transaction';
+  private  totalFeeEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
+  private transactionsEndpoint = `${environment.apiUrl}payfee/api/v1/fee/list_transaction`;
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +18,6 @@ export class FeeCollectionsService {
   }
 
   getTransactions(): Observable<any[]> {
-    return this.http.get<any[]>(this.transactionEndpoint);
+    return this.http.get<any[]>(this.transactionsEndpoint);
   }
 }
