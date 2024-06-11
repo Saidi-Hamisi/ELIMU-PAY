@@ -50,14 +50,14 @@ export class AddStudentComponent implements OnInit {
       lastName: ['', [Validators.required]],
       studentGender: ['', [Validators.required]], // Assuming this corresponds to 'gender'
       dob: ['', [Validators.required]], // Assuming this corresponds to 'dob'
-      dateOfAdmission: ['', [Validators.required]], // Assuming this corresponds to 'doa'
-      healthStatus: '',
+      //dateOfAdmission: ['', [Validators.required]], // Assuming this corresponds to 'doa'
+      //healthStatus: '',
       grade: ['', [Validators.required]], // Assuming this corresponds to 'grade'
       stream: '',
       schoolStatus: '', // Assuming this corresponds to 'schoolStatus'
-      dormitory: '', // Assuming this corresponds to 'dormitory'
+      //dormitory: '', // Assuming this corresponds to 'dormitory'
       parentIdno: '', // Assuming this corresponds to 'parentIdno'
-      schoolID: '', // Assuming this corresponds to 'schoolID'
+     // schoolID: '', // Assuming this corresponds to 'schoolID'
       urls: ['']
       
     });

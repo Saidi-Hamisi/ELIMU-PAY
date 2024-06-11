@@ -23,7 +23,7 @@ export class StudentComponent implements OnInit {
     'admNumber',
     'grade',
     //'stream',
-    'dateOfAdmission',
+    //'dateOfAdmission',
     //'dob',
     'action'
   ];
