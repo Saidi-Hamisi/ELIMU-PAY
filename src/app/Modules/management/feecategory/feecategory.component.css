@@ -10,4 +10,22 @@
       width: 100%;
     }
   }
+  .table-container {
+    overflow: auto;
+    height: calc(100vh - 300px); /* Adjust the height as needed */
+  }
+  
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Optional: smooth scrolling on iOS */
+  }
+  
+  /* Optionally adjust table styles */
+  .mat-table {
+    min-width: 100%;
+    overflow: auto;
+    display: block;
+  }
+  
   

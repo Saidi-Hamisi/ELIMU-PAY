@@ -1,3 +1,5 @@
+
+
 <mat-toolbar>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
@@ -25,8 +27,8 @@
 </mat-form-field>
 
 <div class="table-container">
-  <table mat-table [dataSource]="dataSource" matSort>
-
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="dataSource" matSort>
     <!-- ID Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
