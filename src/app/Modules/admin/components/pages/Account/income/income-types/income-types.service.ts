@@ -1,31 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IncomeTypesService {
- 
+  private usersEndpoint = `${environment.apiUrl}users/`;
+  private feeCollectionEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
+
   constructor(private _http: HttpClient) { }
 
   addIncomeTypes(data: any): Observable<any> {
-    return this._http.post('http://localhost:3000/users/', data);
+    return this._http.post(this.usersEndpoint, data);
   }
 
   updateSystemUser(id: number, data: any): Observable<any> {
-    return this._http.put(`http://localhost:3000/users/${id}`, data);
+    return this._http.put(`${this.usersEndpoint}${id}`, data);
   }
 
   getSystemUserList(): Observable<any> {
-    return this._http.get('http://localhost:3000/users');
+    return this._http.get(this.usersEndpoint);
   }
 
   deleteSystemUser(id: number): Observable<any> {
-    return this._http.delete(`http://localhost:3000/users/${id}`);
+    return this._http.delete(`${this.usersEndpoint}${id}`);
   }
 
   getFeeCollection(): Observable<any> {
-    return this._http.get('http://192.168.88.38:8000/api/v1/payfee/calculate_total_fee/');
+    return this._http.get(this.feeCollectionEndpoint);
   }
 }

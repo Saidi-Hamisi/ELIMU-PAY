@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-graph-one',
@@ -8,14 +10,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./graph-one.component.css']
 })
 export class GraphOneComponent implements OnInit {
-  constructor(private http: HttpClient) { }
+  private percentageOfEachCategoryUrl = `${environment.apiUrl}fee/api/v1/fee/percentage_of_each_category`;
+
+  constructor(private http: HttpClient, private router: Router) { } // Inject Router
 
   ngOnInit(): void {
     this.fetchChartData();
   }
 
   fetchChartData(): void {
-    this.http.get<any[]>('http://192.168.88.38:8000/api/v1/fee/api/v1/fee/percentage_of_each_category').subscribe(data => {
+    this.http.get<any[]>(this.percentageOfEachCategoryUrl).subscribe(data => {
       const categories = data.map(item => item.category);
       const percentages = data.map(item => parseFloat(item.percentage)); // Parse percentage values as floats
 
@@ -37,6 +41,12 @@ export class GraphOneComponent implements OnInit {
         height: 260,
         width: "100%",
         type: "pie",
+        events: {
+          dataPointSelection: (event: any, chartContext: any, config: any) => {
+            const category = categories[config.dataPointIndex];
+            this.router.navigate(['/feeCollections'], { queryParams: { category } });
+          }
+        }
       },
       labels: categories,
       plotOptions: {

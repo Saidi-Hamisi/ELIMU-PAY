@@ -46,12 +46,12 @@ export class LoginComponent implements OnInit {
             this.tokenStorageService.saveUser(result.entity);
             // Prompt user to change password
             Swal.fire({
-              title: 'Change Password?',
+              title: 'Login Successful!',
               text: 'Would you like to change your password?',
               icon: 'question',
               showCancelButton: true,
               confirmButtonText: 'Yes, Change Password',
-              cancelButtonText: 'No, Continue to OTP',
+              cancelButtonText: 'No, Continue to OTP page',
               reverseButtons: true // Reverse the button order for better UX
             }).then((result) => {
               if (result.isConfirmed) {

@@ -1,113 +1,62 @@
 <div mat-dialog-title class="bg-pink-950">
-    <h1 class="text-white">Expenses Form</h1>
-  </div>
-  <form [formGroup]="ExpensesForm" (ngSubmit)="onFormSubmit()">
-    <div mat-dialog-content>
-      <h2>Expenses  Information</h2>
-      <!-- Personal Information -->
-      <div class="flex flex-row gap-2">
-        <mat-form-field class="mt-2.5 w-full">
-          <mat-label>amount</mat-label>
-          <input matInput placeholder="amount" formControlName="amount" required>
-          <!-- <mat-select formControlName="name" required> -->
-            <!-- <mat-option value="Mr">Mr</mat-option>
-            <mat-option value="Mrs">Mrs</mat-option>
-            <mat-option value="Miss">Miss</mat-option>
-            <mat-option value="Ms">Ms</mat-option>
-            <mat-option value="Other">Other</mat-option> -->
-          <!-- </mat-select> -->
-        </mat-form-field>
-  
-        <mat-form-field class="mt-2.5 w-full">
-          <mat-label>expenseID</mat-label>
-          <input matInput placeholder="expenseID" formControlName="expenseID" required>
-        </mat-form-field>
-        
-        <!-- <mat-form-field class="mt-2.5 w-full">
-          <mat-label>Amount</mat-label>
-          <input matInput placeholder="Amount" formControlName="amount" required>
-        </mat-form-field> -->
-      </div>
-  
-      <!-- Contact Information -->
-      <div class="flex flex-row gap-2">
-        <!-- <mat-form-field class="mt-2.5 w-full">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender" required>
-            <mat-option value="Male">Male</mat-option>
-            <mat-option value="Female">Female</mat-option>
-            <mat-option value="Other">Other</mat-option>
-          </mat-select>
-        </mat-form-field> -->
-        <!-- <mat-form-field class="mt-2.5 w-full"> -->
-          <mat-form-field class="mt-2.5 w-full">
-            <mat-label>description</mat-label>
-            <input matInput placeholder="description" formControlName="description"required>
-          </mat-form-field>
-          <mat-form-field class="mt-2.5 w-full">
-          <mat-label>name</mat-label>
-          <input matInput placeholder="name" formControlName="name" required>
-        </mat-form-field>
-        
-        <!-- <mat-form-field class="mt-2.5 w-full">
-          <mat-label>EmailAddress</mat-label>
-          <input matInput placeholder="email_ddress" formControlName="email_ddress" required>
-        </mat-form-field> -->
-        <!-- <mat-form-field class="mt-2.5 w-full">
-          <mat-label>ID/Passport No.</mat-label>
-          <input matInput placeholder="id_passport" formControlName="id_passport" required>
-        </mat-form-field> -->
-      </div>
-  
-      <!-- Additional Information -->
-      <!-- <div class="flex flex-row gap-2">
-        <mat-form-field class="mt-2.5 w-full">
-          <mat-label>Phone Number</mat-label>
-          <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
-        </mat-form-field>
-        <mat-form-field class="mt-2.5 w-full">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" formControlName="email" required>
-        </mat-form-field>
-        <mat-form-field class="mt-2.5 w-full">
-          <mat-label>Occupation</mat-label>
-          <input matInput placeholder="Occupation" formControlName="occupation">
-        </mat-form-field>
-      </div> -->
-  
-      <!-- Parent ID -->
-      <!-- <div class="flex flex-row gap-2">
-        <mat-form-field class="mt-2.5 w-full">
-          <mat-label>description</mat-label>
-          <input matInput placeholder="description" formControlName="description" required>
-        </mat-form-field> -->
-        <!-- <mat-form-field class="mt-2.5 w-full">
-          <mat-label>Physical Address</mat-label>
-          <input matInput placeholder="Physical Address" formControlName="physical_addres" required>
-        </mat-form-field> -->
-        <!-- <mat-form-field class="mt-2.5 w-full">
-          <mat-label>ID/Passport No.</mat-label>
-          <input matInput placeholder="ID/Passport No." formControlName="id_passport" required>
-        </mat-form-field> -->
-      
-    </div>
-  
-    <div mat-dialog-actions class="flex flex-row gap-2 p-4">
-      <button mat-raised-button type="button" [mat-dialog-close]="false"
-        class="flex-1 text-white bg-pink-950 hover:bg-gray-400 hover:border-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105" color="warn">
-        Cancel
-      </button>
-      <div class="submitting">
-        <div class="bg-blue-500 text-white flex flex-row gap-2" id="spinner" role="status" *ngIf = "isSubmitting" >
-          <mat-spinner [diameter]="30" class="mat-spinner-color"></mat-spinner>
-          <span class="visually-hidden">Submitting...</span>
+  <h1 class="text-white">Expenses Form</h1>
+</div>
+<form [formGroup]="ExpensesForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content>
+    <h2>Expenses Information</h2>
+    <!-- Expense Information -->
+    <div class="flex flex-row gap-2">
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Amount</mat-label>
+        <input matInput placeholder="amount" formControlName="amount" required>
+        <div *ngIf="ExpensesForm.get('amount')?.invalid && (ExpensesForm.get('amount')?.dirty || ExpensesForm.get('amount')?.touched)">
+          <small *ngIf="ExpensesForm.get('amount')?.errors?.['required']">Amount is required.</small>
+          <small *ngIf="ExpensesForm.get('amount')?.errors?.['pattern']">Invalid amount format.</small>
         </div>
-        <button mat-raised-button type="submit" *ngIf = "!isSubmitting"
+      </mat-form-field>
+
+      <!-- <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Expense ID</mat-label>
+        <input matInput placeholder="expenseID" formControlName="expenseID" required>
+        <div *ngIf="ExpensesForm.get('expenseID')?.invalid && (ExpensesForm.get('expenseID')?.dirty || ExpensesForm.get('expenseID')?.touched)">
+          <small *ngIf="ExpensesForm.get('expenseID')?.errors?.['required']">Expense ID is required.</small>
+          <small *ngIf="ExpensesForm.get('expenseID')?.errors?.['minlength']">Expense ID must be at least 1 character.</small>
+          <small *ngIf="ExpensesForm.get('expenseID')?.errors?.['maxlength']">Expense ID cannot be more than 10 characters.</small>
+        </div>
+      </mat-form-field> -->
+    </div>
+
+    <!-- Expense Types Information -->
+    <div formGroupName="expensetypes" class="flex flex-row gap-2">
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="name" formControlName="name" required>
+        <div *ngIf="ExpensesForm.get('expensetypes.name')?.invalid && (ExpensesForm.get('expensetypes.name')?.dirty || ExpensesForm.get('expensetypes.name')?.touched)">
+          <small *ngIf="ExpensesForm.get('expensetypes.name')?.errors?.['required']">Name is required.</small>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="description" formControlName="description">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="flex flex-row gap-2 p-4">
+    <button mat-raised-button type="button" [mat-dialog-close]="false"
+      class="flex-1 text-white bg-pink-950 hover:bg-gray-400 hover:border-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105" color="warn">
+      Cancel
+    </button>
+    <div class="submitting">
+      <div class="bg-blue-500 text-white flex flex-row gap-2" id="spinner" role="status" *ngIf="isSubmitting">
+        <mat-spinner [diameter]="30" class="mat-spinner-color"></mat-spinner>
+        <span class="visually-hidden">Submitting...</span>
+      </div>
+      <button mat-raised-button type="submit" *ngIf="!isSubmitting"
         class="flex-1 text-white bg-blue-500 border hover:bg-gray-400 hover:border-blue-500 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105" color="primary">
         Save
       </button>
-      </div>
-    
-  
-  
-  
+    </div>
+  </div>
+</form>

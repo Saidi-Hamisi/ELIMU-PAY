@@ -1,26 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
-import { ViewtranscationComponent } from '../viewtranscation/viewtranscation.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { environment } from 'src/environments/environment';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
+import { ViewtranscationComponent } from '../viewtranscation/viewtranscation.component';
 
 interface Transaction {
-  id: number;
-  student__uniqueId: number;
-  description: string;
-  debit: number;
+  transactiondetail: string;
+  paymentreference: string;
+  uniqueid: string;
+  valuedate: string;
   credit: number;
+  debit: number;
   balance: number;
-  transaction_date: string;
-}
-
-interface Card {
-  icon: string;
-  title: string;
-  amount: string;
 }
 
 @Component({
@@ -28,34 +24,42 @@ interface Card {
   templateUrl: './fee-collections.component.html',
   styleUrls: ['./fee-collections.component.css']
 })
-export class FeeCollectionsComponent implements OnInit {
-  transactions: Transaction[] = [];
-  dataSource = new MatTableDataSource<Transaction>([]);
-  faBullhorn = faBullhorn;
-  feeCollection: number = 0;
-  selectedDateFilterOption: string = 'Last 30 days';
-  searchTerm: string = '';
-  dropdownOpen: boolean = false;
+export class FeeCollectionsComponent implements OnInit, AfterViewInit {
+  totalFeeEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
+  transactionsEndpoint = `${environment.apiUrl}payfee/api/v1/fee/list_transaction`;
 
-  totalFeeEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/calculate_total_fee/';
-  transactionsEndpoint = 'http://192.168.88.38:8000/api/v1/payfee/api/v1/fee/list_transaction';
-
-  cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
+  displayedColumns: string[] = [
+    'description',
+    'id',
+    'student__uniqueId',
+    'transaction_date',
+    'credit',
+    'debit',
+    'balance',
+    'action'
+  ];
+  dataSource: MatTableDataSource<Transaction> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private router: Router, private dialog: MatDialog, private http: HttpClient) { }
+  feeCollection: any;
+  cards: any[] = [{ amount: '' }];
+  transactions: Transaction[] = [];
 
-  ngOnInit() {
+  constructor(private dialog: MatDialog, private http: HttpClient) {}
+
+  ngOnInit(): void {
     this.fetchTotalFeeCollections();
     this.fetchTransactions();
   }
 
-  toggleDropdown() {
-    this.dropdownOpen = !this.dropdownOpen;
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  fetchTotalFeeCollections() {
+  fetchTotalFeeCollections(): void {
     this.http.get<any>(this.totalFeeEndpoint).subscribe({
       next: (data) => {
         console.log('Total fee collection data:', data);
@@ -68,13 +72,14 @@ export class FeeCollectionsComponent implements OnInit {
     });
   }
 
-  fetchTransactions() {
+  fetchTransactions(): void {
+    console.log('Fetching transactions from:', this.transactionsEndpoint);
     this.http.get<any>(this.transactionsEndpoint).subscribe({
-      next: (response) => {
-        console.log('Transactions data:', response);
-        this.transactions = response.entity;
+      next: (data) => {
+        console.log('Transactions data received:', data); // Log data to verify response
+        this.transactions = data.entity; // Ensure you are accessing the 'entity' array
         this.dataSource.data = this.transactions;
-        this.dataSource.paginator = this.paginator;
+        console.log('DataSource data:', this.dataSource.data); // Add this line to verify data assignment
       },
       error: (error) => {
         console.error('Error fetching transactions:', error);
@@ -82,67 +87,106 @@ export class FeeCollectionsComponent implements OnInit {
     });
   }
 
-  sortTransactions(criteria: string) {
-    this.selectedDateFilterOption = criteria.replace('last', 'Last ');
-
-    const now = new Date();
-
-    switch (criteria) {
-      case 'lastDay':
-        this.dataSource.data = this.transactions.filter(transaction => {
-          const transactionDate = new Date(transaction.transaction_date);
-          const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-          return transactionDate >= oneDayAgo;
-        });
-        break;
-      case 'last7Days':
-        this.dataSource.data = this.transactions.filter(transaction => {
-          const transactionDate = new Date(transaction.transaction_date);
-          const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-          return transactionDate >= sevenDaysAgo;
-        });
-        break;
-      case 'last30Days':
-        this.dataSource.data = this.transactions.filter(transaction => {
-          const transactionDate = new Date(transaction.transaction_date);
-          const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-          return transactionDate >= thirtyDaysAgo;
-        });
-        break;
-      case 'lastMonth':
-        const startOfMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-        const endOfMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        this.dataSource.data = this.transactions.filter(transaction => {
-          const transactionDate = new Date(transaction.transaction_date);
-          return transactionDate >= startOfMonth && transactionDate <= endOfMonth;
-        });
-        break;
-      default:
-        this.dataSource.data = this.transactions;
-    }
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
-  openDialog(transaction: Transaction) {
+  generatePdf(): void {
+    const tableContainer = document.querySelector('.table-container');
+    if (tableContainer) {
+      html2canvas(tableContainer as HTMLElement).then((canvas) => {
+        const doc = new jspdf('l', 'mm', 'a4');
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 280;
+        const pageHeight = 210;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 10;
+        const marginLeft = 5;
+        const marginRight = 3;
+
+        function addHeader() {
+          doc.setFontSize(12);
+          doc.text('Fee Category', imgWidth / 2, position, { align: 'center' });
+          const now = new Date();
+          const day = now.toLocaleDateString('en-US', { weekday: 'long' });
+          const date = now.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+          const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+          doc.setFontSize(6);
+          doc.text(`Printed on ${day} ${date} at ${time}`, imgWidth - marginRight, position, { align: 'right' });
+        }
+
+        function addFooter() {
+          doc.setFontSize(8);
+          doc.text('Elimu Pay Technologies | Copyright © 2024 | All rights reserved.',
+            imgWidth / 2,
+            doc.internal.pageSize.getHeight() - 5,
+            { align: 'center' }
+          );
+        }
+
+        addHeader();
+        addFooter();
+        doc.addImage(imgData, 'PNG', marginLeft, position + 10, imgWidth - marginLeft - marginRight, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight + 10;
+          doc.addPage();
+          addHeader();
+          addFooter();
+          doc.addImage(imgData, 'PNG', marginLeft, position + 20, imgWidth - marginLeft - marginRight, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        doc.save('Fee Category Report.pdf');
+      });
+    } else {
+      console.error('Fee Category reports not available');
+    }
+  }
+
+  openDialog(transaction: Transaction): void {
     const dialogRef = this.dialog.open(ViewtranscationComponent, {
       width: '400px',
       data: transaction
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(_result => {
       console.log('The dialog was closed');
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.dataSource.filter = filterValue;
+  sortByLastDay(): void {
+    const today = new Date();
+    this.dataSource.data = this.dataSource.data.filter(row => {
+      const rowDate = new Date(row.valuedate);
+      return rowDate.getFullYear() === today.getFullYear() &&
+             rowDate.getMonth() === today.getMonth() &&
+             rowDate.getDate() === today.getDate();
+    });
+  }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  sortByLastSevenDays(): void {
+    const today = new Date();
+    const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    this.dataSource.data = this.dataSource.data.filter(row => {
+      const rowDate = new Date(row.valuedate);
+      return rowDate >= sevenDaysAgo && rowDate <= today;
+    });
+  }
+
+  sortByLastThirtyDays(): void {
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+    this.dataSource.data = this.dataSource.data.filter(row => {
+      const rowDate = new Date(row.valuedate);
+      return rowDate >= thirtyDaysAgo && rowDate <= today;
+    });
   }
 }
