@@ -13,11 +13,13 @@ export class HomeComponent implements OnInit {
   totalSupplierAmount: number = 0;
   transactions: any[] = []; // Define transactions array
   showTransactionHistory: boolean = false; // Define showTransactionHistory property
+  totalProfit: number = 0; // Define totalProfit property
 
   constructor(private homecardsService: HomecardsService, private dialog: MatDialog) { } // Inject MatDialog
 
   ngOnInit(): void {
     this.reloadData();
+    this.fetchProfit();
   }
 
   reloadData() {
@@ -63,6 +65,23 @@ export class HomeComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching total supplier amount:', error);
+      }
+    );
+  }
+
+  fetchProfit() {
+    // Fetch total profit
+    this.homecardsService.getTotalProfit().subscribe(
+      (data: any) => {
+        console.log('Total Profit:', data);
+        if (data && data['profit'] !== undefined) {
+          this.totalProfit = data['profit'];
+        } else {
+          console.error('Invalid API response format for Total Profit.');
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching total profit:', error);
       }
     );
   }

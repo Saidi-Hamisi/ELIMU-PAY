@@ -16,12 +16,12 @@ export class FeeCategoryComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'name', 
-    'categorycode', 
+     'categorycode', 
     'description', 
     'grade', 
     'term', 
     'amount',
-    'apply',
+    // 'apply',
     'action'
   ];
   dataSource!: MatTableDataSource<any>;

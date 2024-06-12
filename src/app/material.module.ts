@@ -24,6 +24,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -61,6 +62,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
      CdkTreeModule,
      MatTooltipModule,
      MatSidenavModule,
+     MatProgressSpinnerModule
 
 
 
