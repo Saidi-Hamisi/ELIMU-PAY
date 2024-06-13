@@ -10,17 +10,13 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddEditComponent implements OnInit {
   AddEditForm: FormGroup;
-  Category: string[] = ['Tuition', 'Transport zone 1', 'Transport zone 2', 'Transport zone 3', 'Catering', 'others']; // Define an array of categories
-  grade: string[] = ['PRIMARY', 'SECONDARY', 'TERTIARY', 'OTHER']; // Define an array of grades
-  term: string[] = ['Term1', 'Term2', 'Term3', ]; // Define an array of grades
-
+  
 
   constructor(private _fb: FormBuilder, private _FeecategoryService: FeecategoryService, private _dialogRef: MatDialogRef<AddEditComponent>) {
     this.AddEditForm = this._fb.group({
       // Define your form controls here:
       name: ['', Validators.required],
-      categorycode: ['', Validators.required],
-      description: ['', Validators.required],
+      
       grade: ['', Validators.required],
       term: ['', Validators.required],
       amount: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]], // Add pattern validation for numeric input

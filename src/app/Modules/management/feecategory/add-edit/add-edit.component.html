@@ -1,43 +1,27 @@
-<div mat-dialog-title>
-  <h1>Fee Category Form</h1>
+<div mat-dialog-title class="bg-pink-950">
+  <h1 class="text-white">Fee Category Form</h1>
 </div>
 <form [formGroup]="AddEditForm" (ngSubmit)="onFormSubmit()">
   <div mat-dialog-content>
       <div class="flex flex-row gap-2 ">
           <mat-form-field class="mt-2.5 w-full">
-              <label for="category">Name</label>
-              <mat-select formControlName="name" >
-                  <mat-option *ngFor="let val of Category" [value]="val">{{val}}</mat-option>
-              </mat-select>
+              <label for="name">Name</label>
+              <input matInput placeholder="" formControlName="name" >
           </mat-form-field>
 
          
           <mat-form-field class="mt-2.5 w-full">
-              <label for="categorycode">Categorycode </label>
-              <input matInput placeholder="" formControlName="categorycode" >
-          </mat-form-field>
+            <label for="grade">Grade</label>
+            <input matInput placeholder="" formControlName="grade" >
+        </mat-form-field>
       </div>
       
-      <div class="flex flex-row gap-2 ">
-          <mat-form-field class="mt-2.5 w-full ">
-              <label for="description">Description</label>
-              <input matInput placeholder="" formControlName="description" >
-          </mat-form-field>
-          <mat-form-field class="mt-2.5 w-full">
-            <label for="grade">Grade</label>
-            <mat-select formControlName="grade" >
-                <mat-option *ngFor="let val of grade" [value]="val">{{val}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-      </div>
+      
 
       <div class="flex flex-row gap-2 ">
          <mat-form-field class="mt-2.5 w-full">
             <label for="term">Term</label>
-            <mat-select formControlName="term" >
-                <mat-option *ngFor="let val of term" [value]="val">{{val}}</mat-option>
-            </mat-select>
+            <input matInput placeholder="" formControlName="term" >
         </mat-form-field>
 
         <mat-form-field class="mt-2.5 w-full">
@@ -58,13 +42,13 @@
     
   </div>
   <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
-      <button mat-raised-button type="button"
-          class="flex-1 bg-gray-200 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1  transition-transform duration-300 transform focus:scale-105">
-          Cancel
-      </button>
-      <button mat-raised-button type="submit"
-          class="flex-1 bg-gray-300 border border-pink-950 hover:bg-pink-950 hover:text-white rounded-lg px-2 py-1 transition-transform duration-300 transform focus:scale-105 ">
-          Save
-      </button>
+    <button mat-raised-button type="button" [mat-dialog-close]="false"
+      class="flex-1 border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
+      Cancel
+    </button>
+    <button title="Submit Details" mat-raised-button type="submit"
+      class="flex-1 border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
+      Save
+    </button>
   </div>
 </form>
