@@ -8,6 +8,7 @@ import { Component, Input, Output } from '@angular/core';
 })
 export class SidebarAdminComponent {
   @Input() sidebarOpen: boolean = false
+  
   // @Output() sidebarClosed: boolean = false
   toggle() {
     throw new Error('Method not implemented.');
@@ -21,6 +22,12 @@ export class SidebarAdminComponent {
   isHidden5=true
   isHidden6=true
   isHidden9=true
+  isHidden8=true 
+  isHidden7=true
+  isHidden13=true
+  isHidden14=true
+  isHidden15=true
+  isHidden16=true
   ;
 isHidden10: any;
 isHidden11: any;
@@ -66,6 +73,24 @@ isHidden11: any;
   }
   closeAccessmanagement(){
     this.isHidden11=!this.isHidden11
+  }
+  closeNavAcademicSettings(){
+    this.isHidden8=!this.isHidden8
+  }
+  closeNavFinancialSettings(){
+    this.isHidden7=!this.isHidden7
+  }
+  closeNavSystemSettings(){
+    this.isHidden13=!this.isHidden13
+  }
+  closeNavCommunicationSettings(){
+    this.isHidden14=!this.isHidden14
+  }
+  closeNavSchoolProfile(){
+    this.isHidden15=!this.isHidden15
+  }
+  closeNavManageSchools(){
+    this.isHidden16=!this.isHidden16
   }
   Authorize() {
     let currentUser = this.tokenService.getUser();

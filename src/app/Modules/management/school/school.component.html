@@ -1,15 +1,16 @@
 <mat-toolbar>
     <span class="pl-7 flex justify-center text-lg font-times text-pink-800">School Users Management</span>
     <span class="flex-grow"></span>
-    <button title="Add System User" class="bg-pink-950 text-white px-2 rounded-lg mr-5 mt-2" (click)="openAddEditSchoolForm()">
+    <button title="Add System User" class="bg-pink-950 text-white px-2 rounded-lg mr-5 mt-2"
+        (click)="openAddEditSchoolForm()">
         <mat-icon class="mt-2">add</mat-icon>
-        Add
+        Onboard School
     </button>
 </mat-toolbar>
 
 <div class="main-body">
     <mat-form-field class="main-body">
-        <mat-label >Search</mat-label>
+        <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Eg. John,  53321,  etc" #input>
     </mat-form-field>
 
@@ -42,17 +43,17 @@
 
             <!-- Role -->
             <ng-container matColumnDef="country">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">COUNTRY</th>
-              <td mat-cell *matCellDef="let row"> {{row.country}}</td>
-          </ng-container>
-          <ng-container matColumnDef="country_code">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">COUNTRY CODE</th>
-            <td mat-cell *matCellDef="let row"> {{row.country_code}}</td>
-        </ng-container>
-        <ng-container matColumnDef="street_address">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">STREET ADDRESS</th>
-            <td mat-cell *matCellDef="let row"> {{row.street_address}}</td>
-        </ng-container>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">COUNTRY</th>
+                <td mat-cell *matCellDef="let row"> {{row.country}}</td>
+            </ng-container>
+            <ng-container matColumnDef="country_code">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">COUNTRY CODE</th>
+                <td mat-cell *matCellDef="let row"> {{row.country_code}}</td>
+            </ng-container>
+            <ng-container matColumnDef="street_address">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200">STREET ADDRESS</th>
+                <td mat-cell *matCellDef="let row"> {{row.street_address}}</td>
+            </ng-container>
 
 
             <!-- idNumber -->
@@ -111,8 +112,8 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200"> NATIONALITY </th>
                 <td mat-cell *matCellDef="let row"> {{row.nationality}}</td>
             </ng-container> -->
-            
-            
+
+
 
             <!-- action -->
             <ng-container matColumnDef="action">
@@ -122,7 +123,8 @@
                         (click)="openUpdateSchoolForm(row)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button class="flex-initial" title="Delete this school"  mat-icon-button color="warn" (click)="deleteSchool(row.id)">
+                    <button class="flex-initial" title="Delete this school" mat-icon-button color="warn"
+                        (click)="deleteSchool(row.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
@@ -141,5 +143,3 @@
             class="mt-4 border-t border-gray-200"></mat-paginator>
     </div>
 </div>
-
-
