@@ -1,3 +1,4 @@
+<!--
 <div class="h-full overflow-auto">
     <div class="flex">
     </div>
@@ -81,8 +82,8 @@
             <td class="px-6 py-4">
               <button (click)="openDialog(item)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</button>
             </td>
-          </tr>
-          <!-- No data row -->
+          </
+           No data row
           <tr *ngIf="dataSource.filteredData.length === 0">
             <td colspan="10" class="text-center py-4">No data matching the filter "{{input.value}}"</td>
           </tr>
@@ -90,7 +91,7 @@
       </table>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons aria-label="Select page of users"></mat-paginator>
             </div>
-            <!-- <label for="table-search" class="sr-only">Search</label> -->
+             <label for="table-search" class="sr-only">Search</label> -->
 <!-- <div class="relative">
     <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
         <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +101,7 @@
     <input type="text" id="table-search" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
     placeholder="Search for items" (input)="applyFilter($event)">
 
-</div> -->
+</div> 
 
         </div>
         <table class=" mx-10 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -129,9 +130,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Debit 
-                    <!-- <th scope="col" class="px-6 py-3">
+                     <th scope="col" class="px-6 py-3">
                         Balance
-                    </th> -->
+                    </th> 
                     <th scope="col" class="px-6 py-3">
                         Action
                     </th>
@@ -167,10 +168,107 @@
                         <button (click)="openDialog(item)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</button>
                     </td>
                 </tr>
-                <!-- No data row -->
+                 No data row 
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="10">No data matching the filter "{{selectedDateFilterOption}}"</td>
                 </tr>
             </tbody>
         </table>
 
+      -->
+  
+  
+
+
+
+
+
+       
+      <mat-toolbar>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Transaction History</span>
+        <span class="flex-grow"></span>
+        
+        <button title="Download Fee Category"
+                class="border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm"
+                (click)="generatePdf()">
+          <span class="bi bi-cloud-download"></span>
+          DOWNLOAD
+        </button>
+      </mat-toolbar>
+      
+      <div class="main-body">
+        <mat-form-field class="main-body">
+          <mat-label>Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Tuition" #input>
+        </mat-form-field>
+        
+        <div class="table-container">
+          <div class="table-wrapper">
+            <table mat-table [dataSource]="dataSource" matSort>
+              <!-- Transaction Detail Column -->
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Details</th>
+                <td mat-cell *matCellDef="let row">{{row.description}}</td>
+              </ng-container>
+          
+              <!-- Payment Reference Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Reference</th>
+                <td mat-cell *matCellDef="let row">{{row.id}}</td>
+              </ng-container>
+          
+              <!-- Unique ID Column -->
+              <ng-container matColumnDef="student__uniqueId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Unique ID</th>
+                <td mat-cell *matCellDef="let row">{{row.student__uniqueId}}</td>
+              </ng-container>
+          
+              <!-- Value Date Column -->
+              <ng-container matColumnDef="transaction_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Value Date</th>
+                <td mat-cell *matCellDef="let row">{{row.transaction_date}}</td>
+              </ng-container>
+          
+              <!-- Credit Column -->
+              <ng-container matColumnDef="credit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Credit</th>
+                <td mat-cell *matCellDef="let row">{{row.credit}}</td>
+              </ng-container>
+          
+              <!-- Debit Column -->
+              <ng-container matColumnDef="debit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Debit</th>
+                <td mat-cell *matCellDef="let row">{{row.debit}}</td>
+              </ng-container>
+          
+              <!-- Balance Column -->
+              <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Balance</th>
+                <td mat-cell *matCellDef="let row">{{row.balance}}</td>
+              </ng-container>
+          
+              <!-- Action Column -->
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                <td mat-cell *matCellDef="let row">
+                  <button (click)="openDialog(row)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</button>
+                </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="9">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+      

@@ -5,82 +5,51 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from './Modules/admin/admin.module';
 import { AuthModule } from './Modules/auth/auth.module';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import {MatDatepickerModule, MatDatepickerToggle} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-// import 'ngx-toastr/toastr.css';
-import { MatSelectModule } from '@angular/material/select';
-
-
-
-
-
 
 @NgModule({
   declarations: [
-    AppComponent,
-   
-    
-    
-
-    
-
+    AppComponent
   ],
   imports: [
-    AuthModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AdminModule,
-    MatTableModule,
+    AuthModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,
     MatFormFieldModule,
-    HttpClientModule,
-    ReactiveFormsModule,
+    MatTableModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
     MatButtonModule,
-    MatSortModule,
     MatPaginatorModule,
+    MatSortModule,
     MatSnackBarModule,
-    HttpClientModule, 
-    MatTooltipModule,
-  
-        
-
-
-    
-
-
-
-
-
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule{ }
-
-
-
-
-
+export class AppModule { }
