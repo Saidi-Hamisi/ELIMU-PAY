@@ -33,6 +33,23 @@ import { ParentComponent } from '../management/parent/parent.component';
 import { DeleteConfirmationComponent } from '../management/student/delete-confirmation/delete-confirmation.component';
 import { StudentReportComponent } from './components/pages/Report/student-report/student-report.component';
 import { SuppliesComponent } from './components/pages/Account/supplies/supplies.component';
+import { SchoolManagementComponent } from '../management/school-management/school-management.component';
+import { BrandingAndAppearanceComponent } from '../management/school-management/branding-and-appearance/branding-and-appearance.component';
+import { DataManagementComponent } from '../management/data-management/data-management.component';
+import { UserDirectoryComponent } from '../management/data-management/user-directory/user-directory.component';
+import { BulkUploadComponent } from '../management/data-management/bulk-upload/bulk-upload.component';
+import { FinancialSettingsComponent } from '../management/financial-settings/financial-settings.component';
+import { SystemSettingsComponent } from '../management/system-settings/system-settings.component';
+import { CommunicationSettingsComponent } from '../management/communication-settings/communication-settings.component';
+import { EmailAndSmsTemplatesComponent } from '../management/communication-settings/email-and-sms-templates/email-and-sms-templates.component';
+import { NotificationPreferencesComponent } from '../management/communication-settings/notification-preferences/notification-preferences.component';
+import { FeeStructureSetupComponent } from '../management/financial-settings/fee-structure-setup/fee-structure-setup.component';
+import { FeeInstallmentPlansComponent } from '../management/financial-settings/fee-installment-plans/fee-installment-plans.component';
+import { IntergrationsComponent } from '../management/system-settings/intergrations/intergrations.component';
+import { TimeZoneAndLanguageComponent } from '../management/system-settings/time-zone-and-language/time-zone-and-language.component';
+
+import { AcademicYearSetupComponent } from '../management/academic-year-setup/academic-year-setup.component';
+import { GradeSectionSetupComponent } from '../management/grade-and-section-setup/grade-and-section-setup.component';
 
 
 
@@ -73,6 +90,42 @@ const routes: Routes = [
       { path: 'FeeStatement', component: FeeStatementComponent },
       { path: 'parent', component: ParentComponent},
       { path: 'delete-confirmation', component: DeleteConfirmationComponent},
+      { path: 'school-management', component: SchoolManagementComponent},
+      { path: 'branding-and-appearance', component: BrandingAndAppearanceComponent},
+      { path: 'data-management', component: DataManagementComponent},
+      { path: 'user-directory', component: UserDirectoryComponent},
+      { path: 'bulk-upload', component: BulkUploadComponent},
+      { path: 'financial-settings', component: FinancialSettingsComponent},
+      { path: 'system-settings', component: SystemSettingsComponent},
+      { path: 'communication-settings', component: CommunicationSettingsComponent},
+      { path: 'email-and-sms-templates', component:EmailAndSmsTemplatesComponent},
+      { path: 'notification-preferences', component:NotificationPreferencesComponent},
+      { path: 'fee-structure-setup', component:FeeStructureSetupComponent},
+      { path: 'fee-installment-plans', component:FeeInstallmentPlansComponent},
+      { path: 'time-zone-and-language', component:TimeZoneAndLanguageComponent},
+      { path: 'intergrations', component:IntergrationsComponent},
+      { path: 'grade-section-setup', component: GradeSectionSetupComponent},
+      { path: 'academic-year-setup', component:AcademicYearSetupComponent},
+
+     
+
+
+
+      
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
 
 
       // expenses

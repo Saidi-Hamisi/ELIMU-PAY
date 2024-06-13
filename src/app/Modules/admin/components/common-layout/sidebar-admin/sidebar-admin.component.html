@@ -1,21 +1,24 @@
-<div class="sidebar overflow-y-auto w-56 py-0 px-3 h-full bg-violet-100" [class.open]="sidebarOpen">
-  <!-- section A -->
-  <div class="profile-card bg-violet-100 text-white mb-0">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="avater">
-          <mat-icon style="font-size: 50px !important; height: 50px; width: 50px; padding-top: 2px; "
-            class="">account_circle</mat-icon>
-        </div>
-        <div class="header">
+<div class="sidebar overflow-y-auto w-56 py-0 px-3 h-full" [class.open]="sidebarOpen"
+style="background-image: linear-gradient(135deg, rgb(205, 161, 109) 0%, #513b46 100%);">
+  <!-- Your sidebar content goes here -->
 
-          <p class="text-pink-950">
-            <small><b>Role :</b>{{ role }}</small>
-          </p>
+
+  <!-- section A -->
+  <div class="profile-card text-white mb-0" style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%); border-radius: 10px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="avater">
+                <mat-icon style="font-size: 50px !important; height: 50px; width: 50px; padding-top: 2px;">account_circle</mat-icon>
+            </div>
+            <div class="header">
+                <p class="text-white">
+                    <small><b>Role :</b>{{ role }}</small>
+                </p>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
 
 
   <!-- <h2 matSubheader class="bg-pink-950 text-white py-0 m-0">Pages</h2> -->
@@ -38,74 +41,132 @@
   <ul class="side_button gap-0 flex flex-col ">
     <li class="list_button" routerLinkActive="active">
       <a [routerLink]="['home']"
-        class=" text-pink-950 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 p-2 bg-violet-100  rounded-lg shadow-xl  flex gap-2 items-center row hover:scale-[1.05]">
-        <i class="bi bi-speedometer2"></i>
-        <span>Dashboard</span>
+        class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+        style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+        <i class="fas fa-tachometer-alt"></i>
+        <span> Dashboard</span>
       </a>
 
     </li>
+
+    <!-- Manage Schools -->
+
+    <li class="list_button">
+      <div>
+        <div (click)="closeNavManageSchools()"
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-school"></i>
+          <span> Manage Schools</span>
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden16">
+          <ul class="p-2 flex flex-col gap-1">
+            <li>
+              <a [routerLink]="['school']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">
+                Schools
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+
+
+    <!-- School Profile -->
+
+    <li class="list_button">
+      <div>
+        <div (click)="closeNavSchoolProfile()"
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-book"></i>
+          <span> School Profile</span>
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden15">
+          <ul class="p-2 flex flex-col gap-1">
+            <li>
+              <a [routerLink]="['school-management']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">
+                School Profile Management
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['branding-and-appearance']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">
+                Branding and Appearance
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+
+    <!-- Transactions -->
     <li class="list_button">
       <div class="">
         <div (click)='closeNav1()'
-          class="text-pink-950 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg- shadow-xl p-2 bg-violet-100 rounded-lg  flex gap-2 items-center hover:scale-[1.05] cursor-pointer">
-          <i class="bi bi-cash"></i>
-          <span>Transactions</span>
+          class="text-white hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] shadow-xl p-2 rounded-lg flex gap-2 items-center hover:scale-[1.05] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-credit-card"></i>
+          <span> Transactions</span>
           <span class="font-extrabold ml-auto">
             <i class="bi bi-chevron-down"></i>
           </span>
         </div>
         <div [hidden]="isHidden1" class="p-2 flex-col">
-
           <div (click)="closeIncome()" class="mb-2">
             <span [routerLink]="['Incometypes']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Income
+              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg ">Income
               <span class="font-extrabold ml-auto text-white">
                 <i class="bi bi-chevron-down"></i>
-              </span></span>
+              </span>
+            </span>
             <div [hidden]="isHidden3">
-
+              <!-- Content -->
             </div>
           </div>
           <div (click)="closeIncome()" class="mb-2">
-
-            <div [hidden]="isHidden3">
-
-            </div>
+            <!-- Content -->
           </div>
           <div (click)="closeExpenses()">
             <span
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-w rounded-lg hover:scale-[1.03] shadow-lg text-white">Expenses
+              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Expenses
               <span class="font-extrabold ml-auto text-white">
                 <i class="bi bi-chevron-down"></i>
               </span>
             </span>
             <div [hidden]="isHidden4">
-              <ul class='p-2 flex flex-col gap-1 '>
-
+              <ul class="p-2 flex flex-col gap-1">
                 <li><a [routerLink]="['expenses']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-
-
-               
-
-                    Add an Expense</a>
-                </li>
+                    class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-white rounded-lg hover:scale-[1.03] shadow-lg">Add
+                    an Expense</a></li>
                 <li><a [routerLink]="['supplies']"
-                    class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-white rounded-lg hover:scale-[1.03] shadow-lg '>
-                    Supplies</a>
+                    class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-white rounded-lg hover:scale-[1.03] shadow-lg">Supplies</a>
                 </li>
-
               </ul>
             </div>
           </div>
         </div>
       </div>
     </li>
-    <li class="list_button  ">
+
+
+    <!-- Registry -->
+    <li class="list_button">
       <div>
         <div (click)="closeNavS()"
-          class="text-pink-950 shadow-xl p-2 bg-violet-100 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 cursor-pointer">
-          <i class="bi bi-people"></i>
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-list"></i>
           <span> Registry</span>
           <span class="font-extrabold ml-auto">
             <i class="bi bi-chevron-down"></i>
@@ -113,89 +174,235 @@
         </div>
         <div [hidden]="isHidden9">
           <ul class="p-2 flex flex-col gap-1">
-
-            <li><a [routerLink]="['student']"
-                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Students</a>
+            <li>
+              <a [routerLink]="['student']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Students</a>
             </li>
-
-            <!--<li><a [routerLink]="['staff']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Staff</a>
-            </li>-->
-
-            <li><a [routerLink]="['parent']"
-                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Parents</a>
+            <li>
+              <a [routerLink]="['parent']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Parents</a>
             </li>
-            <li><a [routerLink]="['feecategory']"
-                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">
-                Fee Category</a>
-            </li>
-            <li><a [routerLink]="['school']"
-                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Schools</a>
-            </li>
-
           </ul>
         </div>
       </div>
     </li>
-    <!-- Modified Reports-->
-    <li class="list_button">
-      <div class="">
-        <div (click)='closeNav2()'
-          class="text-pink-950 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 shadow-xl p-2 bg-violet-100 rounded-lg  flex gap-2 items-center hover:scale-[1.05] cursor-pointer">
-          <i class="bi bi-file-text"></i>
-          <span>Reports</span>
-          <span class="font-extrabold ml-auto">
-            <i class="bi bi-chevron-down"></i>
-          </span>
-        </div>
-        <div [hidden]="isHidden2" class="p-2 flex-col">
-
-          <div (click)="closeReports()" class="mb-2">
-            <a [routerLink]="['reports']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">View
-              Reports<span class="font-extrabold ml-auto text-white">
-                <i class="bi bi-chevron-down"></i>
-              </span></a>
-            <div [hidden]="isHidden6">
-            </div>
-          </div>
-          <div class="mb-2">
-            <a [routerLink]="['/studentReport']"
-              class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg ">Student Reports<span class="font-extrabold ml-auto text-white">
-                <i class="bi bi-chevron-down"></i>
-              </span></a>
-            <div [hidden]="isHidden6">
-            </div>
-          </div>
 
 
-        </div>
-      </div>
-    </li>
+
+
+    <!-- Data Management -->
+
     <li class="list_button">
       <div>
         <div (click)="closeNav()"
-          class="text-pink-950 shadow-xl p-2 bg-violet-100 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 cursor-pointer">
-          <i class="bi bi-people"></i>
-          <span> Access Management</span>
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-database"></i>
+          <span> Data Management</span>
           <span class="font-extrabold ml-auto">
             <i class="bi bi-chevron-down"></i>
           </span>
         </div>
         <div [hidden]="isHidden">
           <ul class="p-2 flex flex-col gap-1">
-
-            <li><a [routerLink]="['roles']"
-                class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 focus:text-black bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg'>Roles</a>
+            <li>
+              <a [routerLink]="['user-directory']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">User
+                Directory</a>
             </li>
-            <li><a [routerLink]="['SystemUsers']"
-                class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 focus:text-black bg-pink-800 text-white rounded-lg hover:scale-[1.03] shadow-lg'>User</a>
+            <li>
+              <a [routerLink]="['bulk-upload']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Bulk
+                Upload</a>
             </li>
-
-
           </ul>
         </div>
       </div>
     </li>
-  </ul>
-</div>
+
+
+    <!-- Academic Settings -->
+    <li class="list_button">
+      <div>
+        <div (click)="closeNavAcademicSettings()"
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-graduation-cap"></i>
+          <span> Academic Settings</span>
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden8">
+          <ul class="p-2 flex flex-col gap-1">
+            <li>
+              <a [routerLink]="['grade-section-setup']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Grade
+                and Section Set-up</a>
+            </li>
+            <li>
+              <a [routerLink]="['academic-year-setup']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Academic
+                Year Set-up</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+
+    <!-- Financial Settings -->
+    <li class="list_button">
+      <div>
+        <div (click)="closeNavFinancialSettings()"
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-money-bill-wave"></i>
+          <span> Financial Settings</span>
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden7">
+          <ul class="p-2 flex flex-col gap-1">
+            <li>
+              <a [routerLink]="['feecategory']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Fee
+                Category</a>
+            </li>
+            <li>
+              <a [routerLink]="['fee-structure-setup']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Fee
+                Structure Set-up</a>
+            </li>
+            <li>
+              <a [routerLink]="['fee-installment-plans']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Fee
+                Installment Plans</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+
+    <!-- System Settings -->
+    <li class="list_button">
+      <div>
+        <div (click)="closeNavSystemSettings()"
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-cogs"></i>
+          <span> System Settings</span>
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden13">
+          <ul class="p-2 flex flex-col gap-1">
+            <li>
+              <a [routerLink]="['time-zone-and-language']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Time
+                Zone and Language</a>
+            </li>
+            <li>
+              <a [routerLink]="['intergrations']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Integrations</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+
+    <!-- Communication Settings -->
+
+    <li class="list_button">
+      <div>
+        <div (click)="closeNavCommunicationSettings()"
+          class="text-white shadow-xl p-2 rounded-lg flex gap-2 items-center row hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] cursor-pointer"
+          style="background-image: linear-gradient(135deg, #480e2c 0%, rgb(159, 99, 26) 100%);">
+          <i class="fas fa-envelope"></i>
+          <span> Communication Settings</span>
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden14">
+          <ul class="p-2 flex flex-col gap-1">
+            <li>
+              <a [routerLink]="['email-and-sms-templates']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Email
+                and SMS Templates</a>
+            </li>
+            <li>
+              <a [routerLink]="['notification-preferences']"
+                class="flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid focus:bg-[#B22222] bg-[#5A2834] text-white rounded-lg hover:scale-[1.03] shadow-lg">Notification
+                Preferences</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+
+    <!-- Modified Reports-->
+    <li class="list_button">
+      <div class="">
+        <div (click)='closeNav2()'
+        class="text-white shadow-xl p-2 rounded-lg bg-gradient-to-r from-[#480e2c] to-[#9f631a] rounded-lg flex gap-2 items-center hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 cursor-pointer">
+          <i class="fas fa-chart-bar"></i>
+          <span> Reports</span>
+    
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden2" class="p-2 flex-col">
+          <div (click)="closeReports()" class="mb-2">
+            <a [routerLink]="['reports']"
+            class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 focus:text-black bg-[#480e2c] text-white rounded-lg hover:scale-[1.03] shadow-lg'>View
+              Reports<span class="font-extrabold ml-auto text-white">
+                <i class="bi bi-chevron-down"></i>
+              </span></a>
+            <div [hidden]="isHidden6"></div>
+          </div>
+          <div class="mb-2">
+            <a [routerLink]="['/studentReport']"
+            class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 focus:text-black bg-[#480e2c] text-white rounded-lg hover:scale-[1.03] shadow-lg'>Student
+              Reports<span class="font-extrabold ml-auto text-white">
+                <i class="bi bi-chevron-down"></i>
+              </span></a>
+            <div [hidden]="isHidden6"></div>
+          </div>
+        </div>
+      </div>
+    </li>
+    
+
+    <!-- Access Management -->
+    <li class="list_button">
+      <div>
+        <div (click)="closeAccessmanagement()"
+          class="text-white shadow-xl p-2 rounded-lg bg-gradient-to-r from-[#480e2c] to-[#9f631a] rounded-lg flex gap-2 items-center hover:scale-[1.05] hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 cursor-pointer">
+          <i class="fas fa-users"></i>
+          <span> Access Management</span>
+
+          <span class="font-extrabold ml-auto">
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </div>
+        <div [hidden]="isHidden11">
+          <ul class="p-2 flex flex-col gap-1">
+            <li>
+              <a [routerLink]="['roles']"
+                class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 focus:text-black bg-[#480e2c] text-white rounded-lg hover:scale-[1.03] shadow-lg'>Roles</a>
+            </li>
+            <li>
+              <a [routerLink]="['SystemUsers']"
+                class='flex w-full p-2 hover:border-gray-300 hover:border hover:border-solid-sm focus:bg-red-300 focus:text-black bg-[#480e2c] text-white rounded-lg hover:scale-[1.03] shadow-lg'>User</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>

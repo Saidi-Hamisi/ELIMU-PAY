@@ -94,7 +94,8 @@ import { AddSuppliesComponent } from './components/pages/Account/supplies/add-su
     ExpensesComponent,
     AddExpensesComponent,
     SuppliesComponent,
-    AddSuppliesComponent
+    AddSuppliesComponent,
+    
 
 
     
