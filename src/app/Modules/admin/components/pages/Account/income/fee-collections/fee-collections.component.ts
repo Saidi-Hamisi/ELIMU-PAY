@@ -43,8 +43,11 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
 
   totalFeeEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
   transactionsEndpoint = `${environment.apiUrl}payfee/api/v1/fee/list_transaction`;
+  categoryTransactionsEndpoint = `${environment.apiUrl}fee/api/v1/fee/list_category_records`;
 
   cards: Card[] = [{ icon: '', title: 'Total Fee Collection', amount: '' }];
+  categories: string[] = ['All', 'Catering', 'Tuition', 'Library']; // Add your categories here
+  displayedColumns: string[] = ['id', 'description', 'amount']; // Example columns
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -52,26 +55,22 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private dialog: MatDialog,
     private http: HttpClient,
-    private route: ActivatedRoute // Inject ActivatedRoute to access query parameters
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.fetchTotalFeeCollections();
-    this.fetchTransactions();
-
-    // Apply filter
-    this.input.valueChanges.subscribe(value => {
-      this.dataSource.filter = (value || '').trim().toLowerCase();
-    });
-
-    // Subscribe to query parameters and filter transactions based on category
     this.route.queryParams.subscribe(params => {
       const category = params['category'];
       if (category) {
-        this.filterTransactionsByCategory(category);
+        this.fetchTransactionsByCategory(category);
+      } else {
+        this.fetchTransactions();
       }
-      console.log("ewrtrw", category);
-      
+    });
+
+    this.input.valueChanges.subscribe(value => {
+      this.dataSource.filter = (value || '').trim().toLowerCase();
     });
   }
 
@@ -100,9 +99,12 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     this.http.get<any>(this.transactionsEndpoint).subscribe({
       next: (response) => {
         console.log('Transactions data:', response);
-        this.transactions = response.entity;
-        this.dataSource.data = this.transactions;
-        this.applyQueryFilter(); // Apply filter after fetching transactions
+        if (Array.isArray(response.entity)) {
+          this.transactions = response.entity;
+          this.dataSource.data = this.transactions;
+        } else {
+          console.error('Expected an array but got:', response.entity);
+        }
       },
       error: (error) => {
         console.error('Error fetching transactions:', error);
@@ -110,20 +112,35 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  applyQueryFilter() {
-    this.route.queryParams.subscribe(params => {
-      const category = params['category'];
-      if (category) {
-        this.filterTransactionsByCategory(category);
+  fetchTransactionsByCategory(category: string) {
+    if (category === 'All') {
+      this.fetchTransactions();
+      return;
+    }
+
+    const url = `${this.categoryTransactionsEndpoint}/${category}/`;
+    this.http.get<any>(url).subscribe({
+      next: (response) => {
+        console.log('Filtered transactions:', response);
+        if (Array.isArray(response.entity)) {
+          this.transactions = response.entity;
+          this.dataSource.data = this.transactions;
+        } else {
+          console.error('Expected an array but got:', response.entity);
+        }
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching category transactions:', error);
       }
     });
   }
 
-  filterTransactionsByCategory(category: string) {
-    this.dataSource.data = this.transactions.filter(transaction => transaction.category === category);
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  onCategoryChange(event: any) {
+    const selectedCategory = event.value;
+    this.fetchTransactionsByCategory(selectedCategory);
   }
 
   sortTransactions(criteria: string) {
