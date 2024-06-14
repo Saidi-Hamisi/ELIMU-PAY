@@ -130,12 +130,7 @@ export class SytemUsersComponent implements OnInit {
         }
       },
     });
-    // setTimeout(() => {
-    //   const formElement = document.querySelector('.mat-form-field');
-    //   if (formElement) {
-    //     formElement.dispatchEvent(new Event('click'));
-    //   }
-    // }, 100);
+    
   }
 
   u = []
