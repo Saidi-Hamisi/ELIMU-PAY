@@ -50,8 +50,8 @@ export class UserService {
   }
 
   getSchoolList(): Observable<{ id: number; name: string }[]> {
-    return this._http.get<any>(`${environment.apiUrl}schools/list/`).pipe(
-      map((data: any) => data.results.map((item: any) => ({
+    return this._http.get<any>(`${environment.apiUrl}schools/schools/`).pipe(
+      map((data: any) => data.map((item: any) => ({
         id: item.id,
         name: item.name,
       }))),

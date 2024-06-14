@@ -29,7 +29,7 @@ export class AddSystemUserComponent implements OnInit {
       email: [''],
       date_of_birth: [''],
       gender: [''],
-      usergroup: [null],
+      usergroup: ['1233'],
       address: [''],
       nationality: [''],
       username: [''],
@@ -39,13 +39,11 @@ export class AddSystemUserComponent implements OnInit {
 
   ngOnInit(): void {
     // Fetch user groups
+    console.log('12332', this.data);
+
     this._addSystemuserService.getUserGroupList().subscribe({
       next: (usergroups) => {
         this.usergroups = usergroups;
-        // Patch the form only if `usergroup` exists in `data`
-        this.SystemUserForm.get('usergroup')?.patchValue(
-          this.data?.usergroup || null
-        );
       },
       error: (err) => {
         console.error('Error fetching user groups:', err);
@@ -65,9 +63,16 @@ export class AddSystemUserComponent implements OnInit {
         console.error('Error fetching schools:', err);
       },
     });
+    const structuredData = {
+      ...this.data,
+      usergroup: this.data.roles[0],
+      schools:this.data.school
+    };
+    console.log('data', structuredData);
+
     // Patch the rest of the form if there's initial data
     if (this.data) {
-      this.SystemUserForm.patchValue(this.data);
+      this.SystemUserForm.patchValue(structuredData);
     }
   }
 
@@ -91,21 +96,25 @@ export class AddSystemUserComponent implements OnInit {
     }
 
     // Generate username
-    formData.username = `${this.capitalize(formData.first_name)}.${this.capitalize(formData.last_name)}`;
+    formData.username = `${this.capitalize(
+      formData.first_name
+    )}.${this.capitalize(formData.last_name)}`;
 
     console.log('Form data:', formData); // Log formData before making API call
 
     // Determine if it's an update or add operation
     if (this.data && this.data.id) {
-      this._addSystemuserService.updateSystemUser(this.data.id, formData).subscribe({
-        next: (val: any) => {
-          this._coreService.openSnackBar('System user details updated!');
-          this._dialogueRef.close(true);
-        },
-        error: (err: any) => {
-          console.error('Error updating user:', err);
-        },
-      });
+      this._addSystemuserService
+        .updateSystemUser(this.data.id, formData)
+        .subscribe({
+          next: (val: any) => {
+            this._coreService.openSnackBar('System user details updated!');
+            this._dialogueRef.close(true);
+          },
+          error: (err: any) => {
+            console.error('Error updating user:', err);
+          },
+        });
     } else {
       this._addSystemuserService.addSystemUser(formData).subscribe({
         next: (val: any) => {
