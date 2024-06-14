@@ -4,11 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../user.service';
 
-interface Country {
-  name: string;
-  counties: string[];
-}
-
 @Component({
   selector: 'app-add-system-user',
   templateUrl: './add-system-user.component.html',
@@ -17,163 +12,8 @@ interface Country {
 export class AddSystemUserComponent implements OnInit {
   SystemUserForm!: FormGroup;
 
-  roles: string[] = [];
-  schools: string[] = ['Bahati Girls High school', 'Cherengani High School'];
-
-  eastAfricanCountries: Country[] = [
-    {
-      name: 'Kenyan',
-      counties: [
-        'Baringo',
-        'Bomet',
-        'Bungoma',
-        'Busia',
-        'Elgeyo-Marakwet',
-        'Embu',
-        'Garissa',
-        'Homa Bay',
-        'Isiolo',
-        'Kajiado',
-        'Kakamega',
-        'Kericho',
-        'Kiambu',
-        'Kilifi',
-        'Kirinyaga',
-        'Kisii',
-        'Kisumu',
-        'Kitui',
-        'Kwale',
-        'Laikipia',
-        'Lamu',
-        'Machakos',
-        'Makueni',
-        'Mandera',
-        'Marsabit',
-        'Meru',
-        'Migori',
-        'Mombasa',
-        "Murang'a",
-        'Nairobi',
-        'Nakuru',
-        'Nandi',
-        'Narok',
-        'Nyamira',
-        'Nyandarua',
-        'Nyeri',
-        'Samburu',
-        'Siaya',
-        'Taita-Taveta',
-        'Tana River',
-        'Tharaka-Nithi',
-        'Trans Nzoia',
-        'Turkana',
-        'Uasin Gishu',
-        'Vihiga',
-        'Wajir',
-        'West Pokot',
-      ],
-    },
-    {
-      name: 'Ugandan',
-      counties: [
-        'Kampala',
-        'Gulu',
-        'Lira',
-        'Jinja',
-        'Mbarara',
-        'Mbale',
-        'Masaka',
-        'Mukono',
-        'Arua',
-        'Hoima',
-        'Iganga',
-        'Fort Portal',
-        'Kasese',
-        'Entebbe',
-        'Soroti',
-        'Kasese',
-        'Moyo',
-        'Masindi',
-        'Tororo',
-        'Kabale',
-      ],
-    },
-    {
-      name: 'Tanzanian',
-      counties: [
-        'Arusha',
-        'Dar es Salaam',
-        'Dodoma',
-        'Geita',
-        'Iringa',
-        'Kagera',
-        'Katavi',
-        'Kigoma',
-        'Kilimanjaro',
-        'Lindi',
-        'Manyara',
-        'Mara',
-        'Mbeya',
-        'Morogoro',
-        'Mtwara',
-        'Mwanza',
-        'Njombe',
-        'Pemba North',
-        'Pemba South',
-        'Pwani',
-        'Rukwa',
-        'Ruvuma',
-        'Shinyanga',
-        'Simiyu',
-        'Singida',
-        'Tabora',
-        'Tanga',
-        'Zanzibar North',
-        'Zanzibar South and Central',
-        'Zanzibar West',
-      ],
-    },
-    {
-      name: 'Rwandan',
-      counties: [
-        'Kigali',
-        'Gasabo',
-        'Kicukiro',
-        'Nyarugenge',
-        'Gatsibo',
-        'Kayonza',
-        'Kirehe',
-        'Ngoma',
-        'Bugesera',
-        'Nyagatare',
-        'Rwamagana',
-        'Burera',
-        'Gakenke',
-        'Gicumbi',
-        'Musanze',
-        'Rulindo',
-        'Rubavu',
-        'Nyabihu',
-        'Nyamasheke',
-        'Rutsiro',
-        'Karongi',
-        'Ngororero',
-        'Nyabugogo',
-        'Muhanga',
-        'Kamonyi',
-        'Ruhango',
-        'Nyanza',
-        'Huye',
-        'Gisagara',
-        'Nyaruguru',
-        'Nyamagabe',
-        'Rusizi'
-      ]
-    }
-    // Add other countries and their counties as needed
-  ];
-
-  selectedCountryCounties: string[] = [];
+  schools: { id: number; name: string }[] = [];
+  usergroups: { id: number; name: string }[] = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -183,84 +23,99 @@ export class AddSystemUserComponent implements OnInit {
     private _coreService: CoreService
   ) {
     this.SystemUserForm = this._fb.group({
-      first_name: '',
-      middle_name: '',
-      last_name: '',
-      email: '',
-      date_of_birth: '',
-      gender: '',
-      usergroup: 0,
-      address: '',
-      nationality: 0,
-      schools: 0,
-      username: '',
+      first_name: [''],
+      middle_name: [''],
+      last_name: [''],
+      email: [''],
+      date_of_birth: [''],
+      gender: [''],
+      usergroup: [null],
+      address: [''],
+      nationality: [''],
+      username: [''],
+      schools: [null],
     });
   }
 
   ngOnInit(): void {
+    // Fetch user groups
     this._addSystemuserService.getUserGroupList().subscribe({
-      next: (roles) => {
-        this.roles = roles;
-        this.SystemUserForm.get('usergroup')?.patchValue(this.data.usergroup);
-        this.SystemUserForm.get('schools')?.setValue(this.data.school_name);
-        this.SystemUserForm.patchValue(this.data);
+      next: (usergroups) => {
+        this.usergroups = usergroups;
+        // Patch the form only if `usergroup` exists in `data`
+        this.SystemUserForm.get('usergroup')?.patchValue(
+          this.data?.usergroup || null
+        );
       },
       error: (err) => {
-        console.error('Error fetching roles:', err);
+        console.error('Error fetching user groups:', err);
       },
     });
+
+    // Fetch schools
+    this._addSystemuserService.getSchoolList().subscribe({
+      next: (schools) => {
+        this.schools = schools;
+        // Patch the form only if `school_id` exists in `data`
+        this.SystemUserForm.get('school')?.patchValue(
+          this.data?.school_id || null
+        );
+      },
+      error: (err) => {
+        console.error('Error fetching schools:', err);
+      },
+    });
+    // Patch the rest of the form if there's initial data
+    if (this.data) {
+      this.SystemUserForm.patchValue(this.data);
+    }
+  }
+
+  // Function to capitalize the first letter of a string
+  capitalize(str: string): string {
+    if (typeof str !== 'string' || str.length === 0) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
   onFormSubmit() {
-    const dateOfBirth = this.SystemUserForm.get('date_of_birth')?.value;
-    const dateOfBirthDate = new Date(dateOfBirth);
-    dateOfBirthDate.setHours(0, 0, 0, 0);
-    this.SystemUserForm.get('date_of_birth')?.setValue(
-      dateOfBirthDate.toISOString().split('T')[0]
-    );
-    this.SystemUserForm.get('username')?.setValue(
-      this.SystemUserForm.get('email')?.value
-    );
+    console.log('Form submission initiated.');
 
-    if (this.SystemUserForm.valid) {
-      if (this.data) {
-        this._addSystemuserService
-          .updateSystemUser(this.data.id, this.SystemUserForm.value)
-          .subscribe({
-            next: (val: any) => {
-              this._coreService.openSnackBar('System user details updated!');
-              this._dialogueRef.close(true);
-            },
-            error: (err: any) => {
-              console.error(err);
-            },
-          });
-      } else {
-        this._addSystemuserService
-          .addSystemUser(this.SystemUserForm.value)
-          .subscribe({
-            next: (val: any) => {
-              this._coreService.openSnackBar('System user added successfully! ☺');
-              this._dialogueRef.close(true);
-            },
-            error: (err: any) => {
-              console.error(err);
-            },
-          });
-      }
+    // Get the form value
+    const formData = this.SystemUserForm.value;
+
+    // Format the date_of_birth to 'yyyy-mm-dd'
+    if (formData.date_of_birth) {
+      const dob = new Date(formData.date_of_birth);
+      const formattedDOB = dob.toISOString().split('T')[0];
+      formData.date_of_birth = formattedDOB;
     }
-  }
 
-  onNationalityChange(): void {
-    const selectedNationality = this.SystemUserForm.get('nationality')?.value;
-    const selectedCountry = this.eastAfricanCountries.find(
-      (country) => country.name === selectedNationality
-    );
-    if (selectedCountry) {
-      this.selectedCountryCounties = selectedCountry.counties;
+    // Generate username
+    formData.username = `${this.capitalize(formData.first_name)}.${this.capitalize(formData.last_name)}`;
+
+    console.log('Form data:', formData); // Log formData before making API call
+
+    // Determine if it's an update or add operation
+    if (this.data && this.data.id) {
+      this._addSystemuserService.updateSystemUser(this.data.id, formData).subscribe({
+        next: (val: any) => {
+          this._coreService.openSnackBar('System user details updated!');
+          this._dialogueRef.close(true);
+        },
+        error: (err: any) => {
+          console.error('Error updating user:', err);
+        },
+      });
     } else {
-      this.selectedCountryCounties = [];
+      this._addSystemuserService.addSystemUser(formData).subscribe({
+        next: (val: any) => {
+          this._coreService.openSnackBar('System user added successfully!');
+          this._dialogueRef.close(true);
+        },
+        error: (err: any) => {
+          console.error('Error adding user:', err);
+        },
+      });
     }
   }
 }
-

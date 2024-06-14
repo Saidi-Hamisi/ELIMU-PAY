@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators'; // Import necessary operators
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,11 +11,18 @@ export class UserService {
   constructor(private _http: HttpClient) {}
 
   addSystemUser(data: any): Observable<any> {
-    console.log('saving user');
-    var res = this._http.post(`${environment.apiUrl}users/create/`, data);
-    console.log(res);
-    return res;
+    return this._http.post(`${environment.apiUrl}users/create/`, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error adding user:', error.message);
+          if (error.error) {
+            console.error('Backend error details:', error.error);
+          }
+          return throwError(error);
+        })
+      );
   }
+  
 
   updateSystemUser(id: number, data: any): Observable<any> {
     return this._http.put(`${environment.apiUrl}users/update/${id}`, data);
@@ -29,11 +36,27 @@ export class UserService {
     return this._http.delete(`${environment.apiUrl}users/delete/${id}`);
   }
 
-  getUserGroupList(): Observable<string[]> {
-    return this._http.get<any[]>(`${environment.apiUrl}usergroup/list/`).pipe(
-      map((data: any) => data.entity.map((item: any) => item.name)),
-      catchError((error: any) => { // Specify type for 'error'
-        console.error('Error fetching user groups:', error);
+  getUserGroupList(): Observable<{ id: number; name: string }[]> {
+    return this._http.get<any>(`${environment.apiUrl}usergroup/list/`).pipe(
+      map((data: any) => data.entity.map((item: any) => ({
+        id: item.id, // Ensure correct mapping
+        name: item.name,
+      }))),
+      catchError((error: any) => {
+        console.error('Error fetching user roles:', error);
+        throw error;
+      })
+    );
+  }
+
+  getSchoolList(): Observable<{ id: number; name: string }[]> {
+    return this._http.get<any>(`${environment.apiUrl}schools/list/`).pipe(
+      map((data: any) => data.results.map((item: any) => ({
+        id: item.id,
+        name: item.name,
+      }))),
+      catchError((error: any) => {
+        console.error('Error fetching schools:', error);
         throw error;
       })
     );

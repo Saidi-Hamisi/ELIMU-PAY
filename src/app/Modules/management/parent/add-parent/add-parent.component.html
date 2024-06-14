@@ -1,26 +1,26 @@
 <div mat-dialog-title class="bg-pink-950">
   <h1 class="text-white">Parent Creation Form</h1>
 </div>
+
 <form [formGroup]="parentForm" (ngSubmit)="onFormSubmit()">
   <div mat-dialog-content>
-    <!-- NAMES -->
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <!-- Form Fields -->
     <div class="flex flex-row gap-2 ">
       <mat-form-field class="mt-2.5 w-full ">
         <mat-label>FIRST NAME</mat-label>
         <input matInput placeholder="eg.Simon" formControlName="first_name" required="">
       </mat-form-field>
-      <!-- <mat-form-field class="mt-2.5 w-full ">
-        <mat-label>MIDDLE NAME</mat-label>
-        <input matInput placeholder="eg.Muthaura" formControlName="middle_name" required="">
-      </mat-form-field> -->
       <mat-form-field class="mt-2.5 w-full ">
         <mat-label>LAST NAME</mat-label>
         <input matInput placeholder="eg.Khamana" formControlName="last_name" required="">
       </mat-form-field>
-
     </div>
-
-    <!-- PHONE NUMBER -->
+    
     <div class="flex flex-row gap-2 ">
       <mat-form-field class="mt-2.5 w-full ">
         <mat-label>PHONE NUMBER</mat-label>
@@ -34,51 +34,17 @@
         <mat-label>EMAIL</mat-label>
         <input matInput placeholder="eg.none.none@none.com" formControlName="email">
       </mat-form-field>
-
     </div>
-
-
-    <!-- NATIONALITY -->
-    <!-- <mat-form-field class="mt-2.5 w-full">
-      <mat-label>NATIONALITY</mat-label>
-      <input matInput placeholder="eg. Kenyan" formControlName="nationality" required="">
-    </mat-form-field> -->
-    <!-- <mat-form-field class="mt-2.5 w-full">
-      <mat-label>ADDRESS</mat-label>
-      <input matInput placeholder="6 Isiolo" formControlName="address">
-    </mat-form-field> -->
   </div>
-
-  <!-- ROLE/USERGROUP. -->
-
-  <!-- EMAIL -->
-  <div class="flex flex-row gap-2">
-    <!-- <mat-form-field class="mt-2.5 w-full">
-      <mat-label>GENDER</mat-label>
-      <input matInput placeholder="eg. female" formControlName="gender" required="">
-    </mat-form-field> -->
-    <!-- <mat-form-field class="mt-2.5 w-full">
-        <mat-label>PARENT TYPE</mat-label>
-        <input matInput placeholder="eg. mother" formControlName="parent type" required="">
-      </mat-form-field>
-       -->
-    <!-- <mat-form-field class="mt-2.5 w-full">
-        <mat-label>OCCUPATION</mat-label>
-        <input matInput placeholder="eg. farmer" formControlName="occupation">
-      </mat-form-field> -->
-
-
-
-  </div>
-
+  
   <div mat-dialog-actions class="flex flex-row gap-2 p-4 ">
     <button mat-raised-button type="button" [mat-dialog-close]="false"
-      class="flex-1 border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
+      class="flex-1 border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
       Cancel
     </button>
     <button title="Submit Details" mat-raised-button type="submit"
-      class="flex-1 border-2  border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
-      {{ data ? 'Update': 'Submit'}}
+      class="flex-1 border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm mx-2">
+      {{ data ? 'Update' : 'Submit'}}
     </button>
   </div>
 </form>
