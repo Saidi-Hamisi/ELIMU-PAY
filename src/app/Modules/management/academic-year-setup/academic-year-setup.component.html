@@ -6,10 +6,10 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" for="academicYearName">
               Academic Year Name
           </label>
-          <input id="academicYearName" type="text" formControlName="academicYearName" 
+          <input id="academicYearName" type="text" formControlName="academic_year_name" 
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="e.g., 2023-2024">
-          <div *ngIf="academicYearForm.get('academicYearName')?.touched && academicYearForm.get('academicYearName')?.invalid" class="text-red-500 text-xs mt-1">
+          <div *ngIf="academicYearForm.get('academicYearName')?.touched && academicYearForm.get('academic_year_name')?.invalid" class="text-red-500 text-xs mt-1">
               Academic Year Name is required.
           </div>
       </div>
@@ -19,12 +19,12 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" for="startDate">
               Start Date
           </label>
-          <input id="startDate" matInput [matDatepicker]="startDatePicker" formControlName="startDate" 
+          <input id="startDate" matInput [matDatepicker]="startDatePicker" formControlName="start_date" 
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Select start date">
           <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #startDatePicker></mat-datepicker>
-          <div *ngIf="academicYearForm.get('startDate')?.touched && academicYearForm.get('startDate')?.invalid" class="text-red-500 text-xs mt-1">
+          <div *ngIf="academicYearForm.get('startDate')?.touched && academicYearForm.get('start_date')?.invalid" class="text-red-500 text-xs mt-1">
               Start Date is required.
           </div>
       </div>
@@ -34,12 +34,12 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" for="endDate">
               End Date
           </label>
-          <input id="endDate" matInput [matDatepicker]="endDatePicker" formControlName="endDate" 
+          <input id="endDate" matInput [matDatepicker]="endDatePicker" formControlName="end_date" 
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Select end date">
           <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #endDatePicker></mat-datepicker>
-          <div *ngIf="academicYearForm.get('endDate')?.touched && academicYearForm.get('endDate')?.invalid" class="text-red-500 text-xs mt-1">
+          <div *ngIf="academicYearForm.get('endDate')?.touched && academicYearForm.get('end_date')?.invalid" class="text-red-500 text-xs mt-1">
               End Date is required.
           </div>
       </div>
