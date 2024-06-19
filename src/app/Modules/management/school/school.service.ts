@@ -1,34 +1,35 @@
+// school.service.ts
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
- providedIn: 'root'
+  providedIn: 'root'
 })
 export class SchoolService {
-  
-//  getSchoolList() {
-//    throw new Error('Method not implemented.');
-//  }
-//  deleteSchool(id: number) {
-//    throw new Error('Method not implemented.');
-//  }
- private apiUrl = 'your-api-url-here';
- 
+  private apiUrl = `${environment.apiUrl}schools/`;  // Adjusted API URL
 
- constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
- updateSchool(id: number, schoolData: any): Observable<any> {
-    return this.http.put(`http://localhost:3000/School${id}`, schoolData);
- }
+  addSchool(schoolData: any): Observable<any> {
+    const url = `${this.apiUrl}create/`;  // Endpoint for adding a school
+    return this.http.post<any>(url, schoolData);
+  }
 
- addSchool(schoolData: any): Observable<any> {
-    return this.http.post(`http://localhost:3000/School`, schoolData);
- }
- deleteSchool(id: number): Observable<any> {
-  return this.http.delete(`http://localhost:3000/School${id}`);
- }
- getSchoolList(): Observable<any> {
-  return this.http.get(`http://localhost:3000/School`);
- }
+  getSchoolList(): Observable<any> {
+    const url = `${this.apiUrl}list/`;  // Endpoint for listing schools
+    return this.http.get<any>(url);
+  }
+
+  updateSchool(id: number, schoolData: any): Observable<any> {
+    const url = `${this.apiUrl}${id}/`;  // Endpoint for updating a school
+    return this.http.put<any>(url, schoolData);
+  }
+
+  deleteSchool(id: number): Observable<any> {
+    const url = `${this.apiUrl}${id}/`;  // Endpoint for deleting a school
+    return this.http.delete<any>(url);
+  }
 }
