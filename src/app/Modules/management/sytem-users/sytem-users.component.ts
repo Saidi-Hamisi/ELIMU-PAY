@@ -84,24 +84,13 @@ export class SytemUsersComponent implements OnInit {
     }
 }
 
-
-
-
-
-
-
   displayedColumns: string[] = [
     'id',
     'first_name',
-    // 'middle_name',
     'last_name',
     'usergroup',
-    // 'phoneNumber',
     'email',
-    // 'idNumber',
-    // 'gender',
-    // 'date_of_birth',
-    'school_name',
+    'date_joined',
     'address',
     'nationality',
     'action',
@@ -130,15 +119,16 @@ export class SytemUsersComponent implements OnInit {
         }
       },
     });
-    
   }
-
-  u = []
-
 
   getSystemUserList() {
     this._addSystemUserService.getSystemUserList().subscribe({
       next: (res) => {
+        // Format the date_joined field
+        res.entity = res.entity.map((user: any) => ({
+          ...user,
+          date_joined: this.formatDate(user.date_joined),
+        }));
         console.log(res.entity)
         this.dataSource = new MatTableDataSource(res.entity);
         this.dataSource.sort = this.sort;
@@ -158,6 +148,7 @@ export class SytemUsersComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
   deleteSystemUser(id: number) {
     const confirmed = window.confirm(
       'Are you sure you want to delete this system user?'
@@ -167,7 +158,6 @@ export class SytemUsersComponent implements OnInit {
         next: (res) => {
           this._coreService.openSnackBar('System user deleted!', 'done');
           this.getSystemUserList();
-          
         },
         error: console.error, // Handle error appropriately
       });
@@ -185,5 +175,19 @@ export class SytemUsersComponent implements OnInit {
         }
       },
     });
+  }
+
+  // Function to format the date
+  formatDate(dateStr: string): string {
+    const date = new Date(dateStr);
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    };
+    return new Intl.DateTimeFormat('en-GB', options).format(date);
   }
 }
