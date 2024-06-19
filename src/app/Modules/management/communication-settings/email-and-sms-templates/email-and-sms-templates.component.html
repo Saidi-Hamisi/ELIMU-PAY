@@ -1,1 +1,56 @@
-<p>email-and-sms-templates works!</p>
+<div class="min-h-screen bg-gray-100 overflow-y-auto">
+    <!-- Header -->
+    <div class="bg-gray-200 py-4 px-6 flex justify-between items-center">
+      <h1 class="text-4xl font-bold">Email and SMS Templates</h1>
+      <button mat-button color="accent"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-2 px-4 rounded">
+        Add Template
+      </button>
+    </div>
+  
+    <!-- Content -->
+    <div class="container mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Email Template -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Email Template - Payment Reminder</h2>
+  
+        <div class="border border-gray-200 rounded p-4 text-gray-800">
+          <p class="text-lg">Dear {{ recipientName }},</p>
+  
+          <p class="mt-4">This is a friendly reminder that the payment for the upcoming term is due on {{ dueDate }}.</p>
+  
+          <p class="mt-4">Please make sure to settle the outstanding amount of {{ amountDue }} at your earliest convenience.</p>
+  
+          <p class="mt-4">Thank you for your prompt attention to this matter.</p>
+  
+          <p class="mt-6">Sincerely,</p>
+          <p>Your School Name</p>
+        </div>
+  
+        <!-- Use Template Button -->
+        <button mat-button color="primary" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-2 px-4 rounded">
+          Use Email Template
+        </button>
+      </div>
+  
+      <!-- SMS Template -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4">SMS Template - Payment Reminder</h2>
+  
+        <div class="border border-gray-200 rounded p-4 text-gray-800">
+          <p>Dear {{ recipientName }},</p>
+  
+          <p class="mt-4">Payment for {{ dueDate }} is due soon. Please ensure payment of {{ amountDue }} at your earliest convenience.</p>
+  
+          <p>Thank you,</p>
+          <p>Your School Name</p>
+        </div>
+  
+        <!-- Use Template Button -->
+        <button mat-button color="primary" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-2 px-4 rounded">
+          Use SMS Template
+        </button>
+      </div>
+    </div>
+  </div>
+  

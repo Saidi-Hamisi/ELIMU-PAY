@@ -1,1 +1,64 @@
-<p>notification-preferences works!</p>
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+    <div class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <h1 class="text-3xl font-bold mb-8">Notification Preferences</h1>
+  
+      <!-- Email Preferences -->
+      <div class="bg-white rounded-lg shadow-md mb-8 p-6">
+        <h2 class="text-xl font-bold mb-4">Email Preferences</h2>
+        
+        <div class="space-y-4">
+          <!-- Option: All Parents -->
+          <div class="flex items-center">
+            <input type="checkbox" id="allParents" name="allParents" class="mr-2">
+            <label for="allParents" class="text-lg">Send emails to all parents</label>
+          </div>
+  
+          <!-- Option: Based on Fee Balances -->
+          <div class="flex items-center">
+            <input type="checkbox" id="feeBalances" name="feeBalances" class="mr-2">
+            <label for="feeBalances" class="text-lg">Send emails based on fee balances</label>
+          </div>
+  
+          <!-- Option: Customized Group -->
+          <div class="flex items-center">
+            <input type="checkbox" id="customGroup" name="customGroup" class="mr-2">
+            <label for="customGroup" class="text-lg">Send emails to a customized group</label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- SMS Preferences -->
+      <div class="bg-white rounded-lg shadow-md mb-8 p-6">
+        <h2 class="text-xl font-bold mb-4">SMS Preferences</h2>
+  
+        <div class="space-y-4">
+          <!-- Option: All Parents -->
+          <div class="flex items-center">
+            <input type="checkbox" id="allParentsSMS" name="allParentsSMS" class="mr-2">
+            <label for="allParentsSMS" class="text-lg">Send SMS to all parents</label>
+          </div>
+  
+          <!-- Option: Based on Fee Balances -->
+          <div class="flex items-center">
+            <input type="checkbox" id="feeBalancesSMS" name="feeBalancesSMS" class="mr-2">
+            <label for="feeBalancesSMS" class="text-lg">Send SMS based on fee balances</label>
+          </div>
+  
+          <!-- Option: Customized Group -->
+          <div class="flex items-center">
+            <input type="checkbox" id="customGroupSMS" name="customGroupSMS" class="mr-2">
+            <label for="customGroupSMS" class="text-lg">Send SMS to a customized group</label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Save Preferences Button -->
+      <div class="flex justify-end">
+        <button mat-button color="primary" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded">
+          Save Preferences
+        </button>
+      </div>
+    </div>
+  </div>
+  

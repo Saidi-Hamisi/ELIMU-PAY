@@ -29,6 +29,8 @@ export class AddSchoolComponent implements OnInit {
     'South Sudan'
  ];
  countryCodes = ['KE', 'UG', 'TZ', 'RW', 'DRC', 'SS', 'ET'];
+ school_type=['PRE-PRIMARY', 'PRIMARY', 'SECONDARY', 'COLLEGE', 'UNIVERSITY', ];
+ boarding_status=['Boarding', 'day', 'Mixed',  ];
 
  constructor(
     private _fb: FormBuilder,
@@ -44,13 +46,14 @@ export class AddSchoolComponent implements OnInit {
       country: '',
       Country_code: '',
       sub_county: '',
-      email: '',
-      school_type: '',
+      email_address: '',
+      // school_type: '',
       date_created: '',
-      boarding_status: '',
+      // boarding_status: '',
       postal_code:'',
       phone_number1:'',
       phone_number2:'',
+      website:'',
     });
  }
 
