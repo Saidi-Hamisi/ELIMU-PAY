@@ -1,8 +1,10 @@
-import { CoreService } from '../../../../../@Core/core/core.service';
+// add-system-user.component.ts
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../user.service';
+import { CoreService } from '../../../../../@Core/core/core.service';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 @Component({
   selector: 'app-add-system-user',
@@ -11,6 +13,7 @@ import { UserService } from '../user.service';
 })
 export class AddSystemUserComponent implements OnInit {
   SystemUserForm!: FormGroup;
+  isLoading = false; // Add loading state
 
   schools: { id: number; name: string }[] = [];
   usergroups: { id: number; name: string }[] = [];
@@ -66,7 +69,7 @@ export class AddSystemUserComponent implements OnInit {
     const structuredData = {
       ...this.data,
       usergroup: this.data.roles[0],
-      schools:this.data.school
+      schools: this.data.school
     };
     console.log('data', structuredData);
 
@@ -102,26 +105,37 @@ export class AddSystemUserComponent implements OnInit {
 
     console.log('Form data:', formData); // Log formData before making API call
 
+    // Show loading spinner
+    this.isLoading = true;
+
     // Determine if it's an update or add operation
     if (this.data && this.data.id) {
       this._addSystemuserService
         .updateSystemUser(this.data.id, formData)
         .subscribe({
           next: (val: any) => {
+            this.isLoading = false; // Hide loading spinner
             this._coreService.openSnackBar('System user details updated!');
             this._dialogueRef.close(true);
           },
           error: (err: any) => {
+            this.isLoading = false; // Hide loading spinner
             console.error('Error updating user:', err);
           },
         });
     } else {
       this._addSystemuserService.addSystemUser(formData).subscribe({
         next: (val: any) => {
-          this._coreService.openSnackBar('System user added successfully!');
+          this.isLoading = false; // Hide loading spinner
+          Swal.fire(
+            'User Created!',
+            `${formData.first_name} ${formData.last_name} has been successfully created.`,
+            'success'
+          );
           this._dialogueRef.close(true);
         },
         error: (err: any) => {
+          this.isLoading = false; // Hide loading spinner
           console.error('Error adding user:', err);
         },
       });
