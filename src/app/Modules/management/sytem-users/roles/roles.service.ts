@@ -12,7 +12,8 @@ export class RolesService {
 
   addRoles(data: any): Observable<any> {
     console.log('saving roles');
-    var res = this._http.post(`  ${environment.apiUrl}usergroup/create/`,data);
+    const url = `${environment.apiUrl}usergroup/create/`
+    var res = this._http.post(url,data);
     console.log(res);
     return res;
   }
@@ -31,4 +32,8 @@ export class RolesService {
     );
   }
 
+  getAllPermissions():Observable<any>{
+    const url = `${environment.apiUrl}users/list/permissions/`
+    return this._http.get(url)
+  }
 }

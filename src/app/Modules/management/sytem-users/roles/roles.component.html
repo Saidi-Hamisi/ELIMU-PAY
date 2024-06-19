@@ -1,14 +1,14 @@
 <div>
     <mat-toolbar class="flex justify-between items-center">
         <span class="text-lg font-times text-pink-800 pl-7 ml-4">
-            Usergroup/Roles Management Page
+            Roles Management Page
         </span>
         <div class="flex justify-center items-center space-x-2 flex-grow"> <!-- Adjusted this line -->
             <button title="Add a Role"
                 class="border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm"
                 (click)="openAddEditUsergroupForm()">
                 <span class="bi bi-person-plus"></span>
-                ADD USERGOUP/ROLE
+                ADD A ROLE
             </button>
             <button title="Download Roles Report"
                 class="border-2 border-pink-950 bg-pink-50 hover:bg-red-900 focus:ring-4 focus:ring-red-700 hover:text-white px-2 py-1 rounded-lg text-sm"
@@ -38,8 +38,8 @@
 
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200"> ID </th>
-                    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-gray-200"> #</th>
+                    <td mat-cell *matCellDef="let row; let i = index"> {{i+1}} </td>
                 </ng-container>
 
                 <!-- First Name -->

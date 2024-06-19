@@ -44,7 +44,7 @@ export class AddStudentComponent implements OnInit {
       stream: '',
       schoolStatus: '', // Assuming this corresponds to 'schoolStatus'
       dormitory: '', // Assuming this corresponds to 'dormitory'
-      parentIdno: '', // Assuming this corresponds to 'parentIdno'
+      parentID: '', // Assuming this corresponds to 'parentIdno'
       schoolID: '', // Assuming this corresponds to 'schoolID'
       urls: ['']
       
