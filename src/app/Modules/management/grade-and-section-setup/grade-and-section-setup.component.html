@@ -1,48 +1,50 @@
-<div class="p-6 max-w-lg mx-auto">
-  <h1 class="text-2xl font-bold mb-4">Grade and Section Setup</h1>
+<div class="p-10 max-w-xl mx-auto bg-white shadow-md rounded-md">
+  <h1 class="text-3xl font-bold mb-6 text-center">Grade and Section Setup</h1>
   <form [formGroup]="gradeandSectionForm" (ngSubmit)="onSubmit()">
-      <!-- Current Academic Year -->
-      <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="currentAcademicYear">
-              Current Academic Year
-          </label>
-          <input id="currentAcademicYear" type="text" formControlName="currentAcademicYear" 
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-      </div>
+    <!-- Current Academic Year -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="currentAcademicYear">
+        Current Academic Year
+      </label>
+      <input id="currentAcademicYear" type="text" formControlName="currentAcademicYear"
+        class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Placeholder text">
+    </div>
 
-      <!-- Grade Section Name -->
-      <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="gradeSectionName">
-              Grade Section Name
-          </label>
-          <input id="gradeSectionName" type="text" formControlName="gradeSectionName" 
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="e.g., Grade 1A">
-          <div *ngIf="gradeandSectionForm.get('gradeSectionName')?.touched && gradeandSectionForm.get('gradeSectionName')?.invalid" class="text-red-500 text-xs mt-1">
-              Grade Section Name is required.
-          </div>
+    <!-- Grade Section Name -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="gradeSectionName">
+        Grade Section Name
+      </label>
+      <input id="gradeSectionName" type="text" formControlName="gradeSectionName"
+        class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="e.g., Lower Primary">
+      <div *ngIf="gradeandSectionForm.get('gradeSectionName')?.touched && gradeandSectionForm.get('gradeSectionName')?.invalid"
+        class="text-red-500 text-sm mt-1">
+        Grade Section Name is required.
       </div>
+    </div>
 
-      <!-- Select Grades -->
-      <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2">
-              Select Grades
-          </label>
-          <div formArrayName="selectedGrades">
-              <div *ngFor="let grade of grades; let i = index" class="flex items-center mb-2">
-                  <input type="checkbox" [formControlName]="i" class="mr-2">
-                  <span>{{ grade }}</span>
-              </div>
-          </div>
+    <!-- Select Grades -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2">
+        Select Grades
+      </label>
+      <div formArrayName="selectedGrades" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div *ngFor="let grade of grades; let i = index" class="flex items-center">
+          <input type="checkbox" [formControlName]="i" class="mr-2 h-6 w-6 rounded">
+          <span class="text-lg">{{ grade }}</span>
+        </div>
       </div>
+    </div>
 
-      <!-- Submit Button -->
-      <div class="flex items-center justify-between">
-          <button type="submit" 
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              [disabled]="!gradeandSectionForm.valid">
-              Submit
-          </button>
-      </div>
+    <!-- Submit Button -->
+    <div class="flex items-center justify-center">
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline"
+        [disabled]="!gradeandSectionForm.valid">
+        Submit
+      </button>
+    </div>
   </form>
 </div>
