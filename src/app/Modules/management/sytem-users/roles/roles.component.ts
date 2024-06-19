@@ -19,8 +19,8 @@ export class RolesComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'name',
-    'description',
-    'dateCreated',
+    // 'description',
+    // 'dateCreated',
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
@@ -39,7 +39,10 @@ export class RolesComponent implements OnInit {
   }
 
   openAddEditUsergroupForm() {
-    const dialogRef = this._dialog.open(AddRolesComponent);
+    const dialogRef = this._dialog.open(AddRolesComponent, {
+      width:"98%",
+      height:"95%"
+    });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
@@ -52,14 +55,11 @@ export class RolesComponent implements OnInit {
   getRolesList() {
     this._addRolesService.getRolesList().subscribe({
       next: (res) => {
-        const formattedData = res.entity.map((role: any) => {
-          return {
-            ...role,
-            dateCreated: format(new Date(role.dateCreated), 'dd/MM/yyyy hh:mm a')
-          };
-        });
 
-        this.dataSource = new MatTableDataSource(formattedData);
+        console.log(res);
+        
+        const a = res.entity.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
+        this.dataSource = new MatTableDataSource(a);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },

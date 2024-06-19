@@ -11,7 +11,7 @@ export class FeecategoryService {
 
 
   addFeecategory(data: any): Observable<any> {
-    const url = `${environment.apiUrl}feecategories/fee-categories/`;
+    const url = `${environment.apiUrl}feecategories/categories/create/`;
     return this._http.post<any>(url, data);
   }
 

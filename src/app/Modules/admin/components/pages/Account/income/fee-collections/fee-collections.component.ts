@@ -27,6 +27,7 @@ interface Transaction {
 export class FeeCollectionsComponent implements OnInit, AfterViewInit {
   totalFeeEndpoint = `${environment.apiUrl}payfee/calculate_total_fee/`;
   transactionsEndpoint = `${environment.apiUrl}payfee/api/v1/fee/list_transaction`;
+  categoryTransactionsEndpoint = `${environment.apiUrl}fee/api/v1/fee/list_category_records`;
 
   displayedColumns: string[] = [
     'description',
