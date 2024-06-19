@@ -39,7 +39,7 @@ export class UserService {
   getUserGroupList(): Observable<{ id: number; name: string }[]> {
     return this._http.get<any>(`${environment.apiUrl}usergroup/list/`).pipe(
       map((data: any) => data.entity.map((item: any) => ({
-        id: item.id, // Ensure correct mapping
+        id: item.id, 
         name: item.name,
       }))),
       catchError((error: any) => {
