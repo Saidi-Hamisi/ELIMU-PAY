@@ -64,25 +64,30 @@
       <!-- NATIONALITY -->
       <mat-form-field class="mt-2.5 w-full">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="eg. Kenyan" formControlName="email" required="">
+        <input matInput placeholder="eg. Kenyan" formControlName="email_address" required="">
       </mat-form-field>
     </div>
 
     <!-- ROLE/USERGROUP -->
     <div class="flex flex-row gap-2 ">
-      <mat-form-field class="w-full">
+      <!-- <mat-form-field class="w-full">
         <mat-label>School type</mat-label>
         <mat-select formControlName="school_type" required="">
           <mat-option *ngFor="let val of role; let i = index" [value]="i + 1">{{val}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field class="w-full">
         <mat-label>Date created</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="date_created" required="">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker class="bg-pink-950"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="mt-2.5 w-full">
+        <mat-label>Website</mat-label>
+        <input matInput placeholder="eg. simza3@gmail.com" formControlName="website" required="">
       </mat-form-field>
     </div>
     <!-- <mat-form-field class="mt-2.5 w-full">
@@ -96,10 +101,10 @@
 
     <!-- EMAIL -->
     <div class="flex flex-row gap-2">
-      <mat-form-field class="mt-2.5 w-full">
+      <!-- <mat-form-field class="mt-2.5 w-full">
         <mat-label>Boarding Status</mat-label>
         <input matInput placeholder="eg. boarding" formControlName="boarding_status" required="">
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field class="mt-2.5 w-full">
         <mat-label>postal_code</mat-label>
         <input matInput placeholder="eg. simza3@gmail.com" formControlName="postal_code" required="">
@@ -112,6 +117,8 @@
         <mat-label>phone_number2</mat-label>
         <input matInput placeholder="eg. simza3@gmail.com" formControlName="phone_number2" required="">
       </mat-form-field>
+
+      
       <!-- DATE -->
       <!-- <mat-form-field class="w-full">
         <mat-label>Date of Birth</mat-label>
