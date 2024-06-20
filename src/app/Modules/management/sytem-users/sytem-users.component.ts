@@ -57,7 +57,11 @@ export class SytemUsersComponent implements OnInit {
   getSystemUserList() {
     this._addSystemUserService.getSystemUserList().subscribe({
       next: (res) => {
-        this.dataSource = new MatTableDataSource(res.entity);
+
+        console.log(res);
+        
+        const a = res.entity.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
+        this.dataSource = new MatTableDataSource(a);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
