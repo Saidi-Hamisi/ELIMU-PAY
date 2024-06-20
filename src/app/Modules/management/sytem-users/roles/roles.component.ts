@@ -125,7 +125,7 @@ export class RolesComponent implements OnInit {
 
         function addHeader() {
           doc.setFontSize(12);
-          doc.text('Roles Report', imgWidth / 2, position, { align: 'center' });
+          doc.text('Usergroup Report', imgWidth / 2, position, { align: 'center' });
 
           const now = new Date();
           const day = now.toLocaleDateString('en-US', { weekday: 'long' });
@@ -160,10 +160,10 @@ export class RolesComponent implements OnInit {
           heightLeft -= pageHeight;
         }
 
-        doc.save('Roles Report.pdf');
+        doc.save('System Users Report.pdf');
       });
     } else {
-      console.error('Roles reports not available');
+      console.error('System users reports not available');
     }
   }
 }
