@@ -41,7 +41,12 @@
       <div class="flex flex-row gap-2">
         <mat-form-field class="mt-2.5 w-full">
           <mat-label>Nationality</mat-label>
-          <input matInput placeholder="Enter nationality" formControlName="nationality" required>
+          <select matNativeControl formControlName="nationality" (change)="onNationalityChange($event)">
+            <option value="" disabled>Select nationality</option>
+            <option *ngFor="let country of countries" [value]="country.code">
+              {{ country.name }}
+            </option>
+          </select>
         </mat-form-field>
         <!-- ADDRESS -->
         <mat-form-field class="mt-2.5 w-full">
@@ -53,7 +58,7 @@
       <!-- ROLES/USERGROUP -->
       <div class="flex flex-row gap-2">
         <mat-form-field class="w-full">
-          <mat-label>Usergroup</mat-label>
+          <mat-label>Role</mat-label>
           <mat-select formControlName="usergroup" required>
             <mat-option *ngFor="let usergroup of usergroups" [value]="usergroup.id">
               {{ usergroup.name }}

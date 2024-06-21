@@ -5,7 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import * as XLSX from 'xlsx'; // Import xlsx library for Excel export
+import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2'; 
 
 import { AddSystemUserComponent } from './add-system-user/add-system-user.component';
 import { UserService } from './user.service';
@@ -81,18 +82,29 @@ export class SytemUsersComponent implements OnInit {
   }
 
   deleteSystemUser(id: number) {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete this system user?'
-    );
-    if (confirmed) {
-      this._addSystemUserService.deleteSystemUser(id).subscribe({
-        next: (res) => {
-          this._coreService.openSnackBar('System user deleted!', 'done');
-          this.getSystemUserList();
-        },
-        error: console.error, // Handle error appropriately
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure you want to delete this user?',
+      text: 'You will not be able to recover this system user!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._addSystemUserService.deleteSystemUser(id).subscribe({
+          next: (res) => {
+            this._coreService.openSnackBar('System user deleted!', 'done');
+            this.getSystemUserList();
+          },
+          error: (err) => {
+            console.error('Error deleting user:', err);
+            Swal.fire('Error', 'There was an issue deleting the system user.', 'error');
+          }
+        });
+      }
+    });
   }
 
   openUpdateSystemUserForm(data: any) {

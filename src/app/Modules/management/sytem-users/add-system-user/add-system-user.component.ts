@@ -1,10 +1,10 @@
-// add-system-user.component.ts
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../user.service';
 import { CoreService } from '../../../../../@Core/core/core.service';
-import Swal from 'sweetalert2'; // Import SweetAlert
+import Swal from 'sweetalert2';
+import { CountryService } from '../../financial-settings/fee-installment-plans/country.service'; // <-- Import the country service
 
 @Component({
   selector: 'app-add-system-user',
@@ -13,8 +13,8 @@ import Swal from 'sweetalert2'; // Import SweetAlert
 })
 export class AddSystemUserComponent implements OnInit {
   SystemUserForm!: FormGroup;
-  isLoading = false; // Add loading state
-
+  isLoading = false;
+  countries: { name: string; code: string }[] = [];
   schools: { id: number; name: string }[] = [];
   usergroups: { id: number; name: string }[] = [];
 
@@ -23,7 +23,8 @@ export class AddSystemUserComponent implements OnInit {
     private _addSystemuserService: UserService,
     private _dialogueRef: MatDialogRef<AddSystemUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _coreService: CoreService
+    private _coreService: CoreService,
+    private countryService: CountryService // <-- Inject the country service
   ) {
     this.SystemUserForm = this._fb.group({
       first_name: [''],
@@ -34,7 +35,7 @@ export class AddSystemUserComponent implements OnInit {
       gender: [''],
       usergroup: ['1233'],
       address: [''],
-      nationality: [''],
+      nationality: [''], // <-- Form control for nationality
       username: [''],
       schools: [null],
     });
@@ -42,8 +43,6 @@ export class AddSystemUserComponent implements OnInit {
 
   ngOnInit(): void {
     // Fetch user groups
-    console.log('12332', this.data);
-
     this._addSystemuserService.getUserGroupList().subscribe({
       next: (usergroups) => {
         this.usergroups = usergroups;
@@ -58,25 +57,40 @@ export class AddSystemUserComponent implements OnInit {
       next: (schools) => {
         this.schools = schools;
         // Patch the form only if `school_id` exists in `data`
-        this.SystemUserForm.get('school')?.patchValue(
-          this.data?.school_id || null
-        );
+        this.SystemUserForm.get('schools')?.patchValue(this.data?.school_id || null);
       },
       error: (err) => {
         console.error('Error fetching schools:', err);
       },
     });
-    const structuredData = {
-      ...this.data,
-      usergroup: this.data.roles[0],
-      schools: this.data.school
-    };
-    console.log('data', structuredData);
 
-    // Patch the rest of the form if there's initial data
+    // Fetch countries and sort alphabetically
+    this.countryService.getCountries().subscribe({
+      next: (data) => {
+        // Map countries and sort alphabetically by name
+        this.countries = data.map((country: any) => ({
+          name: country.name.common,
+          code: country.cca2,
+        })).sort((a: { name: string; }, b: { name: any; }) => a.name.localeCompare(b.name));
+      },
+      error: (err) => {
+        console.error('Error fetching countries:', err);
+      },
+    });
+
+    // Patch the form if there's initial data
     if (this.data) {
+      const structuredData = {
+        ...this.data,
+        usergroup: this.data.roles[0],
+        schools: this.data.school,
+      };
       this.SystemUserForm.patchValue(structuredData);
     }
+  }
+
+  onNationalityChange(event: any): void {
+    this.SystemUserForm.get('nationality')?.setValue(event.target.value); // <-- Update form control with selected value
   }
 
   // Function to capitalize the first letter of a string
@@ -99,9 +113,7 @@ export class AddSystemUserComponent implements OnInit {
     }
 
     // Generate username
-    formData.username = `${this.capitalize(
-      formData.first_name
-    )}.${this.capitalize(formData.last_name)}`;
+    formData.username = `${this.capitalize(formData.first_name)}.${this.capitalize(formData.last_name)}`;
 
     console.log('Form data:', formData); // Log formData before making API call
 
@@ -110,19 +122,17 @@ export class AddSystemUserComponent implements OnInit {
 
     // Determine if it's an update or add operation
     if (this.data && this.data.id) {
-      this._addSystemuserService
-        .updateSystemUser(this.data.id, formData)
-        .subscribe({
-          next: (val: any) => {
-            this.isLoading = false; // Hide loading spinner
-            this._coreService.openSnackBar('System user details updated!');
-            this._dialogueRef.close(true);
-          },
-          error: (err: any) => {
-            this.isLoading = false; // Hide loading spinner
-            console.error('Error updating user:', err);
-          },
-        });
+      this._addSystemuserService.updateSystemUser(this.data.id, formData).subscribe({
+        next: (val: any) => {
+          this.isLoading = false; // Hide loading spinner
+          this._coreService.openSnackBar('System user details updated!');
+          this._dialogueRef.close(true);
+        },
+        error: (err: any) => {
+          this.isLoading = false; // Hide loading spinner
+          console.error('Error updating user:', err);
+        },
+      });
     } else {
       this._addSystemuserService.addSystemUser(formData).subscribe({
         next: (val: any) => {

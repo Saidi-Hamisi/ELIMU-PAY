@@ -1,1 +1,8 @@
-<p>fee-installment-plans works!</p>
+<div>
+  <label for="country">Select Country:</label>
+  <select id="country" #countrySelect (change)="onCountryChange(countrySelect.value)">
+    <option *ngFor="let country of countries" [value]="country.code">
+      {{ country.name }}
+    </option>
+  </select>
+</div>
