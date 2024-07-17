@@ -8,6 +8,9 @@ import { environment } from "src/environments/environment";
 })
 
 export class AuthService {
+    fetchUserRoles() {
+      throw new Error('Method not implemented.');
+    }
     forgotPassword(email: string): Observable<any> {
         // Assuming you're making an HTTP POST request to send an email for password reset
         return this.http.post<any>(`${environment.apiUrl}auth/forgotpassword/`, { email });
