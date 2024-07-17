@@ -7,16 +7,18 @@ import { MatSort } from '@angular/material/sort';
 import { environment } from 'src/environments/environment';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
+import * as XLSX from 'xlsx'; // Import xlsx library for Excel export
 import { ViewtranscationComponent } from '../viewtranscation/viewtranscation.component';
 
 interface Transaction {
-  transactiondetail: string;
-  paymentreference: string;
-  uniqueid: string;
-  valuedate: string;
+  description: string;
+  id: string;
+  student__uniqueId: string;
+  transaction_date: string;
   credit: number;
   debit: number;
   balance: number;
+  // Add additional properties if necessary
 }
 
 @Component({
@@ -77,10 +79,10 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     console.log('Fetching transactions from:', this.transactionsEndpoint);
     this.http.get<any>(this.transactionsEndpoint).subscribe({
       next: (data) => {
-        console.log('Transactions data received:', data); // Log data to verify response
-        this.transactions = data.entity; // Ensure you are accessing the 'entity' array
+        console.log('Transactions data received:', data);
+        this.transactions = data.entity;
         this.dataSource.data = this.transactions;
-        console.log('DataSource data:', this.dataSource.data); // Add this line to verify data assignment
+        console.log('DataSource data:', this.dataSource.data);
       },
       error: (error) => {
         console.error('Error fetching transactions:', error);
@@ -166,7 +168,7 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
   sortByLastDay(): void {
     const today = new Date();
     this.dataSource.data = this.dataSource.data.filter(row => {
-      const rowDate = new Date(row.valuedate);
+      const rowDate = new Date(row.transaction_date);
       return rowDate.getFullYear() === today.getFullYear() &&
              rowDate.getMonth() === today.getMonth() &&
              rowDate.getDate() === today.getDate();
@@ -177,7 +179,7 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     const today = new Date();
     const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
     this.dataSource.data = this.dataSource.data.filter(row => {
-      const rowDate = new Date(row.valuedate);
+      const rowDate = new Date(row.transaction_date);
       return rowDate >= sevenDaysAgo && rowDate <= today;
     });
   }
@@ -186,8 +188,32 @@ export class FeeCollectionsComponent implements OnInit, AfterViewInit {
     const today = new Date();
     const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
     this.dataSource.data = this.dataSource.data.filter(row => {
-      const rowDate = new Date(row.valuedate);
+      const rowDate = new Date(row.transaction_date);
       return rowDate >= thirtyDaysAgo && rowDate <= today;
     });
+  }
+
+  generateExcel(): void {
+    const fileName = 'Transaction_Report.xlsx';
+
+    // Extract data for Excel
+    const data = this.dataSource.data.map((row) => {
+      return {
+        'Transaction Details': row.description,
+        'Payment Reference': row.id,
+        'Unique ID': row.student__uniqueId,
+        'Transaction Date': row.transaction_date,
+        'Credit': row.credit,
+        'Debit': row.debit,
+        'Balance': row.balance
+      };
+    });
+
+    // Convert to Excel worksheet
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+
+    // Export to Excel file
+    XLSX.writeFile(workbook, fileName);
   }
 }
