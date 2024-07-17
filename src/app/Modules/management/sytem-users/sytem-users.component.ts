@@ -24,7 +24,7 @@ export class SytemUsersComponent implements OnInit {
     'last_name',
     'roles',
     'email',
-    'school_name',
+    // 'school_name',
     'address',
     'nationality',
     'action',

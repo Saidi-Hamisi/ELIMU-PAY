@@ -1,38 +1,35 @@
-import {  CanActivate, CanActivateFn } from '@angular/router';
-import { Injectable } from "@angular/core";
-import {
-  Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from "@angular/router";
-
-import { AuthService } from "../../Authservice/auth.service";
-import { TokenStorageService } from "../../Authservice/token-storage.service";
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { TokenStorageService } from '../../Authservice/token-storage.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService,
-              private router: Router, 
-              private tokenStorage: TokenStorageService) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.tokenStorage.getUser()) {
-      const userRole = this.tokenStorage.getUser().role;
-      if (route.data['role'] && route.data['role'].indexOf(userRole) === -1) {
-        this.router.navigate(["/authentication/signin"]);
-        return false;
-      }
-      return true;
-    }
+  constructor(
+    private router: Router,
+    private tokenStorage: TokenStorageService
+  ) {}
 
-    this.router.navigate(["/authentication/signin"]);
-    return false;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    // const userRoles = this.tokenStorage.getUserRoles();
+
+    // if (userRoles.length === 0) {
+    //   this.router.navigate(['/authentication/signin']);
+    //   return false;
+    // }
+
+    // if (route.data['roles'] && !this.hasRequiredRoles(route.data['roles'], userRoles)) {
+    //   this.router.navigate(['/page-error404']); // Redirect to page-error404 on unauthorized access
+    //   return false;
+    // }
+
+    return true;
+  }
+
+  private hasRequiredRoles(requiredRoles: string[], userRoles: string[]): boolean {
+    // Check if any of the user's roles match the required roles for the route
+    return userRoles.some(role => requiredRoles.includes(role));
   }
 }
-
-// No @Injectable decorator needed here
-export const authGuard: CanActivateFn = (route, state) => {
-  return true;
-};

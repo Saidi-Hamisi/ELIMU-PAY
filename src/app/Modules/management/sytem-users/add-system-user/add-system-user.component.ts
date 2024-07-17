@@ -15,7 +15,6 @@ export class AddSystemUserComponent implements OnInit {
   SystemUserForm!: FormGroup;
   isLoading = false;
   countries: { name: string; code: string }[] = [];
-  schools: { id: number; name: string }[] = [];
   usergroups: { id: number; name: string }[] = [];
 
   constructor(
@@ -37,7 +36,6 @@ export class AddSystemUserComponent implements OnInit {
       address: [''],
       nationality: [''], // <-- Form control for nationality
       username: [''],
-      schools: [null],
     });
   }
 
@@ -52,18 +50,7 @@ export class AddSystemUserComponent implements OnInit {
       },
     });
 
-    // Fetch schools
-    this._addSystemuserService.getSchoolList().subscribe({
-      next: (schools) => {
-        this.schools = schools;
-        // Patch the form only if `school_id` exists in `data`
-        this.SystemUserForm.get('schools')?.patchValue(this.data?.school_id || null);
-      },
-      error: (err) => {
-        console.error('Error fetching schools:', err);
-      },
-    });
-
+  
     // Fetch countries and sort alphabetically
     this.countryService.getCountries().subscribe({
       next: (data) => {
