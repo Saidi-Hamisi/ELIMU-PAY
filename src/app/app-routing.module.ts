@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SytemUsersComponent } from './Modules/management/sytem-users/sytem-users.component';
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
@@ -10,7 +9,7 @@ const routes: Routes = [
 
       {path:'' , redirectTo:'/auth/login', pathMatch:'full'},
  
-      {path:'admin',
+      {path:'admin',  
       loadChildren: () => import('./Modules/admin/admin.module').then(m => m.AdminModule)
 
       },

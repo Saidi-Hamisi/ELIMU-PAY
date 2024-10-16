@@ -23,7 +23,7 @@ export class AddSystemUserComponent implements OnInit {
     private _dialogueRef: MatDialogRef<AddSystemUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _coreService: CoreService,
-    private countryService: CountryService // <-- Inject the country service
+    private countryService: CountryService // <-- Injecting the country service
   ) {
     this.SystemUserForm = this._fb.group({
       first_name: [''],

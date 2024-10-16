@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 
 import { AddSystemUserComponent } from './add-system-user/add-system-user.component';
 import { UserService } from './user.service';
@@ -58,10 +58,11 @@ export class SytemUsersComponent implements OnInit {
   getSystemUserList() {
     this._addSystemUserService.getSystemUserList().subscribe({
       next: (res) => {
-
         console.log(res);
-        
-        const a = res.entity.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
+
+        const a = res.entity.sort(
+          (a: { id: number }, b: { id: number }) => b.id - a.id
+        );
         this.dataSource = new MatTableDataSource(a);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -90,7 +91,7 @@ export class SytemUsersComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
+      cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.isConfirmed) {
         this._addSystemUserService.deleteSystemUser(id).subscribe({
@@ -100,8 +101,12 @@ export class SytemUsersComponent implements OnInit {
           },
           error: (err) => {
             console.error('Error deleting user:', err);
-            Swal.fire('Error', 'There was an issue deleting the system user.', 'error');
-          }
+            Swal.fire(
+              'Error',
+              'There was an issue deleting the system user.',
+              'error'
+            );
+          },
         });
       }
     });
@@ -129,7 +134,7 @@ export class SytemUsersComponent implements OnInit {
         const doc = new jsPDF({
           orientation: 'landscape',
           unit: 'mm',
-          format: 'a4'
+          format: 'a4',
         });
 
         const imgWidth = 280;
@@ -142,25 +147,51 @@ export class SytemUsersComponent implements OnInit {
 
         function addHeader() {
           doc.setFontSize(12);
-          doc.text('System Users Report', imgWidth / 2, position, { align: 'center' });
+          doc.text('System Users Report', imgWidth / 2, position, {
+            align: 'center',
+          });
 
           const now = new Date();
           const day = now.toLocaleDateString('en-US', { weekday: 'long' });
-          const date = now.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
-          const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+          const date = now.toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          });
+          const time = now.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+          });
 
           doc.setFontSize(6);
-          doc.text(`Printed on ${day} ${date} at ${time}`, imgWidth - marginRight, position, { align: 'right' });
+          doc.text(
+            `Printed on ${day} ${date} at ${time}`,
+            imgWidth - marginRight,
+            position,
+            { align: 'right' }
+          );
         }
 
         function addFooter() {
           doc.setFontSize(8);
-          doc.text('Elimu Pay Technologies | Copyright © 2024 | All rights reserved.', imgWidth / 2, doc.internal.pageSize.getHeight() - 5, { align: 'center' });
+          doc.text(
+            'Elimu Pay Technologies | Copyright © 2024 | All rights reserved.',
+            imgWidth / 2,
+            doc.internal.pageSize.getHeight() - 5,
+            { align: 'center' }
+          );
         }
 
         addHeader();
         addFooter();
-        doc.addImage(imgData, 'PNG', marginLeft, position + 10, imgWidth - marginLeft - marginRight, imgHeight);
+        doc.addImage(
+          imgData,
+          'PNG',
+          marginLeft,
+          position + 10,
+          imgWidth - marginLeft - marginRight,
+          imgHeight
+        );
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
@@ -168,7 +199,14 @@ export class SytemUsersComponent implements OnInit {
           doc.addPage();
           addHeader();
           addFooter();
-          doc.addImage(imgData, 'PNG', marginLeft, position + 20, imgWidth - marginLeft - marginRight, imgHeight);
+          doc.addImage(
+            imgData,
+            'PNG',
+            marginLeft,
+            position + 20,
+            imgWidth - marginLeft - marginRight,
+            imgHeight
+          );
           heightLeft -= pageHeight;
         }
 
@@ -185,20 +223,23 @@ export class SytemUsersComponent implements OnInit {
     // Extract data for Excel
     const data = this.dataSource.data.map((row) => {
       return {
-        'ID': row.id,
+        ID: row.id,
         'First Name': row.first_name,
         'Last Name': row.last_name,
-        'Role': row.usergroup,
-        'Email': row.email,
-        'School': row.school_name,
-        'Address': row.address,
-        'Nationality': row.nationality,
+        Role: row.usergroup,
+        Email: row.email,
+        School: row.school_name,
+        Address: row.address,
+        Nationality: row.nationality,
       };
     });
 
     // Convert to Excel worksheet
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const workbook: XLSX.WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
 
     // Export to Excel file
     XLSX.writeFile(workbook, fileName);
